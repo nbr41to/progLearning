@@ -1,13 +1,16 @@
 import type { NextPage } from "next";
-import { Button } from "../src/components/Button";
+import Head from "next/head";
+import { TopPage } from "src/components/pages/TopPage";
 
-const Home: NextPage = () => {
+const Top: NextPage = () => {
   return (
-    <div>
-      <h1 className="text-2xl text-teal-400">Next.js TailWindCSS Template</h1>
-      <Button label="Button" onClick={() => {}}></Button>
-    </div>
+    <>
+      <Head>
+        <title>Home | progLearning</title>
+      </Head>
+      <TopPage />
+    </>
   );
 };
 
-export default Home;
+export default Top;
