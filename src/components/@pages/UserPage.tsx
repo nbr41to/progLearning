@@ -1,6 +1,6 @@
 import { useEffect, useState, VFC } from "react";
 import { Button } from "../@commons/Button";
-import { getMyUser, updateMyName } from "../lib/users";
+import { getMyUser, updateMyName } from "../../lib/users";
 
 type UserPageProps = {};
 

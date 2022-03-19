@@ -1,7 +1,7 @@
 import { VFC } from "react";
 import { Button } from "../@commons/Button";
-import { googleLogin } from "../lib/auth";
-import { auth } from "../lib/config";
+import { googleLogin } from "../../lib/auth";
+import { auth } from "../../lib/config";
 
 type LoginPageProps = {};
 
