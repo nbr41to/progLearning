@@ -6,9 +6,9 @@ type LayoutProps = {};
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-full">
+    <div className="min-h-screen bg-background">
       <Header />
-      <main>{children}</main>
+      <main className="mx-auto max-w-[1440px] px-8 py-6">{children}</main>
       <Footer />
     </div>
   );

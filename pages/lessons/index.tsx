@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { LessonsPage } from "src/components/pages/LessonsPage";
+import { LessonsPage } from "src/components/@pages/LessonsPage";
 
 const Lessons: NextPage = () => {
   return (

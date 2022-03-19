@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { SectionContentPage } from "src/components/pages/SectionContentPage";
+import { SectionContentPage } from "src/components/@pages/SectionContentPage";
 
 const Section: NextPage = () => {
   return (
