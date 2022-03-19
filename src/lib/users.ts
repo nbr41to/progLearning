@@ -49,13 +49,15 @@ export const getMyUser = async () => {
 };
 
 /* ユーザ名を変更する */
-export const updateMyName = async (name: string) => {
-  const user = auth?.currentUser;
-  if (!user) throw new Error("User is not logged in");
-  const userId = user.uid;
-
+export const updateUser = async (params: User) => {
+  console.log(params);
+  const userId = params.id;
+  if (!userId) throw new Error("User is not logged in");
+  const body = Object.fromEntries(
+    Object.entries(params).filter(([, value]) => value !== "")
+  );
   try {
-    await updateDoc(doc(db, "users", userId), { name });
+    await updateDoc(doc(db, "users", userId), body);
   } catch (error) {
     console.error(error);
   }

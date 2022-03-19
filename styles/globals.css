@@ -2,7 +2,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: YuGothic, "Yu Gothic Medium", "Yu Gothic", Meiryo, sans-serif;
+  font-family: YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Meiryo, sans-serif;
+  @apply text-gray-800;
 }
 
 a {
@@ -17,3 +18,14 @@ a {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .button-hover-effect1:hover {
+    transition: all 0.2s ease-in-out;
+    @apply animate-pulse;
+  }
+  .button-active-effect1:active {
+    transition: all 0.2s ease-in-out;
+    transform: scale(0.98);
+  }
+}

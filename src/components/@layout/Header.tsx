@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { VFC } from "react";
-import imageSrc from "src/logo.png";
 
 type HeaderProps = {};
 
@@ -18,7 +17,7 @@ export const Header: VFC<HeaderProps> = () => {
         <div className="relative h-full w-full">
           <Image
             className="rounded-md"
-            src={imageSrc}
+            src="/logo.png"
             layout="fill"
             objectFit="cover"
             alt="logo"

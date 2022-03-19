@@ -1,7 +1,7 @@
-import { HTMLAttributes, VFC } from "react";
+import { VFC } from "react";
 import clsx from "clsx";
 
-type Props = HTMLAttributes<HTMLButtonElement> & {
+type Props = JSX.IntrinsicElements["button"] & {
   className?: string;
   label: string;
   outline?: boolean;
