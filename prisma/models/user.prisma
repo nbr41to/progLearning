@@ -1,0 +1,39 @@
+model User {
+  id        Int      @id @default(autoincrement())
+  userId    String   @unique
+  email     String   @unique
+  plan      Plan     @default(free)
+  lastLogin DateTime
+  profileId Int
+  statusId  Int
+  profile   Profile?
+  status    Status?
+}
+
+model Profile {
+  id     Int    @id @default(autoincrement())
+  name   String
+  icon   Icon
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [userId])
+}
+
+model Status {
+  id        Int      @id @default(autoincrement())
+  startedAt DateTime
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [userId])
+}
+
+// Enums
+enum Icon {
+  base
+  happy
+  sad
+}
+
+enum Plan {
+  free
+  lite
+  closer
+}

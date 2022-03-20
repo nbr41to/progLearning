@@ -1,5 +1,5 @@
 import { VFC } from "react";
-import { Button } from "../@commons/Button";
+import { Button } from "../@atoms/Button";
 import { googleLogin } from "../../lib/auth";
 import { auth } from "../../lib/config";
 

@@ -1,8 +1,8 @@
 import { useEffect, useState, VFC } from "react";
-import { Button } from "../@commons/Button";
+import { Button } from "../@atoms/Button";
 import { getMyUser, updateUser } from "../../lib/users";
 import { InputWithLabel } from "../@molecules/InputWithLabel";
-import { Label } from "../@commons/Label";
+import { Label } from "../@atoms/Label";
 
 type UserPageProps = {};
 

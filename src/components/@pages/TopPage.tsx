@@ -1,17 +1,22 @@
+import { useRouter } from "next/router";
 import { VFC } from "react";
-import { Button } from "../@commons/Button";
-import { LargeButton } from "../@commons/LargeButton";
-import { ToolTip } from "../@commons/ToolTip";
+import { Button } from "../@atoms/Button";
+import { LargeButton } from "../@atoms/LargeButton";
+import { ToolTip } from "../@atoms/ToolTip";
 
 type TopPageProps = {};
 
 export const TopPage: VFC<TopPageProps> = () => {
+  const router = useRouter();
   return (
     <div>
       <div className="flex justify-center gap-6">
         <LargeButton label="教材一覧" className="bg-primary2" />
         <LargeButton label="目標設定" className="bg-secondary2" />
-        <LargeButton label="学習記録" />
+        <LargeButton
+          label="学習記録"
+          onClick={() => router.push("/learning")}
+        />
         <LargeButton label="質問する" className="bg-secondary1" disabled />
       </div>
       <div>メニューボタンを配置</div>
