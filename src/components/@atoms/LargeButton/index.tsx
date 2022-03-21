@@ -1,5 +1,5 @@
-import { VFC } from "react";
 import clsx from "clsx";
+import { VFC } from "react";
 
 type Props = JSX.IntrinsicElements["button"] & {
   className?: string;

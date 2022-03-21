@@ -1,8 +1,9 @@
 import { useEffect, useState, VFC } from "react";
+
 import { Button } from "../@atoms/Button";
-import { getMyUser, updateUser } from "../../lib/users";
-import { InputWithLabel } from "../@molecules/InputWithLabel";
 import { Label } from "../@atoms/Label";
+// import { getMyUser, updateUser } from "../../lib/users";
+import { InputWithLabel } from "../@molecules/InputWithLabel";
 
 type UserPageProps = {};
 
@@ -11,22 +12,22 @@ export const UserPage: VFC<UserPageProps> = () => {
   const [user, setUser] = useState<any | null>(null);
   const [userInputState, setUserInputState] = useState(user);
 
-  useEffect(() => {
-    void (async () => {
-      const getRes = await getMyUser();
-      setUser(getRes);
-      setUserInputState(getRes);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   void (async () => {
+  //     const getRes = await getMyUser();
+  //     setUser(getRes);
+  //     setUserInputState(getRes);
+  //   })();
+  // }, []);
 
   /* ユーザ情報の更新 */
   const submit = () => {
-    try {
-      updateUser(userInputState);
-      setIsEditing(false);
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   updateUser(userInputState);
+    //   setIsEditing(false);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   return (

@@ -1,0 +1,10 @@
+model LessonProgress {
+  id       String    @unique
+  sctionId Section[]
+}
+
+model Section {
+  lesson   LessonProgress @relation(fields: [lessonId], references: [id])
+  lessonId String         @unique
+  id       String         @unique
+}
