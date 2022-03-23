@@ -1,8 +1,11 @@
 import { VFC } from "react";
 
-type SectionsPageProps = {};
+type SectionsPageProps = {
+  sections: any[];
+};
 
-export const SectionsPage: VFC<SectionsPageProps> = () => {
+export const SectionsPage: VFC<SectionsPageProps> = ({ sections }) => {
+  console.log(sections);
   return (
     <div>
       <h1>Sections</h1>

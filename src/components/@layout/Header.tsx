@@ -8,7 +8,7 @@ type HeaderProps = {};
 export const Header: VFC<HeaderProps> = () => {
   const router = useRouter();
   return (
-    <header className="flex items-center gap-6 bg-primary1 px-4">
+    <header className="fixed top-0 flex w-screen items-center gap-6 bg-primary1 px-4">
       {/* Logo */}
       <div
         className="h-20 w-60 cursor-pointer rounded p-2"

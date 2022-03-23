@@ -15,10 +15,12 @@ export const Board: VFC<Props> = ({ className, children }) => {
       )}
     >
       {children}
-      <div className="absolute top-3 left-3 h-2 w-2 rounded-full bg-gray-500"></div>
-      <div className="absolute top-3 right-3 h-2 w-2 rounded-full bg-gray-500"></div>
-      <div className="absolute bottom-3 left-3 h-2 w-2 rounded-full bg-gray-500"></div>
-      <div className="absolute right-3 bottom-3 h-2 w-2 rounded-full bg-gray-500"></div>
+      <div>
+        <div className="absolute top-3 left-3 h-2 w-2 rounded-full bg-gray-500"></div>
+        <div className="absolute top-3 right-3 h-2 w-2 rounded-full bg-gray-500"></div>
+        <div className="absolute bottom-3 left-3 h-2 w-2 rounded-full bg-gray-500"></div>
+        <div className="absolute right-3 bottom-3 h-2 w-2 rounded-full bg-gray-500"></div>
+      </div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ type UserAuth = {
   uid: string | null;
 };
 
+/* ページ制限をしたい */
 const permissionRoutes = {
   free: ["/"],
   lite: ["/"],

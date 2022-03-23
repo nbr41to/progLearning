@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { Layout } from "src/components/@layout";
+import { useAuth } from "src/hooks/useAuth";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

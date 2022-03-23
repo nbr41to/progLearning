@@ -15,15 +15,14 @@ export const Button: VFC<Props> = ({
   rounded,
   ...rest
 }) => {
-  const defaultClassName =
-    "py-1 px-4 text-white bg-primary2 border-2 border-primary2 rounded font-bold";
-  const outlineClassName =
-    "py-1 px-4 text-primary2 border-2 border-primary2 rounded font-bold";
+  const defaultClassName = "text-white bg-primary2";
+  const outlineClassName = "text-primary2";
 
   return (
     <button
       className={clsx(
         className,
+        "cursor-pointer rounded border-2 border-primary2 py-1 px-4 font-bold",
         outline ? outlineClassName : defaultClassName,
         rounded && "rounded-full"
       )}

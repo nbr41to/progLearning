@@ -1,6 +1,7 @@
-import { useAuth } from "src/hooks/useAuth";
 import { User } from "@prisma/client";
+import { useAuth } from "src/hooks/useAuth";
 import useSWR from "swr";
+
 import { axiosGetFetcher } from "./axiosFetcher";
 
 export const useUser = () => {
