@@ -1,29 +1,39 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { getCategoriesWithDescription } from "notion/lessons";
+import { getCategories, getSections } from "notion/lessons";
 import { LessonsPage } from "src/components/@pages/LessonsPage";
+import { SWRConfig } from "swr";
 
 export const getStaticProps = async () => {
-  const categories = await getCategoriesWithDescription();
+  const categories = await getCategories();
+  const sections = await getSections();
 
   return {
     props: {
-      categories,
+      fallback: {
+        "/lessons/sections": sections,
+        "/lessons/categories": categories,
+      },
     },
   };
 };
 
 type Props = {
-  categories: Lesson[];
+  fallback: {
+    catagories: LessonCategory[];
+    sections: LessonSection[];
+  };
 };
 
-const Lessons: NextPage<Props> = ({ categories }) => {
+const Lessons: NextPage<Props> = ({ fallback }) => {
   return (
     <>
       <Head>
         <title>Lessons | progLearning</title>
       </Head>
-      <LessonsPage lessons={categories} />
+      <SWRConfig value={{ fallback }}>
+        <LessonsPage />
+      </SWRConfig>
     </>
   );
 };

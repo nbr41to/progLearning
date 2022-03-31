@@ -1,11 +1,9 @@
 import clsx from "clsx";
-import { useState, VFC } from "react";
+import { VFC } from "react";
 import { SiHtml5 } from "react-icons/si";
 
-import { DescriptionModal } from "../DescriptionModal";
-
 type Props = {
-  lesson: Lesson;
+  lesson: LessonCategory;
   onClick: () => void;
 };
 
@@ -23,7 +21,21 @@ const ConvertColorName = (color: string) => {
   return "bg-slate-600";
 };
 
+// const categories = {
+//   getting_started: { label: 'Getting Started', icon: <></> },
+//   html: { label: 'HTML', icon: <></> },
+//   css: { label: 'CSS', icon: <></> },
+//   sass: { label: 'Sass', icon: <></> },
+//   javascript: { label: 'JavaScript', icon: <></> },
+//   react: { label: 'React', icon: <></> },
+//   typescript: { label: 'TypeScript', icon: <></> },
+//   nodejs: { label: 'Node.js', icon: <></> },
+//   golang: { label: 'Go', icon: <></> },
+// };
+
 export const LessonCard: VFC<Props> = ({ lesson, onClick }) => {
+  const label = lesson.name;
+
   return (
     <div
       className={clsx(
@@ -33,7 +45,7 @@ export const LessonCard: VFC<Props> = ({ lesson, onClick }) => {
       )}
       onClick={onClick}
     >
-      <h3 className="text-3xl font-bold text-white">{lesson.name}</h3>
+      <h3 className="text-3xl font-bold text-white">{label}</h3>
       <SiHtml5 className="text-5xl text-white" />
     </div>
   );

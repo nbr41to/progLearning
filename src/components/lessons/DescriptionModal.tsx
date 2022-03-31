@@ -5,7 +5,7 @@ import { Board } from "@/components/@atoms/Board";
 import { Button } from "@/components/@atoms/Button";
 
 type DescriptionModalProps = {
-  lesson: Lesson;
+  lesson: LessonCategory;
   closeHandler: () => void;
 };
 

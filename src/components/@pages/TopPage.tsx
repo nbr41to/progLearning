@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { VFC } from "react";
+import { useUser } from "src/swr/hooks/useUser";
 
 import { Button } from "../@atoms/Button";
 import { LargeButton } from "../@atoms/LargeButton";
@@ -9,6 +10,8 @@ type TopPageProps = {};
 
 export const TopPage: VFC<TopPageProps> = () => {
   const router = useRouter();
+  const user = useUser();
+  console.log(user);
   return (
     <div>
       <div className="flex justify-center gap-6">
@@ -24,6 +27,7 @@ export const TopPage: VFC<TopPageProps> = () => {
       <div>教材を見る</div>
       <div>勉強を始める</div>
       <div>目標を決める（ロードマップ）</div>
+      <div>前回の続きから</div>
       <div>設定</div>
       <ToolTip tipContent="説明文だよ">
         <Button label="Button" />

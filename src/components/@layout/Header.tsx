@@ -17,7 +17,7 @@ export const Header: VFC<HeaderProps> = () => {
         <div className="relative h-full w-full">
           <Image
             className="rounded-md"
-            src="/logo.png"
+            src="/logo_bg_white.png"
             layout="fill"
             objectFit="cover"
             alt="logo"

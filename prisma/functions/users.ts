@@ -1,5 +1,5 @@
-import { PrismaClient, Profile, User } from "@prisma/client";
-import { where } from "firebase/firestore";
+import { PrismaClient, Profile, User } from '@prisma/client';
+import { where } from 'firebase/firestore';
 
 const prisma = new PrismaClient();
 
@@ -12,13 +12,27 @@ export const getUser = async (userId: string) => {
     where: {
       id: userId,
     },
+    include: {
+      profile: true,
+    },
+  });
+};
+/* ユーザ情報とプロフィールを取得 */
+export const getUserWithProfile = async (userId: string) => {
+  return await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    include: {
+      profile: true,
+    },
   });
 };
 /* ユーザ情報を作成 */
 export const createUser = async (params: User) => {
   const existUser = await getUser(params.id);
   if (existUser) {
-    /* すでにユーサがある場合 */
+    /* すでにユーザがある場合 */
     return existUser;
   }
   return await prisma.user.create({
@@ -39,7 +53,7 @@ export const getProfile = async (userId: string) => {
   });
 };
 /* ユーザプロフィールを作成 */
-export const upsertProfile = async (params: Profile) => {
+export const prismaProfileUpsert = async (params: Profile) => {
   return await prisma.profile.upsert({
     where: {
       userId: params.userId,

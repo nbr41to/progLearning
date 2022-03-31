@@ -1,6 +1,6 @@
-import { VFC } from "react";
+import { InputHTMLAttributes, VFC } from "react";
 
-type Props = JSX.IntrinsicElements["input"] & {};
+type Props = InputHTMLAttributes<HTMLInputElement> & {};
 
 export const Input: VFC<Props> = ({ ...rest }) => {
   return (

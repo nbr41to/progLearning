@@ -1,6 +1,19 @@
-type Lesson = {
+type LessonCategory = {
   id: string;
   name: string;
-  description: string;
   color: string;
+};
+
+type LessonSection = {
+  id: string;
+  properties: {
+    title: {
+      title: {
+        plain_text: string;
+      }[];
+    };
+    category: {
+      select: LessonCategory;
+    };
+  };
 };
