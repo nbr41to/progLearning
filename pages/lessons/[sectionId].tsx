@@ -1,7 +1,8 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { getSectionContentById, getSections } from "notion/lessons";
-import { SectionContentPage } from "src/components/@pages/SectionContentPage";
+
+import { SectionPage } from "@/components/@pages/SectionPage";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { sectionId } = params || {};
@@ -34,14 +35,12 @@ type Props = {
 };
 
 const Section: NextPage<Props> = ({ section }) => {
-  console.log("section", section);
-
   return (
     <>
       <Head>
         <title>Section | progLearning</title>
       </Head>
-      <SectionContentPage />
+      <SectionPage />
     </>
   );
 };

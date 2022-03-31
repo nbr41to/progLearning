@@ -1,9 +1,9 @@
-import { Client } from "@notionhq/client";
+import { Client } from '@notionhq/client';
 
 const notion = new Client({
   auth: process.env.INTERNAL_INTEGRATION_TOKEN,
 });
-const lessonDatabaseId = process.env.LESSON_DATABASE_ID || "";
+const lessonDatabaseId = process.env.LESSON_DATABASE_ID || '';
 
 /* データは最小限にして返す */
 
@@ -15,23 +15,9 @@ export const getCategories = async () => {
     database_id: lessonDatabaseId,
   });
   const categoryProperty = database.properties.category;
-  if (categoryProperty.type !== "select") return [];
+  if (categoryProperty.type !== 'select') return [];
 
   return categoryProperty.select.options;
-};
-
-/* DBからCourseのリストを取得 */
-export const getCourses = async () => {
-  /* DB情報を取得 */
-  const database = await notion.databases.retrieve({
-    database_id: lessonDatabaseId,
-  });
-  const courseProperty = database.properties.course;
-
-  /* 型ガード */
-  if (courseProperty.type !== "select") return;
-
-  return courseProperty.select.options;
 };
 
 /**
@@ -65,4 +51,17 @@ export const getSections = async () => {
   } catch (error) {
     throw error;
   }
+};
+
+/**
+ * IDからSection情報と内容取得
+ */
+export const getSectionContentById = async (sectionId: string) => {
+  const section = await notion.pages.retrieve({ page_id: sectionId });
+  const children = await notion.blocks.children.list({
+    block_id: sectionId,
+    page_size: 50,
+  });
+
+  return { ...section, section };
 };

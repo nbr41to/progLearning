@@ -1,8 +1,8 @@
 import { VFC } from "react";
 
-type SectionContentPageProps = {};
+type SectionPageProps = {};
 
-export const SectionContentPage: VFC<SectionContentPageProps> = () => {
+export const SectionPage: VFC<SectionPageProps> = () => {
   return (
     <div>
       <h1>Sectionの内容</h1>

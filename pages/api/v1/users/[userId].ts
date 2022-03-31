@@ -25,7 +25,6 @@ const usersHandler = async (
       }
       break;
     case "PUT":
-      console.log("body", body);
       break;
     default:
       res.setHeader("Allow", ["GET", "PUT"]);

@@ -23,8 +23,6 @@ export const LessonsPage: VFC<LessonsPageProps> = () => {
     setIsOpen(false);
   };
 
-  const { sections } = useSections();
-  console.log("sections", sections);
   return (
     <div className="flex gap-10">
       <SideMenu />

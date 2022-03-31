@@ -10,8 +10,7 @@ type TopPageProps = {};
 
 export const TopPage: VFC<TopPageProps> = () => {
   const router = useRouter();
-  const user = useUser();
-  console.log(user);
+
   return (
     <div>
       <div className="flex justify-center gap-6">

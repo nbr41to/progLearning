@@ -25,14 +25,12 @@ const usersHandler = async (
       }
       break;
     case "POST":
-      console.log("body", body);
       const upsertRes = await prismaProfileUpsert(body);
       if (upsertRes) {
         res.status(200).json(upsertRes);
       }
       break;
     case "PUT":
-      console.log("body", body);
       break;
     default:
       res.setHeader("Allow", ["GET", "POST", "PUT"]);
