@@ -17,3 +17,7 @@ type LessonSection = {
     };
   };
 };
+
+type LessonSectionContent = LessonSection & {
+  children: any[];
+};

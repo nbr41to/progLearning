@@ -1,12 +1,21 @@
 import { VFC } from "react";
 
-type SectionPageProps = {};
+import { SideMenu } from "../lessons/SideMenu";
 
-export const SectionPage: VFC<SectionPageProps> = () => {
+type SectionPageProps = {
+  section: LessonSectionContent;
+};
+
+export const SectionPage: VFC<SectionPageProps> = ({ section }) => {
+  console.log(section);
+  const title = section.properties.title.title[0]?.plain_text;
   return (
-    <div>
-      <h1>Sectionの内容</h1>
-      <div>教材一覧</div>
+    <div className="flex gap-10">
+      <SideMenu />
+      <div>
+        <h1 className="text-2xl font-bold">{title}</h1>
+        <div>{/* {section.children.map()} */}</div>
+      </div>
     </div>
   );
 };

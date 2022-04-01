@@ -58,10 +58,31 @@ export const getSections = async () => {
  */
 export const getSectionContentById = async (sectionId: string) => {
   const section = await notion.pages.retrieve({ page_id: sectionId });
-  const children = await notion.blocks.children.list({
-    block_id: sectionId,
-    page_size: 50,
-  });
+  const children = [];
+  const condition: {
+    has_more: boolean;
+    next_cursor: string | null | undefined;
+  } = {
+    has_more: true,
+    next_cursor: undefined,
+  };
+  const page_size = 100; // 個ずつ取得
 
-  return { ...section, section };
+  /* next_cursorを使ってpageのchildrenを全て取得する */
+  try {
+    while (condition.has_more) {
+      const response = await notion.blocks.children.list({
+        block_id: sectionId,
+        ...(condition.next_cursor && { start_cursor: condition.next_cursor }),
+        page_size,
+      });
+      condition.has_more = response.has_more;
+      condition.next_cursor = response.next_cursor;
+      children.push(...response.results);
+    }
+
+    return { ...section, children };
+  } catch (error) {
+    throw error;
+  }
 };

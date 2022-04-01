@@ -7,7 +7,7 @@ import { useAuth } from "src/hooks/useAuth";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
+    <>
       <Head>
         {/* Favicon */}
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
@@ -19,8 +19,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="msapplication-config" content="/favicon.png" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <Component {...pageProps} />
-    </Layout>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </>
   );
 }
 
