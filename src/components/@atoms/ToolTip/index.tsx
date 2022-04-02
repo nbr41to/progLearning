@@ -1,18 +1,29 @@
+import clsx from "clsx";
 import { FC, ReactNode, useState } from "react";
 
 type Props = {
   tipContent: string | ReactNode;
+  disabled?: boolean;
 };
 
 /* ButtonなどのLabelをこのComponentでWrapする */
-export const ToolTip: FC<Props> = ({ children, tipContent }) => {
+export const ToolTip: FC<Props> = ({
+  children,
+  tipContent,
+  disabled = false,
+}) => {
   const [activeToolTip, setActiveToolTip] = useState(false);
 
   let TooltipTimeout: NodeJS.Timeout;
   const showToolTip = () => {
+    if (disabled) return;
     TooltipTimeout = setTimeout(() => {
       setActiveToolTip(true);
-    }, 300);
+    }, 400);
+
+    setTimeout(() => {
+      setActiveToolTip(false);
+    }, 2000);
   };
 
   const hideToolTip = () => {
@@ -23,14 +34,18 @@ export const ToolTip: FC<Props> = ({ children, tipContent }) => {
   return (
     <>
       <div
-        className="w-fit"
+        className="relative"
         onMouseEnter={showToolTip}
         onMouseLeave={hideToolTip}
       >
         {/* Description */}
         {children}
         {activeToolTip && (
-          <div className="absolute z-20 -mt-2 ml-2 rounded border bg-white py-4 px-2 text-sm text-slate-600">
+          <div
+            className={clsx(
+              "absolute z-20 -mt-2 ml-2 rounded border bg-white py-4 px-2 text-sm text-slate-600"
+            )}
+          >
             {tipContent}
           </div>
         )}

@@ -49,12 +49,6 @@ export const getStaticPaths = async () => {
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Section: NextPage<Props> = ({ section, fallback }) => {
-  console.log(section);
-  if ("properties" in section && section.properties.title.type === "title") {
-    // console.log(section.properties.title.title[0].plain_text);
-  }
-  console.log(section.children[0]);
-
   return (
     <>
       <Head>
