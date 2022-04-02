@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { LearningPage } from "src/components/@pages/LearningPage";
+
+import { CommitPage } from "@/components/@pages/CommitPage";
 
 const Learning: NextPage = () => {
   return (
@@ -8,7 +9,7 @@ const Learning: NextPage = () => {
       <Head>
         <title>Learning | progLearning</title>
       </Head>
-      <LearningPage />
+      <CommitPage />
     </>
   );
 };

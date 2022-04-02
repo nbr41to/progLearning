@@ -16,10 +16,7 @@ export const TopPage: VFC<TopPageProps> = () => {
       <div className="flex justify-center gap-6">
         <LargeButton label="教材一覧" className="bg-primary2" />
         <LargeButton label="目標設定" className="bg-secondary2" />
-        <LargeButton
-          label="学習記録"
-          onClick={() => router.push("/learning")}
-        />
+        <LargeButton label="学習記録" onClick={() => router.push("/commit")} />
         <LargeButton label="質問する" className="bg-secondary1" disabled />
       </div>
       <div>メニューボタンを配置</div>

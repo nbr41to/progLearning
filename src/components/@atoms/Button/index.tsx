@@ -22,7 +22,7 @@ export const Button: VFC<Props> = ({
     <button
       className={clsx(
         className,
-        "cursor-pointer rounded border-2 border-primary2 py-1 px-4 font-bold",
+        "min-w-fit cursor-pointer rounded border-2 border-primary2 py-1 px-4 font-bold",
         outline ? outlineClassName : defaultClassName,
         rounded && "rounded-full"
       )}

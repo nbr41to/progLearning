@@ -6,7 +6,7 @@ type Props = JSX.IntrinsicElements["label"] & {
 
 export const Label: VFC<Props> = ({ label, ...rest }) => {
   return (
-    <label className="cursor-pointer font-bold" {...rest}>
+    <label className="block cursor-pointer font-bold" {...rest}>
       {label}
     </label>
   );

@@ -4,6 +4,7 @@ import { useUser } from "src/swr/hooks/useUser";
 import { Profile } from "types/users";
 
 import { Button } from "../@atoms/Button";
+import { Input } from "../@atoms/Input";
 import { Label } from "../@atoms/Label";
 // import { getMyUser, updateUser } from "../../lib/users";
 import { InputWithLabel } from "../@molecules/InputWithLabel";
@@ -42,49 +43,51 @@ export const UserPage: VFC<UserPageProps> = () => {
   };
 
   return (
-    <div>
-      <h1>アカウント情報</h1>
-      <div className="flex justify-between">
-        <div className="space-y-1">
-          <div className="flex">
-            {!isEditing ? (
-              <>
-                <div>
-                  <Label label="名前" />
-                  <p className="p-2 pl-4">{user?.profile.name}</p>
-                </div>
-                <Button
-                  outline
-                  label="編集する"
-                  onClick={() => setIsEditing(true)}
-                />
-              </>
-            ) : (
-              <>
-                <InputWithLabel
-                  id="userNameInput"
-                  value={profileInputState.name || ""}
-                  label="名前"
-                  onChange={(e) =>
-                    setProfileInputState({
-                      ...profileInputState,
-                      name: e.target.value,
-                    })
-                  }
-                />
-                <div className="mt-4 space-x-4 text-right">
-                  <Button
-                    label="キャンセル"
-                    outline
-                    onClick={() => setIsEditing(false)}
-                  />
-                  <Button label="保存" onClick={submit} />
-                </div>
-              </>
-            )}
+    <div className="space-y-4">
+      <h1 className="text-xl">アカウント情報</h1>
+
+      {/* 名前 */}
+      <div className="space-y-2">
+        <Label label="名前" />
+        {!isEditing ? (
+          <div className="flex w-[400px] items-center justify-between">
+            <p className="p-1 pl-4">{user?.profile.name}</p>
+            <Button
+              outline
+              label="編集する"
+              onClick={() => setIsEditing(true)}
+            />
           </div>
-          <Label label="連携している Google アカウントのメールアドレス" />
+        ) : (
+          <div className="flex w-[400px] items-center gap-2">
+            <Input
+              className="w-fit"
+              value={profileInputState.name || ""}
+              onChange={(e) =>
+                setProfileInputState({
+                  ...profileInputState,
+                  name: e.target.value,
+                })
+              }
+            />
+            <div className="flex gap-2">
+              <Button label="保存" onClick={submit} />
+              <Button
+                label="キャンセル"
+                outline
+                onClick={() => setIsEditing(false)}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* メールアドレス */}
+      <div className="space-y-2">
+        <Label label="連携している Google アカウントのメールアドレス" />
+        <div className="flex w-[400px] items-center justify-between gap-2">
           <p className="p-2 pl-4">{user?.email}</p>
+          <Button label="登録解除" outline />
         </div>
       </div>
     </div>

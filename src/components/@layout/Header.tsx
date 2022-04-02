@@ -3,10 +3,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { VFC } from "react";
 
+import { Button } from "../@atoms/Button";
+
 type HeaderProps = {};
 
 export const Header: VFC<HeaderProps> = () => {
   const router = useRouter();
+
   return (
     <header className="fixed top-0 flex w-screen items-center gap-6 bg-primary1 px-4">
       {/* Logo */}
@@ -25,6 +28,7 @@ export const Header: VFC<HeaderProps> = () => {
         </div>
         <h1 className="hidden">progLearning</h1>
       </div>
+
       {/* Menu */}
       <nav>
         <ul className="flex gap-4 text-lg font-bold text-white">
@@ -34,8 +38,8 @@ export const Header: VFC<HeaderProps> = () => {
             </Link>
           </li>
           <li>
-            <Link href="/login">
-              <a>Sign up</a>
+            <Link href="/commit">
+              <a>Commit</a>
             </Link>
           </li>
           <li>
@@ -45,6 +49,15 @@ export const Header: VFC<HeaderProps> = () => {
           </li>
         </ul>
       </nav>
+
+      {/* Sign up */}
+      <div className="ml-auto">
+        <Button
+          className="shadow"
+          label="Sign up"
+          onClick={() => router.push("/login")}
+        />
+      </div>
     </header>
   );
 };
