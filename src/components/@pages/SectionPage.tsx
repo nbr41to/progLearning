@@ -3,11 +3,12 @@ import { VFC } from "react";
 import { SideMenu } from "../lessons/SideMenu";
 
 type SectionPageProps = {
-  section: LessonSectionContent;
+  // section: LessonSectionContent;
+  section: any;
 };
 
 export const SectionPage: VFC<SectionPageProps> = ({ section }) => {
-  console.log(section);
+  // console.log(section);
   const title = section.properties.title.title[0]?.plain_text;
   return (
     <div className="flex gap-10">

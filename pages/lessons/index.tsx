@@ -1,8 +1,10 @@
-import type { NextPage } from "next";
+import type { InferGetStaticPropsType, NextPage } from "next";
 import Head from "next/head";
 import { getCategories, getSections } from "notion/lessons";
 import { LessonsPage } from "src/components/@pages/LessonsPage";
 import { SWRConfig } from "swr";
+
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 export const getStaticProps = async () => {
   const categories = await getCategories();
@@ -15,13 +17,6 @@ export const getStaticProps = async () => {
         "/lessons/categories": categories,
       },
     },
-  };
-};
-
-type Props = {
-  fallback: {
-    catagories: LessonCategory[];
-    sections: LessonSection[];
   };
 };
 

@@ -1,4 +1,10 @@
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+  NextPage,
+} from "next";
 import Head from "next/head";
 import {
   getCategories,
@@ -9,29 +15,27 @@ import { SWRConfig } from "swr";
 
 import { SectionPage } from "@/components/@pages/SectionPage";
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { sectionId } = params || {};
-  const _sectionId = typeof sectionId === "string" ? sectionId : "";
-  const section = await getSectionContentById(_sectionId);
+export const getStaticProps = async (
+  context: GetStaticPropsContext<{ sectionId: string }>
+) => {
+  const sectionId = context.params?.sectionId || "";
 
+  const section = await getSectionContentById(sectionId);
   const categories = await getCategories();
   const sections = await getSections();
+
   return {
     props: {
       section,
       fallback: {
-        "/lessons/sections": sections,
         "/lessons/categories": categories,
+        "/lessons/sections": sections,
       },
     },
   };
 };
 
-type Params = {
-  sectionId: string;
-};
-
-export const getStaticPaths: GetStaticPaths<Params> = async () => {
+export const getStaticPaths = async () => {
   const sections = await getSections();
   const paths = sections.map(({ id }) => ({
     params: { sectionId: id || "" },
@@ -42,15 +46,15 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
   };
 };
 
-type Props = {
-  section: LessonSectionContent;
-  fallback: {
-    catagories: LessonCategory[];
-    sections: LessonSection[];
-  };
-};
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Section: NextPage<Props> = ({ section, fallback }) => {
+  console.log(section);
+  if ("properties" in section && section.properties.title.type === "title") {
+    // console.log(section.properties.title.title[0].plain_text);
+  }
+  console.log(section.children[0]);
+
   return (
     <>
       <Head>
