@@ -37,7 +37,7 @@ export const LoginPage: VFC<LoginPageProps> = () => {
           アカウントを作成（無料）することで、より多くの教材が閲覧できるようになったり、学習の進捗を管理したり複数の機能が開放されます。
         </p>
         <div className="mt-4">
-          <Button label="Google ログインで始める" onClick={handleLogin} />
+          <Button onClick={handleLogin}>Google ログインで始める</Button>
         </div>
       </Board>
     </div>

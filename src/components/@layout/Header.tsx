@@ -52,11 +52,9 @@ export const Header: VFC<HeaderProps> = () => {
 
       {/* Sign up */}
       <div className="ml-auto">
-        <Button
-          className="shadow"
-          label="Sign up"
-          onClick={() => router.push("/login")}
-        />
+        <Button className="shadow" onClick={() => router.push("/login")}>
+          Sign up
+        </Button>
       </div>
     </header>
   );

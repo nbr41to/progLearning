@@ -10,7 +10,7 @@ type Props = {};
 export const StackList: VFC<Props> = () => {
   return (
     <div className="p-8">
-      <h3 className="text-lg underline">やるはずだったものたち😱</h3>
+      <h3 className="text-lg">やるはずだったものたち😱</h3>
       <div className="mt-4">
         <div className="flex items-center gap-2">
           <input type="checkbox" checked />

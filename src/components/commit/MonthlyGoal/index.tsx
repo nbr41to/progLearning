@@ -22,11 +22,9 @@ export const MonthlyGoal: VFC<Props> = () => {
         ) : (
           <Input value={inputValue} />
         )}
-        <Button
-          label={isEditing ? "保存" : "編集"}
-          outline={!isEditing}
-          onClick={() => setIsEditing(!isEditing)}
-        />
+        <Button outline={!isEditing} onClick={() => setIsEditing(!isEditing)}>
+          {isEditing ? "保存" : "編集"}
+        </Button>
       </div>
     </div>
   );

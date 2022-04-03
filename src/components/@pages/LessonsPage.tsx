@@ -25,7 +25,9 @@ export const LessonsPage: VFC<LessonsPageProps> = () => {
 
   return (
     <div className="flex gap-10">
-      <SideMenu />
+      <div className="min-w-[200px]">
+        <SideMenu />
+      </div>
       <div>
         <h1>Lessons</h1>
         <div>教材一覧</div>

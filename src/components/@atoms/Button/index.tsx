@@ -1,16 +1,15 @@
 import clsx from "clsx";
-import { VFC } from "react";
+import { FC } from "react";
 
 type Props = JSX.IntrinsicElements["button"] & {
   className?: string;
-  label: string;
   outline?: boolean;
   rounded?: boolean;
 };
 
-export const Button: VFC<Props> = ({
+export const Button: FC<Props> = ({
   className,
-  label,
+  children,
   outline,
   rounded,
   ...rest
@@ -28,7 +27,7 @@ export const Button: VFC<Props> = ({
       )}
       {...rest}
     >
-      {label}
+      {children}
     </button>
   );
 };

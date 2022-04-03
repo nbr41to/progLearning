@@ -20,10 +20,9 @@ export const DescriptionModal: VFC<DescriptionModalProps> = ({
       <Board className="relative z-50 w-[800px] space-y-4 p-8">
         <h3 className="text-2xl">{name}</h3>
         <div className="text-right">
-          <Button
-            label="これを学ぶ"
-            onClick={() => router.push(`/lessons/${id}`)}
-          />
+          <Button onClick={() => router.push(`/lessons/${id}`)}>
+            これを学ぶ
+          </Button>
         </div>
       </Board>
       <div

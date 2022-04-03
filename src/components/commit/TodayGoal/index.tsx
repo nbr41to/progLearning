@@ -15,7 +15,7 @@ export const TodayGoal: VFC<Props> = () => {
       <h3>今日の目標</h3>
       <div className="flex w-80 gap-2">
         <Input />
-        <Button label="追加" />
+        <Button>追加</Button>
       </div>
       <div className="mt-4">
         <div className="flex items-center gap-2">

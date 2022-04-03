@@ -30,12 +30,6 @@ export const TopPage: VFC<TopPageProps> = () => {
       <div>目標を決める（ロードマップ）</div>
       <div>前回の続きから</div>
       <div>設定</div>
-      <ToolTip tipContent="説明文だよ">
-        <Button label="Button" />
-      </ToolTip>
-      <Button label="Button" />
-      <Button label="Button2" outline />
-      <Button label="Button2" outline rounded />
     </div>
   );
 };

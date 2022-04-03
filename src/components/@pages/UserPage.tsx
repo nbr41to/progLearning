@@ -52,11 +52,9 @@ export const UserPage: VFC<UserPageProps> = () => {
         {!isEditing ? (
           <div className="flex w-[400px] items-center justify-between">
             <p className="p-1 pl-4">{user?.profile.name}</p>
-            <Button
-              outline
-              label="編集する"
-              onClick={() => setIsEditing(true)}
-            />
+            <Button outline onClick={() => setIsEditing(true)}>
+              編集する
+            </Button>
           </div>
         ) : (
           <div className="flex w-[400px] items-center gap-2">
@@ -71,12 +69,10 @@ export const UserPage: VFC<UserPageProps> = () => {
               }
             />
             <div className="flex gap-2">
-              <Button label="保存" onClick={submit} />
-              <Button
-                label="キャンセル"
-                outline
-                onClick={() => setIsEditing(false)}
-              />
+              <Button onClick={submit}>保存</Button>
+              <Button outline onClick={() => setIsEditing(false)}>
+                キャンセル
+              </Button>
             </div>
           </div>
         )}
@@ -87,7 +83,7 @@ export const UserPage: VFC<UserPageProps> = () => {
         <Label label="連携している Google アカウントのメールアドレス" />
         <div className="flex w-[400px] items-center justify-between gap-2">
           <p className="p-2 pl-4">{user?.email}</p>
-          <Button label="登録解除" outline />
+          <Button outline>登録解除</Button>
         </div>
       </div>
     </div>
