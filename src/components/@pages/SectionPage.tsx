@@ -3,10 +3,9 @@ import {
   ListBlockChildrenResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { useRouter } from "next/router";
-import { useMemo, VFC } from "react";
+import { VFC } from "react";
 import { useSections } from "src/swr/hooks/useSections";
 
-import { Button } from "../@atoms/Button";
 import { SideMenu } from "../lessons/SideMenu";
 import { NotionBlock } from "../NotionBlockCompiler";
 
@@ -29,30 +28,33 @@ export const SectionPage: VFC<SectionPageProps> = ({ section }) => {
       ? section.properties.category.select?.name
       : "";
 
-  console.log(sections);
-  const currentIndex = sections.findIndex((item) => item.id === section.id);
-  const prevSectionId = useMemo(() => {
-    const prevSection = sections[currentIndex - 1];
-    if (!prevSection) return null;
-    if (prevSection.properties.category.select.name === category) {
-      return prevSection.id;
-    }
-    return null;
-  }, [category, currentIndex, sections]);
+  /**
+   * 前へと次への機能を実装するためのもの
+   * 取得したSectionsの順番を並び替える仕組みがないので一旦保留
+   */
+  // const currentIndex = sections.findIndex((item) => item.id === section.id);
+  // const prevSectionId = useMemo(() => {
+  //   const prevSection = sections[currentIndex - 1];
+  //   if (!prevSection) return null;
+  //   if (prevSection.properties.category.select.name === category) {
+  //     return prevSection.id;
+  //   }
+  //   return null;
+  // }, [category, currentIndex, sections]);
 
-  const nextSectionId = useMemo(() => {
-    console.log(sections);
-    const nextSection = sections[currentIndex + 1];
-    console.log(category);
-    console.log(currentIndex + 1);
-    console.log(nextSection);
-    console.log(nextSection.properties.category.select.name);
-    if (!nextSection) return null;
-    if (nextSection.properties.category.select.name === category) {
-      return nextSection.id;
-    }
-    return null;
-  }, [category, currentIndex, sections]);
+  // const nextSectionId = useMemo(() => {
+  //   console.log(sections);
+  //   const nextSection = sections[currentIndex + 1];
+  //   console.log(category);
+  //   console.log(currentIndex + 1);
+  //   console.log(nextSection);
+  //   console.log(nextSection.properties.category.select.name);
+  //   if (!nextSection) return null;
+  //   if (nextSection.properties.category.select.name === category) {
+  //     return nextSection.id;
+  //   }
+  //   return null;
+  // }, [category, currentIndex, sections]);
 
   const h2Blocks = section.children
     .filter((block) => ("type" in block ? block.type === "heading_2" : false))
@@ -79,7 +81,7 @@ export const SectionPage: VFC<SectionPageProps> = ({ section }) => {
           ))}
         </div>
 
-        <div className="flex justify-center gap-6">
+        {/* <div className="flex justify-center gap-6">
           {prevSectionId !== null && (
             <Button onClick={() => router.push(`/lessons/${prevSectionId}`)}>
               前へ
@@ -90,7 +92,7 @@ export const SectionPage: VFC<SectionPageProps> = ({ section }) => {
               次へ
             </Button>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );
