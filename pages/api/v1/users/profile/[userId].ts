@@ -24,16 +24,8 @@ const usersHandler = async (
         res.status(204).end();
       }
       break;
-    case "POST":
-      const upsertRes = await prismaProfileUpsert(body);
-      if (upsertRes) {
-        res.status(200).json(upsertRes);
-      }
-      break;
-    case "PUT":
-      break;
     default:
-      res.setHeader("Allow", ["GET", "POST", "PUT"]);
+      res.setHeader("Allow", ["GET"]);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 };

@@ -67,9 +67,9 @@ export const SectionPage: VFC<SectionPageProps> = ({ section }) => {
     }));
 
   return (
-    <div className="flex gap-10">
+    <div className="mb-[50vh] flex gap-10">
       <div className="min-w-[200px]">
-        <SideMenu tableOgContents={h2Blocks} />
+        <SideMenu tableOfContents={h2Blocks} />
       </div>
       <div>
         <h1 className="text-2xl font-bold">{title}</h1>

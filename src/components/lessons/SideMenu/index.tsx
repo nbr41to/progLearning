@@ -1,17 +1,18 @@
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import { useMemo, useState, VFC } from "react";
+import { useEffect, useMemo, useState, VFC } from "react";
+import { useIntersectionObserver } from "src/hooks/useIntersectionObserver";
 import { useCategories } from "src/swr/hooks/useCategories";
 import { useSections } from "src/swr/hooks/useSections";
 
 type Props = {
-  tableOgContents?: {
+  tableOfContents?: {
     id: string;
     text: string;
   }[];
 };
 
-export const SideMenu: VFC<Props> = ({ tableOgContents = [] }) => {
+export const SideMenu: VFC<Props> = ({ tableOfContents = [] }) => {
   const router = useRouter();
   const { sections } = useSections();
   const { categories } = useCategories();
@@ -32,6 +33,42 @@ export const SideMenu: VFC<Props> = ({ tableOgContents = [] }) => {
     [router.pathname]
   );
 
+  /* h2がViewportに入ったら色を変える */
+  const [currentContentId, setCurrentContentId] = useState<string>("");
+
+  useEffect(() => {
+    if (tableOfContents.length === 0) return;
+    setCurrentContentId(tableOfContents[0]?.id);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const current = entry.target as HTMLElement;
+            console.log(current);
+            setCurrentContentId(current.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-50% 0px",
+        threshold: 0,
+      }
+    );
+
+    tableOfContents.forEach((content) => {
+      const h2 = document.getElementById(content.id);
+      if (h2) {
+        observer.observe(h2);
+      }
+    });
+  }, [tableOfContents]);
+
+  const clickTableOfContent = (id: string) => {
+    router.push(`#${id}`);
+    setCurrentContentId(id);
+  };
+
   return (
     <div className="fixed w-40">
       <h2
@@ -44,8 +81,16 @@ export const SideMenu: VFC<Props> = ({ tableOgContents = [] }) => {
         <div>
           <p>目次</p>
           <div className="flex flex-col gap-2">
-            {tableOgContents.map((content) => (
-              <a key={content.id} className="text-sm" href={`#${content.id}`}>
+            {tableOfContents.map((content) => (
+              <a
+                key={content.id}
+                className={clsx(
+                  "cursor-pointer text-sm",
+                  currentContentId === content.id && "font-bold"
+                )}
+                // href={`#${content.id}`}
+                onClick={() => clickTableOfContent(content.id)}
+              >
                 {content.text}
               </a>
             ))}
@@ -75,7 +120,7 @@ export const SideMenu: VFC<Props> = ({ tableOgContents = [] }) => {
                   <div
                     key={section.id}
                     className="ml-2 cursor-pointer rounded p-2 transition hover:bg-primary1/10 hover:underline"
-                    onClick={() => router.push(`lessons/${section.id}`)}
+                    onClick={() => router.push(`/lessons/${section.id}`)}
                   >
                     <h4 className="text-sm">
                       {section.properties.title.title[0]?.plain_text}

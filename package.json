@@ -12,7 +12,8 @@
     "prisma-merge": "npx prisma-merge --baseFile prisma/base.prisma --schemaFilePatterns 'prisma/*/*.prisma' --outputFile prisma/schema.prisma",
     "seed": "ts-node --compilerOptions '{\"isolatedModules\":false}' prisma/seed.ts",
     "start": "next start",
-    "studio": "prisma studio"
+    "studio": "prisma studio",
+    "server": "go run ./go/main.go"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [

@@ -1,5 +1,4 @@
-import { PrismaClient, Profile, User } from "@prisma/client";
-import { where } from "firebase/firestore";
+import { PrismaClient, Profile, User } from '@prisma/client';
 
 const prisma = new PrismaClient();
 

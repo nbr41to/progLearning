@@ -1,27 +1,45 @@
+// User
 model User {
   id          String       @unique
   email       String       @unique
-  plan        Plan         @default(free)
+  plan        Plan         @default(FREE)
   lastLogin   DateTime
   profile     Profile?
   status      Status?
   Achievement Achievement?
 }
 
+enum Plan {
+  FREE
+  LITE
+  CLOSER
+}
+
+// ユーザのプロフィール
 model Profile {
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
 
   name      String
-  icon      Icon     @default(base)
+  icon      Icon     @default(BASE)
   startedAt DateTime @default(now()) // 登録日
 }
 
+enum Icon {
+  BASE
+  HAPPY
+  SAD
+}
+
+// ユーザの状態
 model Status {
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @unique
+  user             User       @relation(fields: [userId], references: [id])
+  userId           String     @unique
+  currentTimeStamp TimeStamp? @relation(fields: [timeStampId], references: [id])
+  // lessonsHistories LessonHistories[]
 
   learningStartedAt DateTime // 取り組み中の場合開始した時間
+  timeStampId       String?
 }
 
 model Achievement {
@@ -31,15 +49,34 @@ model Achievement {
   stackPoint Int
 }
 
-// Enums
-enum Icon {
-  base
-  happy
-  sad
+// 目標
+model Goal {
+  userId   String @unique
+  monthly  String
+  todoList Todo[]
 }
 
-enum Plan {
-  free
-  lite
-  closer
+model Todo {
+  id        Int        @id @default(autoincrement())
+  content   String
+  createdAt DateTime   @default(now())
+  doneAt    DateTime?
+  status    TodoStatus @default(CURRENT)
+  Goal      Goal       @relation(fields: [userId], references: [userId])
+  userId    String
+}
+
+enum TodoStatus {
+  CURRENT
+  PENDDING
+  DONE
+}
+
+// TimeStamp
+model TimeStamp {
+  id         String    @id @default(uuid())
+  userId     String    @unique
+  startedAt  DateTime  @default(now())
+  finishedAt DateTime?
+  Status     Status[]
 }
