@@ -11,9 +11,9 @@
     "prepare": "husky install",
     "prisma-merge": "npx prisma-merge --baseFile prisma/base.prisma --schemaFilePatterns 'prisma/*/*.prisma' --outputFile prisma/schema.prisma",
     "seed": "ts-node --compilerOptions '{\"isolatedModules\":false}' prisma/seed.ts",
+    "server": "go run ./go/main.go",
     "start": "next start",
-    "studio": "prisma studio",
-    "server": "go run ./go/main.go"
+    "studio": "prisma studio"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
