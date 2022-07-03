@@ -1,4 +1,4 @@
-import { VFC } from "react";
+import { FC } from "react";
 
 import { Board } from "../@atoms/Board";
 import { MonthlyGoal } from "../commit/MonthlyGoal";
@@ -8,7 +8,7 @@ import { TodayGoal } from "../commit/TodayGoal";
 
 type CommitPageProps = {};
 
-export const CommitPage: VFC<CommitPageProps> = () => {
+export const CommitPage: FC<CommitPageProps> = () => {
   return (
     <div className="space-y-10">
       <div className="-mx-8 bg-white">

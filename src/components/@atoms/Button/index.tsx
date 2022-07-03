@@ -14,14 +14,14 @@ export const Button: FC<Props> = ({
   rounded,
   ...rest
 }) => {
-  const defaultClassName = "text-white bg-primary2";
+  const defaultClassName = "text-white bg-primary1";
   const outlineClassName = "text-primary2";
 
   return (
     <button
       className={clsx(
         className,
-        "min-w-fit cursor-pointer rounded border-2 border-primary2 py-1 px-4 font-bold",
+        "min-w-fit cursor-pointer rounded border-2 border-primary1 py-1 px-4 font-bold",
         outline ? outlineClassName : defaultClassName,
         rounded && "rounded-full"
       )}

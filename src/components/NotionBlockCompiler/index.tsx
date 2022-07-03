@@ -1,6 +1,6 @@
 import { ListBlockChildrenResponse } from "@notionhq/client/build/src/api-endpoints";
 import Image from "next/image";
-import { VFC } from "react";
+import { FC } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { monokai } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
@@ -10,7 +10,7 @@ type Props = {
   block: ListBlockChildrenResponse["results"][number];
 };
 
-export const NotionBlock: VFC<Props> = ({ block }): JSX.Element => {
+export const NotionBlock: FC<Props> = ({ block }): JSX.Element => {
   if (!("type" in block)) return <></>;
 
   const { type } = block;

@@ -1,4 +1,4 @@
-import { useEffect, useState, VFC } from "react";
+import { FC, useEffect, useState } from "react";
 import { ConvertSecondsToTime } from "src/lib/utils/getTime";
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
 };
 
 /* 経過時間を表示してくれる */
-export const Timer: VFC<Props> = ({ start = new Date() }) => {
+export const Timer: FC<Props> = ({ start = new Date() }) => {
   const [time, setTime] = useState("--:--:--");
 
   useEffect(() => {

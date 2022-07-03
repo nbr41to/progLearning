@@ -1,4 +1,4 @@
-import { useState, VFC } from "react";
+import { FC, useState } from "react";
 
 import { Button } from "@/components/@atoms/Button";
 import { Input } from "@/components/@atoms/Input";
@@ -9,7 +9,7 @@ type Props = {};
 /**
  * 今月の目標の編集ができるボード
  */
-export const MonthlyGoal: VFC<Props> = () => {
+export const MonthlyGoal: FC<Props> = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("ポイントカードを整理する");
 

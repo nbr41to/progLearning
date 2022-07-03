@@ -1,34 +1,42 @@
-import { Profile, User } from "@prisma/client";
-import axios from "axios";
-import { VFC } from "react";
+import { OAuthExtension } from "@magic-ext/oauth";
+// import { Profile, User } from '@prisma/client';
+// import axios from 'axios';
+import { Magic } from "magic-sdk";
+import { FC } from "react";
 
 import { Board } from "@/components/@atoms/Board";
 import { Button } from "@/components/@atoms/Button";
 
-import { googleLogin } from "../../lib/auth";
+// import { googleLogin } from '../../lib/auth';
 
 type LoginPageProps = {};
-
-export const LoginPage: VFC<LoginPageProps> = () => {
+export const LoginPage: FC<LoginPageProps> = () => {
   const handleLogin = async () => {
     try {
-      /* Google ログイン */
-      const user = await googleLogin();
-      if (!user) throw new Error("User is not defined");
-      /* ユーザ情報の保存 */
-      await axios.post<User>("/api/v1/users", {
-        id: user.uid,
-        email: user.email,
-        lastLogin: new Date(),
+      if (!window) return;
+      const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLIC_KEY || "", {
+        extensions: [new OAuthExtension()],
       });
-      /* ユーザプロフィールの保存 */
-      await axios.post<Profile>("/api/v1/users/profile", {
-        userId: user.uid,
-        name: user.displayName,
-        icon: "base",
+      /* Google ログイン Magic */
+      const user = await magic.oauth.loginWithRedirect({
+        provider: "google" /* 'google', 'facebook', 'apple', or 'github' */,
+        redirectURI: "http://localhost:3000/login",
+        // scope: ['user:email'] /* optional */,
       });
-    } catch (error) {}
+      console.log(user);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  void (async () => {
+    if (!window) return;
+    const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLIC_KEY || "", {
+      extensions: [new OAuthExtension()],
+    });
+    const result = await magic.oauth.getRedirectResult();
+    console.log(result);
+  })();
 
   return (
     <div>

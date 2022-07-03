@@ -3,7 +3,7 @@ import {
   ListBlockChildrenResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { useRouter } from "next/router";
-import { VFC } from "react";
+import { FC } from "react";
 import { useSections } from "src/swr/hooks/useSections";
 
 import { SideMenu } from "../lessons/SideMenu";
@@ -15,7 +15,7 @@ type SectionPageProps = {
   };
 };
 
-export const SectionPage: VFC<SectionPageProps> = ({ section }) => {
+export const SectionPage: FC<SectionPageProps> = ({ section }) => {
   const router = useRouter();
   const { sections } = useSections();
 

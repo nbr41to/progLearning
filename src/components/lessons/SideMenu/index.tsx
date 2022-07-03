@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState, VFC } from "react";
-import { useIntersectionObserver } from "src/hooks/useIntersectionObserver";
+import { FC, useEffect, useMemo, useState } from "react";
 import { useCategories } from "src/swr/hooks/useCategories";
 import { useSections } from "src/swr/hooks/useSections";
 
@@ -12,7 +11,7 @@ type Props = {
   }[];
 };
 
-export const SideMenu: VFC<Props> = ({ tableOfContents = [] }) => {
+export const SideMenu: FC<Props> = ({ tableOfContents = [] }) => {
   const router = useRouter();
   const { sections } = useSections();
   const { categories } = useCategories();

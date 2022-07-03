@@ -1,11 +1,11 @@
 import clsx from "clsx";
-import { VFC } from "react";
+import { FC } from "react";
 
 type Props = JSX.IntrinsicElements["button"] & {
   className?: string;
 };
 
-export const ThreeDotButton: VFC<Props> = ({ className, ...rest }) => {
+export const ThreeDotButton: FC<Props> = ({ className, ...rest }) => {
   return (
     <button
       className={clsx(

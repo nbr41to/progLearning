@@ -1,4 +1,4 @@
-import { VFC } from "react";
+import { FC } from "react";
 
 import { Button } from "@/components/@atoms/Button";
 import { Input } from "@/components/@atoms/Input";
@@ -9,7 +9,7 @@ type Props = {};
 /**
  * 今日の目標TODOの追加と確認と編集ができるボード
  */
-export const TodayGoal: VFC<Props> = () => {
+export const TodayGoal: FC<Props> = () => {
   return (
     <div>
       <h3>今日の目標</h3>

@@ -1,12 +1,12 @@
 import clsx from "clsx";
-import { ReactNode, VFC } from "react";
+import { FC, ReactNode } from "react";
 
 type Props = {
   className?: string;
   children: ReactNode;
 };
 
-export const Board: VFC<Props> = ({ className, children }) => {
+export const Board: FC<Props> = ({ className, children }) => {
   return (
     <div
       className={clsx(

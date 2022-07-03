@@ -1,10 +1,10 @@
-import { useState, VFC } from "react";
+import { FC, useState } from "react";
 import { LargeButton } from "src/components/@atoms/LargeButton";
 import { dateFormatted } from "src/lib/utils/dateFormatted";
 
 import { Timer } from "./Timer";
 
-export const TimeStamp: VFC = () => {
+export const TimeStamp: FC = () => {
   const [starting, setStarting] = useState(false);
   // const currentStamp = useCurrentStackingTime();
   // const total = useTotalStackingTimes();

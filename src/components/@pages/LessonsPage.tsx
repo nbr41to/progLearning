@@ -1,4 +1,4 @@
-import { useState, VFC } from "react";
+import { FC, useState } from "react";
 import { useCategories } from "src/swr/hooks/useCategories";
 import { useSections } from "src/swr/hooks/useSections";
 
@@ -8,7 +8,7 @@ import { SideMenu } from "../lessons/SideMenu";
 
 type LessonsPageProps = {};
 
-export const LessonsPage: VFC<LessonsPageProps> = () => {
+export const LessonsPage: FC<LessonsPageProps> = () => {
   const { categories } = useCategories();
   const [selected, setSelected] = useState<LessonCategory | null>(null);
   const [isOpen, setIsOpen] = useState(false);

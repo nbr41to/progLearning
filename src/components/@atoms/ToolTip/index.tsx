@@ -4,6 +4,7 @@ import { FC, ReactNode, useState } from "react";
 type Props = {
   tipContent: string | ReactNode;
   disabled?: boolean;
+  children: ReactNode;
 };
 
 /* ButtonなどのLabelをこのComponentでWrapする */

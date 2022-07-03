@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { VFC } from "react";
+import { FC } from "react";
 
 import { Board } from "@/components/@atoms/Board";
 import { Button } from "@/components/@atoms/Button";
@@ -9,7 +9,7 @@ type DescriptionModalProps = {
   closeHandler: () => void;
 };
 
-export const DescriptionModal: VFC<DescriptionModalProps> = ({
+export const DescriptionModal: FC<DescriptionModalProps> = ({
   lesson,
   closeHandler,
 }) => {

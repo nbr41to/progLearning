@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { VFC } from "react";
+import { FC } from "react";
 import { SiHtml5 } from "react-icons/si";
 
 type Props = {
@@ -33,7 +33,7 @@ const ConvertColorName = (color: string) => {
 //   golang: { label: 'Go', icon: <></> },
 // };
 
-export const LessonCard: VFC<Props> = ({ lesson, onClick }) => {
+export const LessonCard: FC<Props> = ({ lesson, onClick }) => {
   const label = lesson.name;
 
   return (

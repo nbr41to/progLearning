@@ -1,4 +1,4 @@
-import { ChangeEvent, VFC } from "react";
+import { ChangeEvent, FC } from "react";
 import { Input } from "src/components/@atoms/Input";
 import { Label } from "src/components/@atoms/Label";
 
@@ -9,7 +9,7 @@ type Props = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const InputWithLabel: VFC<Props> = ({ id, label, value, onChange }) => {
+export const InputWithLabel: FC<Props> = ({ id, label, value, onChange }) => {
   return (
     <div>
       <Label htmlFor={id} label={label} />

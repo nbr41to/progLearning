@@ -1,9 +1,9 @@
 import clsx from "clsx";
-import { InputHTMLAttributes, VFC } from "react";
+import { FC, InputHTMLAttributes } from "react";
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {};
 
-export const Input: VFC<Props> = ({ className, ...rest }) => {
+export const Input: FC<Props> = ({ className, ...rest }) => {
   return (
     <input
       className={clsx(

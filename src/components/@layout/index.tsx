@@ -1,9 +1,11 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 
-type LayoutProps = {};
+type LayoutProps = {
+  children: ReactNode;
+};
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
   return (

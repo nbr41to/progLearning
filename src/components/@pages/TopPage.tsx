@@ -1,14 +1,12 @@
 import { useRouter } from "next/router";
-import { VFC } from "react";
-import { useUser } from "src/swr/hooks/useUser";
+import { FC } from "react";
 
-import { Button } from "../@atoms/Button";
 import { LargeButton } from "../@atoms/LargeButton";
 import { ToolTip } from "../@atoms/ToolTip";
 
 type TopPageProps = {};
 
-export const TopPage: VFC<TopPageProps> = () => {
+export const TopPage: FC<TopPageProps> = () => {
   const router = useRouter();
 
   return (
