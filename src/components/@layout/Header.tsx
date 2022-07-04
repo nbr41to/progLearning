@@ -1,15 +1,15 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { FC } from "react";
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
 
-import { Button } from "../@atoms/Button";
-import { MenuItem } from "./MenuItem";
+import { Button } from '../@atoms/Button';
+import { MenuItem } from './MenuItem';
 
 type HeaderProps = {};
 
 export const Header: FC<HeaderProps> = () => {
   const router = useRouter();
-  const isLab = router.asPath.split("/")[1] === "lab";
+  const isLab = router.asPath.split('/')[1] === 'lab';
 
   return (
     <header className="fixed top-0 flex w-screen items-center gap-6 px-4 shadow backdrop-blur">
@@ -17,7 +17,7 @@ export const Header: FC<HeaderProps> = () => {
       {!isLab ? (
         <div
           className="flex cursor-pointer items-center justify-center gap-2 rounded py-3 hover:drop-shadow-md"
-          onClick={() => router.push("/")}
+          onClick={() => router.push('/')}
         >
           <div className="relative h-10 w-10">
             <Image
@@ -33,7 +33,7 @@ export const Header: FC<HeaderProps> = () => {
       ) : (
         <div
           className="flex cursor-pointer items-center justify-center gap-2 rounded py-3 hover:drop-shadow-md"
-          onClick={() => router.push("/")}
+          onClick={() => router.push('/')}
         >
           <div className="relative h-10 w-10">
             <Image
@@ -64,7 +64,7 @@ export const Header: FC<HeaderProps> = () => {
       <div className="ml-auto">
         <Button
           className="font-baloo tracking-wider shadow"
-          onClick={() => router.push("/login")}
+          onClick={() => router.push('/login')}
         >
           Sign up
         </Button>

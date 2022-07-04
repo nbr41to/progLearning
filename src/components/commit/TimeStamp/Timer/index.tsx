@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from "react";
-import { ConvertSecondsToTime } from "src/lib/utils/getTime";
+import { FC, useEffect, useState } from 'react';
+import { ConvertSecondsToTime } from 'src/lib/utils/getTime';
 
 type Props = {
   start: Date; // 開始時刻
@@ -7,7 +7,7 @@ type Props = {
 
 /* 経過時間を表示してくれる */
 export const Timer: FC<Props> = ({ start = new Date() }) => {
-  const [time, setTime] = useState("--:--:--");
+  const [time, setTime] = useState('--:--:--');
 
   useEffect(() => {
     const interval = setInterval(() => {

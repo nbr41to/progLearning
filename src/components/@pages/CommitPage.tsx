@@ -1,10 +1,10 @@
-import { FC } from "react";
+import { FC } from 'react';
 
-import { Board } from "../@atoms/Board";
-import { MonthlyGoal } from "../commit/MonthlyGoal";
-import { StackList } from "../commit/StackList";
-import { TimeStamp } from "../commit/TimeStamp";
-import { TodayGoal } from "../commit/TodayGoal";
+import { Board } from '../@atoms/Board';
+import { MonthlyGoal } from '../commit/MonthlyGoal';
+import { StackList } from '../commit/StackList';
+import { TimeStamp } from '../commit/TimeStamp';
+import { TodayGoal } from '../commit/TodayGoal';
 
 type CommitPageProps = {};
 

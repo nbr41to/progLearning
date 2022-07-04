@@ -1,6 +1,6 @@
-import { FC } from "react";
+import { FC } from 'react';
 
-import { ThreeDotButton } from "@/components/@atoms/ThreeDotButton";
+import { ThreeDotButton } from '@/components/@atoms/ThreeDotButton';
 
 type Props = {};
 

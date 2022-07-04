@@ -4,21 +4,21 @@ import type {
   GetStaticPropsContext,
   InferGetStaticPropsType,
   NextPage,
-} from "next";
-import Head from "next/head";
+} from 'next';
+import Head from 'next/head';
 import {
   getCategories,
   getSectionContentById,
   getSections,
-} from "notion/lessons";
-import { SWRConfig } from "swr";
+} from 'notion/lessons';
+import { SWRConfig } from 'swr';
 
-import { SectionPage } from "@/components/@pages/SectionPage";
+import { SectionPage } from '@/components/@pages/SectionPage';
 
 export const getStaticProps = async (
-  context: GetStaticPropsContext<{ sectionId: string }>
+  context: GetStaticPropsContext<{ sectionId: string }>,
 ) => {
-  const sectionId = context.params?.sectionId || "";
+  const sectionId = context.params?.sectionId || '';
 
   const section = await getSectionContentById(sectionId);
   const categories = await getCategories();
@@ -28,8 +28,8 @@ export const getStaticProps = async (
     props: {
       section,
       fallback: {
-        "/lessons/categories": categories,
-        "/lessons/sections": sections,
+        '/lessons/categories': categories,
+        '/lessons/sections': sections,
       },
     },
   };
@@ -38,11 +38,11 @@ export const getStaticProps = async (
 export const getStaticPaths = async () => {
   const sections = await getSections();
   const paths = sections.map(({ id }) => ({
-    params: { sectionId: id || "" },
+    params: { sectionId: id || '' },
   }));
   return {
     paths,
-    fallback: "blocking", // HTMLを生成しない
+    fallback: 'blocking', // HTMLを生成しない
   };
 };
 

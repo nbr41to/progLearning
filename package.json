@@ -23,6 +23,9 @@
       "yarn fmt"
     ]
   },
+  "resolutions": {
+    "@types/react": "18.0.14"
+  },
   "dependencies": {
     "@magic-ext/oauth": "^2.1.1",
     "@magic-sdk/admin": "^1.4.1",

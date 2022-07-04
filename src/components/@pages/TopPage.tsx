@@ -1,8 +1,8 @@
-import { useRouter } from "next/router";
-import { FC } from "react";
+import { useRouter } from 'next/router';
+import { FC } from 'react';
 
-import { LargeButton } from "../@atoms/LargeButton";
-import { ToolTip } from "../@atoms/ToolTip";
+import { LargeButton } from '../@atoms/LargeButton';
+import { ToolTip } from '../@atoms/ToolTip';
 
 type TopPageProps = {};
 
@@ -16,7 +16,7 @@ export const TopPage: FC<TopPageProps> = () => {
         <LargeButton
           label="学習管理"
           className="bg-secondary2"
-          onClick={() => router.push("/commit")}
+          onClick={() => router.push('/commit')}
         />
         <ToolTip tipContent="登録をすることでできるようになります">
           <LargeButton label="質問する" disabled />

@@ -1,5 +1,5 @@
-import clsx from "clsx";
-import { FC, ReactNode } from "react";
+import clsx from 'clsx';
+import { FC, ReactNode } from 'react';
 
 type Props = {
   className?: string;
@@ -11,7 +11,7 @@ export const Board: FC<Props> = ({ className, children }) => {
     <div
       className={clsx(
         className,
-        "relative rounded-none border-0 bg-slate-100 shadow sm:rounded-lg sm:border"
+        'relative rounded-none border-0 bg-slate-100 shadow sm:rounded-lg sm:border',
       )}
     >
       {children}

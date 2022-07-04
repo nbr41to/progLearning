@@ -11,16 +11,16 @@ type InputDateFormatProps = {
  */
 export const dateFormatted = (params?: InputDateFormatProps): string => {
   let date = params?.date ? params.date : new Date();
-  const format = params?.format ? params.format : "YYYY/MM/DD hh:mm";
+  const format = params?.format ? params.format : 'YYYY/MM/DD hh:mm';
 
-  if (typeof date === "string") {
+  if (typeof date === 'string') {
     date = new Date(date);
   }
   let _format = format;
   _format = _format.replace(/YYYY/, date.getFullYear().toString());
-  _format = _format.replace(/MM/, ("0" + (date.getMonth() + 1)).slice(-2));
-  _format = _format.replace(/DD/, ("0" + date.getDate()).slice(-2));
-  _format = _format.replace(/hh/, ("0" + date.getHours()).slice(-2));
-  _format = _format.replace(/mm/, ("0" + date.getMinutes()).slice(-2));
+  _format = _format.replace(/MM/, ('0' + (date.getMonth() + 1)).slice(-2));
+  _format = _format.replace(/DD/, ('0' + date.getDate()).slice(-2));
+  _format = _format.replace(/hh/, ('0' + date.getHours()).slice(-2));
+  _format = _format.replace(/mm/, ('0' + date.getMinutes()).slice(-2));
   return _format;
 };

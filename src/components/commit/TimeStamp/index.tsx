@@ -1,8 +1,8 @@
-import { FC, useState } from "react";
-import { LargeButton } from "src/components/@atoms/LargeButton";
-import { dateFormatted } from "src/lib/utils/dateFormatted";
+import { FC, useState } from 'react';
+import { LargeButton } from 'src/components/@atoms/LargeButton';
+import { dateFormatted } from 'src/lib/utils/dateFormatted';
 
-import { Timer } from "./Timer";
+import { Timer } from './Timer';
 
 export const TimeStamp: FC = () => {
   const [starting, setStarting] = useState(false);
@@ -26,9 +26,9 @@ export const TimeStamp: FC = () => {
 
         <div className="">
           <LargeButton
-            className={starting ? "bg-gray-400" : "bg-secondary2"}
+            className={starting ? 'bg-gray-400' : 'bg-secondary2'}
             onClick={() => setStarting(!starting)}
-            label={starting ? "終わる\nor\n休憩" : "始める"}
+            label={starting ? '終わる\nor\n休憩' : '始める'}
           />
         </div>
       </div>

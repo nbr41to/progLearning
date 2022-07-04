@@ -1,10 +1,10 @@
-import { FC, useState } from "react";
-import { useCategories } from "src/swr/hooks/useCategories";
-import { useSections } from "src/swr/hooks/useSections";
+import { FC, useState } from 'react';
+import { useCategories } from 'src/swr/hooks/useCategories';
+import { useSections } from 'src/swr/hooks/useSections';
 
-import { DescriptionModal } from "../lessons/DescriptionModal";
-import { LessonCard } from "../lessons/LessonCard";
-import { SideMenu } from "../lessons/SideMenu";
+import { DescriptionModal } from '../lessons/DescriptionModal';
+import { LessonCard } from '../lessons/LessonCard';
+import { SideMenu } from '../lessons/SideMenu';
 
 type LessonsPageProps = {};
 

@@ -1,6 +1,6 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import { SettingPage } from "src/components/@pages/SettingPage";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import { SettingPage } from 'src/components/@pages/SettingPage';
 
 const Setting: NextPage = () => {
   return (

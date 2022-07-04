@@ -1,9 +1,9 @@
-import { Client } from "@notionhq/client";
+import { Client } from '@notionhq/client';
 
 const notion = new Client({
   auth: process.env.INTERNAL_INTEGRATION_TOKEN,
 });
-const lessonDatabaseId = process.env.LESSON_DATABASE_ID || "";
+const lessonDatabaseId = process.env.LESSON_DATABASE_ID || '';
 
 /* データは最小限にして返す */
 
@@ -15,7 +15,7 @@ export const getCategories = async () => {
     database_id: lessonDatabaseId,
   });
   const categoryProperty = database.properties.category;
-  if (categoryProperty.type !== "select") return [];
+  if (categoryProperty.type !== 'select') return [];
 
   return categoryProperty.select.options;
 };

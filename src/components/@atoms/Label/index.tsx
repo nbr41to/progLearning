@@ -1,6 +1,6 @@
-import { FC } from "react";
+import { FC } from 'react';
 
-type Props = JSX.IntrinsicElements["label"] & {
+type Props = JSX.IntrinsicElements['label'] & {
   label: string;
 };
 

@@ -1,7 +1,7 @@
-import type { NextPage } from "next";
-import Head from "next/head";
+import type { NextPage } from 'next';
+import Head from 'next/head';
 
-import { CommitPage } from "@/components/@pages/CommitPage";
+import { CommitPage } from '@/components/@pages/CommitPage';
 
 const Learning: NextPage = () => {
   return (

@@ -1,8 +1,8 @@
-import type { InferGetStaticPropsType, NextPage } from "next";
-import Head from "next/head";
-import { getCategories, getSections } from "notion/lessons";
-import { LessonsPage } from "src/components/@pages/LessonsPage";
-import { SWRConfig } from "swr";
+import type { InferGetStaticPropsType, NextPage } from 'next';
+import Head from 'next/head';
+import { getCategories, getSections } from 'notion/lessons';
+import { LessonsPage } from 'src/components/@pages/LessonsPage';
+import { SWRConfig } from 'swr';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -13,8 +13,8 @@ export const getStaticProps = async () => {
   return {
     props: {
       fallback: {
-        "/lessons/sections": sections,
-        "/lessons/categories": categories,
+        '/lessons/sections': sections,
+        '/lessons/categories': categories,
       },
     },
   };

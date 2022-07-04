@@ -1,7 +1,7 @@
-import clsx from "clsx";
-import { FC } from "react";
+import clsx from 'clsx';
+import { FC } from 'react';
 
-type Props = JSX.IntrinsicElements["button"] & {
+type Props = JSX.IntrinsicElements['button'] & {
   className?: string;
 };
 
@@ -10,7 +10,7 @@ export const ThreeDotButton: FC<Props> = ({ className, ...rest }) => {
     <button
       className={clsx(
         className,
-        "flex h-6 w-10 cursor-pointer items-center justify-center gap-1 rounded-full transition-colors hover:bg-gray-200"
+        'flex h-6 w-10 cursor-pointer items-center justify-center gap-1 rounded-full transition-colors hover:bg-gray-200',
       )}
       {...rest}
     >

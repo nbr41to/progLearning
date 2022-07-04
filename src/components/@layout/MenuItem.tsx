@@ -1,7 +1,7 @@
-import clsx from "clsx";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { FC } from "react";
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
 
 type Props = {
   label: string;
@@ -10,13 +10,13 @@ type Props = {
 
 export const MenuItem: FC<Props> = ({ label, href }) => {
   const router = useRouter();
-  const isActive = router.asPath.split("/")[1] === href.split("/")[1];
+  const isActive = router.asPath.split('/')[1] === href.split('/')[1];
 
   return (
     <li
       className={clsx(
-        "border-b-2 transition-all duration-300 hover:border-b-black hover:drop-shadow",
-        isActive ? "border-b-black" : "border-b-white"
+        'border-b-2 transition-all duration-300 hover:border-b-black hover:drop-shadow',
+        isActive ? 'border-b-black' : 'border-b-white',
       )}
     >
       <Link href={href}>

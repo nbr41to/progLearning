@@ -1,8 +1,8 @@
-import { useRouter } from "next/router";
-import { FC } from "react";
+import { useRouter } from 'next/router';
+import { FC } from 'react';
 
-import { Board } from "@/components/@atoms/Board";
-import { Button } from "@/components/@atoms/Button";
+import { Board } from '@/components/@atoms/Board';
+import { Button } from '@/components/@atoms/Button';
 
 type DescriptionModalProps = {
   lesson: LessonCategory;

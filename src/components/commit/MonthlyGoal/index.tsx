@@ -1,8 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useState } from 'react';
 
-import { Button } from "@/components/@atoms/Button";
-import { Input } from "@/components/@atoms/Input";
-import { ThreeDotButton } from "@/components/@atoms/ThreeDotButton";
+import { Button } from '@/components/@atoms/Button';
+import { Input } from '@/components/@atoms/Input';
+import { ThreeDotButton } from '@/components/@atoms/ThreeDotButton';
 
 type Props = {};
 
@@ -11,7 +11,7 @@ type Props = {};
  */
 export const MonthlyGoal: FC<Props> = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [inputValue, setInputValue] = useState("ポイントカードを整理する");
+  const [inputValue, setInputValue] = useState('ポイントカードを整理する');
 
   return (
     <div className="w-[600px] py-10">
@@ -23,7 +23,7 @@ export const MonthlyGoal: FC<Props> = () => {
           <Input value={inputValue} />
         )}
         <Button outline={!isEditing} onClick={() => setIsEditing(!isEditing)}>
-          {isEditing ? "保存" : "編集"}
+          {isEditing ? '保存' : '編集'}
         </Button>
       </div>
     </div>

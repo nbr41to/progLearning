@@ -1,6 +1,6 @@
-import { ChangeEvent, FC } from "react";
-import { Input } from "src/components/@atoms/Input";
-import { Label } from "src/components/@atoms/Label";
+import { ChangeEvent, FC } from 'react';
+import { Input } from 'src/components/@atoms/Input';
+import { Label } from 'src/components/@atoms/Label';
 
 type Props = {
   id: string;

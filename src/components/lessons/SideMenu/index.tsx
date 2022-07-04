@@ -1,8 +1,8 @@
-import clsx from "clsx";
-import { useRouter } from "next/router";
-import { FC, useEffect, useMemo, useState } from "react";
-import { useCategories } from "src/swr/hooks/useCategories";
-import { useSections } from "src/swr/hooks/useSections";
+import clsx from 'clsx';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useMemo, useState } from 'react';
+import { useCategories } from 'src/swr/hooks/useCategories';
+import { useSections } from 'src/swr/hooks/useSections';
 
 type Props = {
   tableOfContents?: {
@@ -28,12 +28,12 @@ export const SideMenu: FC<Props> = ({ tableOfContents = [] }) => {
   };
 
   const isSectionPage = useMemo(
-    () => router.pathname.startsWith("/lessons/"),
-    [router.pathname]
+    () => router.pathname.startsWith('/lessons/'),
+    [router.pathname],
   );
 
   /* h2がViewportに入ったら色を変える */
-  const [currentContentId, setCurrentContentId] = useState<string>("");
+  const [currentContentId, setCurrentContentId] = useState<string>('');
 
   useEffect(() => {
     if (tableOfContents.length === 0) return;
@@ -50,9 +50,9 @@ export const SideMenu: FC<Props> = ({ tableOfContents = [] }) => {
         });
       },
       {
-        rootMargin: "-50% 0px",
+        rootMargin: '-50% 0px',
         threshold: 0,
-      }
+      },
     );
 
     tableOfContents.forEach((content) => {
@@ -72,7 +72,7 @@ export const SideMenu: FC<Props> = ({ tableOfContents = [] }) => {
     <div className="fixed w-40">
       <h2
         className="w-fit cursor-pointer text-xl font-bold underline"
-        onClick={() => router.push("/lessons")}
+        onClick={() => router.push('/lessons')}
       >
         Lessons
       </h2>
@@ -84,8 +84,8 @@ export const SideMenu: FC<Props> = ({ tableOfContents = [] }) => {
               <a
                 key={content.id}
                 className={clsx(
-                  "cursor-pointer text-sm",
-                  currentContentId === content.id && "font-bold"
+                  'cursor-pointer text-sm',
+                  currentContentId === content.id && 'font-bold',
                 )}
                 // href={`#${content.id}`}
                 onClick={() => clickTableOfContent(content.id)}
@@ -107,13 +107,13 @@ export const SideMenu: FC<Props> = ({ tableOfContents = [] }) => {
             </div>
             <div
               className={clsx(
-                openCategories.includes(category.id) ? "block" : "hidden"
+                openCategories.includes(category.id) ? 'block' : 'hidden',
               )}
             >
               {sections
                 .filter(
                   (section) =>
-                    section.properties.category.select.id === category.id
+                    section.properties.category.select.id === category.id,
                 )
                 .map((section) => (
                   <div

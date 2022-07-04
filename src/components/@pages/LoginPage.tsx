@@ -1,10 +1,10 @@
-import { OAuthExtension } from "@magic-ext/oauth";
-import { Magic } from "magic-sdk";
-import { FC, useEffect } from "react";
-import { getUser, googleLogin } from "src/lib/magic";
+import { OAuthExtension } from '@magic-ext/oauth';
+import { Magic } from 'magic-sdk';
+import { FC, useEffect } from 'react';
+import { getUser, googleLogin } from 'src/lib/magic';
 
-import { Board } from "@/components/@atoms/Board";
-import { Button } from "@/components/@atoms/Button";
+import { Board } from '@/components/@atoms/Board';
+import { Button } from '@/components/@atoms/Button';
 
 // import { googleLogin } from '../../lib/auth';
 
@@ -29,7 +29,7 @@ export const LoginPage: FC<LoginPageProps> = () => {
         process.env.NEXT_PUBLIC_MAGIC_PUBLIC_KEY as string,
         {
           extensions: [new OAuthExtension()],
-        }
+        },
       );
 
       let result = await magic.oauth.getRedirectResult();
