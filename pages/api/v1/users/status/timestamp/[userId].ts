@@ -2,11 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { prismaUserStatusTimeStampFind } from "prisma/functions/commit";
 
 const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const {
-    query: { userId },
-    method,
-  } = req;
-  const _userId = typeof userId === "string" ? userId : userId[0];
+  const { query, method } = req;
+  const _userId = query.userId as string;
 
   switch (method) {
     case "GET":
