@@ -7,12 +7,8 @@ const usersHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<User>
 ) => {
-  const {
-    query: { userId },
-    body,
-    method,
-  } = req;
-  const _userId = typeof userId === "string" ? userId : userId[0];
+  const { query, method } = req;
+  const _userId = query.userId as string;
 
   switch (method) {
     case "GET":
