@@ -1,8 +1,7 @@
 import { OAuthExtension } from "@magic-ext/oauth";
-// import { Profile, User } from '@prisma/client';
-// import axios from 'axios';
 import { Magic } from "magic-sdk";
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { getUser, googleLogin } from "src/lib/magic";
 
 import { Board } from "@/components/@atoms/Board";
 import { Button } from "@/components/@atoms/Button";
@@ -10,33 +9,34 @@ import { Button } from "@/components/@atoms/Button";
 // import { googleLogin } from '../../lib/auth';
 
 type LoginPageProps = {};
+
 export const LoginPage: FC<LoginPageProps> = () => {
   const handleLogin = async () => {
     try {
       if (!window) return;
-      const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLIC_KEY || "", {
-        extensions: [new OAuthExtension()],
-      });
-      /* Google ログイン Magic */
-      const user = await magic.oauth.loginWithRedirect({
-        provider: "google" /* 'google', 'facebook', 'apple', or 'github' */,
-        redirectURI: "http://localhost:3000/login",
-        // scope: ['user:email'] /* optional */,
-      });
+      const user = await googleLogin();
       console.log(user);
     } catch (error) {
       console.error(error);
     }
   };
 
-  void (async () => {
+  useEffect(() => {
     if (!window) return;
-    const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLIC_KEY || "", {
-      extensions: [new OAuthExtension()],
-    });
-    const result = await magic.oauth.getRedirectResult();
-    console.log(result);
-  })();
+    void (async () => {
+      // const result = await getUser();
+      const magic = new Magic(
+        process.env.NEXT_PUBLIC_MAGIC_PUBLIC_KEY as string,
+        {
+          extensions: [new OAuthExtension()],
+        }
+      );
+
+      let result = await magic.oauth.getRedirectResult();
+
+      console.log(result);
+    })();
+  }, []);
 
   return (
     <div>
