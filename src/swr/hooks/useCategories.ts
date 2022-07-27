@@ -8,7 +8,7 @@ export const useCategories = () => {
       revalidateOnMount: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-    },
+    }
   );
   return { categories: data || [], error };
 };

@@ -1,4 +1,5 @@
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { LargeButton } from 'src/components/@atoms/LargeButton';
 import { dateFormatted } from 'src/lib/utils/dateFormatted';
 

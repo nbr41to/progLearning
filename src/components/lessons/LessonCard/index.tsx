@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { SiHtml5 } from 'react-icons/si';
 
 type Props = {
@@ -18,6 +18,7 @@ const ConvertColorName = (color: string) => {
   if (color === 'gray') return 'bg-gray-600';
   if (color === 'default') return 'bg-gray-500';
   if (color === 'brown') return 'bg-orange-400';
+
   return 'bg-slate-600';
 };
 
@@ -40,7 +41,7 @@ export const LessonCard: FC<Props> = ({ lesson, onClick }) => {
     <div
       className={clsx(
         ConvertColorName(lesson.color),
-        'h-40 w-40 scale-105 cursor-pointer rounded transition-all duration-300',
+        'h-40 w-40 scale-105 cursor-pointer rounded transition-all duration-300'
         // 'flex flex-col items-center justify-center',
       )}
       onClick={onClick}

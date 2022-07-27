@@ -1,8 +1,8 @@
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 import { Button } from '@/components/@atoms/Button';
 import { Input } from '@/components/@atoms/Input';
-import { ThreeDotButton } from '@/components/@atoms/ThreeDotButton';
 
 type Props = {};
 

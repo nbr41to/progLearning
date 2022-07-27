@@ -7,7 +7,7 @@ export const compileText = (text: Array<any>) => {
     const { href } = textItem; // リンクを取得
 
     const annotationClasses = Object.keys(annotations).filter(
-      (key: string) => annotations[key] === true,
+      (key: string) => annotations[key] === true
     );
     if (href)
       return (
@@ -24,6 +24,7 @@ export const compileText = (text: Array<any>) => {
           {textItem.plain_text}
         </a>
       );
+
     return (
       <span
         key={index}

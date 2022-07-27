@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { Button } from '@/components/@atoms/Button';
 import { Input } from '@/components/@atoms/Input';

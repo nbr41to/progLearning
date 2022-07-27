@@ -1,9 +1,9 @@
-import {
+import type {
   GetPageResponse,
   ListBlockChildrenResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useSections } from 'src/swr/hooks/useSections';
 
 import { SideMenu } from '../lessons/SideMenu';

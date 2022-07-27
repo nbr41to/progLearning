@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { FC, InputHTMLAttributes } from 'react';
+import type { FC, InputHTMLAttributes } from 'react';
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {};
 
@@ -8,7 +8,7 @@ export const Input: FC<Props> = ({ className, ...rest }) => {
     <input
       className={clsx(
         className,
-        'w-full rounded border border-slate-600 py-1 px-3 tracking-wider outline-primary2',
+        'w-full rounded border border-slate-600 py-1 px-3 tracking-wider outline-primary2'
       )}
       {...rest}
     />

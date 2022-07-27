@@ -1,11 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Profile } from '@prisma/client';
+import type { Profile } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getProfile } from 'prisma/functions/users';
 
 const usersHandler = async (
   req: NextApiRequest,
-  res: NextApiResponse<Profile>,
+  res: NextApiResponse<Profile>
 ) => {
   const { query, method } = req;
   const _userId = query.userId as string;

@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from 'react';
+import type { ChangeEvent, FC } from 'react';
 import { Input } from 'src/components/@atoms/Input';
 import { Label } from 'src/components/@atoms/Label';
 

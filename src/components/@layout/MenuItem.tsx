@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 type Props = {
   label: string;
@@ -16,7 +16,7 @@ export const MenuItem: FC<Props> = ({ label, href }) => {
     <li
       className={clsx(
         'border-b-2 transition-all duration-300 hover:border-b-black hover:drop-shadow',
-        isActive ? 'border-b-black' : 'border-b-white',
+        isActive ? 'border-b-black' : 'border-b-white'
       )}
     >
       <Link href={href}>

@@ -1,6 +1,6 @@
-import { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints';
+import type { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints';
 import Image from 'next/image';
-import { FC } from 'react';
+import type { FC } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { monokai } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
@@ -87,7 +87,7 @@ export const NotionBlock: FC<Props> = ({ block }): JSX.Element => {
         // <iframe className='' src={block[type].external.url}></iframe>
         <iframe
           className=""
-          src={'https://www.youtube.com/embed/8Ok-_r4NIJE'}
+          src="https://www.youtube.com/embed/8Ok-_r4NIJE"
           width="560"
           height="315"
           title="YouTube video player"
@@ -97,7 +97,8 @@ export const NotionBlock: FC<Props> = ({ block }): JSX.Element => {
         />
       );
     case 'code':
-      const language = block[type].language;
+      const { language } = block[type];
+
       return (
         <div className="rounded bg-slate-500 p-4">
           {language !== 'plain text' && (

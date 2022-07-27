@@ -1,5 +1,6 @@
 import clsx from 'clsx';
-import { FC, ReactNode, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
 
 type Props = {
   tipContent: string | ReactNode;
@@ -33,24 +34,22 @@ export const ToolTip: FC<Props> = ({
   };
 
   return (
-    <>
-      <div
-        className="relative"
-        onMouseEnter={showToolTip}
-        onMouseLeave={hideToolTip}
-      >
-        {/* Description */}
-        {children}
-        {activeToolTip && (
-          <div
-            className={clsx(
-              'absolute z-20 -mt-2 ml-2 rounded border bg-white py-4 px-2 text-sm text-slate-600',
-            )}
-          >
-            {tipContent}
-          </div>
-        )}
-      </div>
-    </>
+    <div
+      className="relative"
+      onMouseEnter={showToolTip}
+      onMouseLeave={hideToolTip}
+    >
+      {/* Description */}
+      {children}
+      {activeToolTip && (
+        <div
+          className={clsx(
+            'absolute z-20 -mt-2 ml-2 rounded border bg-white py-4 px-2 text-sm text-slate-600'
+          )}
+        >
+          {tipContent}
+        </div>
+      )}
+    </div>
   );
 };

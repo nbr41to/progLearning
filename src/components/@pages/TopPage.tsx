@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { LargeButton } from '../@atoms/LargeButton';
 import { ToolTip } from '../@atoms/ToolTip';

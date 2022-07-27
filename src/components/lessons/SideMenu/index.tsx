@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useMemo, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useCategories } from 'src/swr/hooks/useCategories';
 import { useSections } from 'src/swr/hooks/useSections';
 
@@ -29,7 +30,7 @@ export const SideMenu: FC<Props> = ({ tableOfContents = [] }) => {
 
   const isSectionPage = useMemo(
     () => router.pathname.startsWith('/lessons/'),
-    [router.pathname],
+    [router.pathname]
   );
 
   /* h2がViewportに入ったら色を変える */
@@ -52,7 +53,7 @@ export const SideMenu: FC<Props> = ({ tableOfContents = [] }) => {
       {
         rootMargin: '-50% 0px',
         threshold: 0,
-      },
+      }
     );
 
     tableOfContents.forEach((content) => {
@@ -85,7 +86,7 @@ export const SideMenu: FC<Props> = ({ tableOfContents = [] }) => {
                 key={content.id}
                 className={clsx(
                   'cursor-pointer text-sm',
-                  currentContentId === content.id && 'font-bold',
+                  currentContentId === content.id && 'font-bold'
                 )}
                 // href={`#${content.id}`}
                 onClick={() => clickTableOfContent(content.id)}
@@ -107,13 +108,13 @@ export const SideMenu: FC<Props> = ({ tableOfContents = [] }) => {
             </div>
             <div
               className={clsx(
-                openCategories.includes(category.id) ? 'block' : 'hidden',
+                openCategories.includes(category.id) ? 'block' : 'hidden'
               )}
             >
               {sections
                 .filter(
                   (section) =>
-                    section.properties.category.select.id === category.id,
+                    section.properties.category.select.id === category.id
                 )
                 .map((section) => (
                   <div

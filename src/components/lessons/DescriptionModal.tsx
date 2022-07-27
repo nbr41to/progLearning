@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { Board } from '@/components/@atoms/Board';
 import { Button } from '@/components/@atoms/Button';
@@ -15,6 +15,7 @@ export const DescriptionModal: FC<DescriptionModalProps> = ({
 }) => {
   const { id, name } = lesson;
   const router = useRouter();
+
   return (
     <div className="fixed top-0 left-0 z-30 flex h-screen w-screen items-center justify-center bg-black/50">
       <Board className="relative z-50 w-[800px] space-y-4 p-8">
@@ -28,7 +29,7 @@ export const DescriptionModal: FC<DescriptionModalProps> = ({
       <div
         className="fixed left-0 top-0 z-20 h-screen w-screen"
         onClick={closeHandler}
-      ></div>
+      />
     </div>
   );
 };

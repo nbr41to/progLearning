@@ -1,4 +1,5 @@
-import { FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 import { ConvertSecondsToTime } from 'src/lib/utils/getTime';
 
 type Props = {

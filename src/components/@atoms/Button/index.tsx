@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 type Props = JSX.IntrinsicElements['button'] & {
   className?: string;
@@ -23,7 +23,7 @@ export const Button: FC<Props> = ({
         className,
         'min-w-fit cursor-pointer rounded border-2 border-primary1 py-1 px-4 font-bold',
         outline ? outlineClassName : defaultClassName,
-        rounded && 'rounded-full',
+        rounded && 'rounded-full'
       )}
       {...rest}
     >
