@@ -8,8 +8,9 @@ type Props = {
 
 export const OrderPanels: FC<Props> = ({ finishHandler }) => {
   const [current, setCurrent] = useState(1);
+  const [viewPanels, setViewPanels] = useState<number[]>([]);
 
-  const viewPanels = useMemo(() => {
+  useEffect(() => {
     const viewPanels: number[] = [];
     for (let i = 1; i < 17; i++) {
       viewPanels.push(i);
@@ -19,15 +20,14 @@ export const OrderPanels: FC<Props> = ({ finishHandler }) => {
       const j = Math.floor(Math.random() * (i + 1));
       [viewPanels[i], viewPanels[j]] = [viewPanels[j], viewPanels[i]];
     }
-
-    return viewPanels;
+    setViewPanels(viewPanels);
   }, []);
 
   useEffect(() => {
     if (current === 17) {
       finishHandler();
     }
-  }, [current]);
+  }, [current, finishHandler]);
 
   return (
     <div>
