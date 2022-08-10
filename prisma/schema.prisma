@@ -1,0 +1,61 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  id          String   @id @unique
+  email       String   @unique
+  plan        Plan     @default(FREE)
+  displayName String
+  lastLogin   DateTime
+  profile     Profile?
+  Sticky      Sticky[]
+  Task        Task[]
+}
+
+model Profile {
+  id     String  @id @unique
+  user   User    @relation(fields: [userId], references: [id])
+  userId String  @unique
+  bio    String?
+}
+
+enum Plan {
+  FREE
+  LITE
+  CLOSER
+}
+
+model Sticky {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  title     String
+  memo      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  content   String
+  type      TaskType @default(TEMPORARY)
+  done      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TaskType {
+  TEMPORARY // 一時的なタスク
+  HABIT // 習慣化したいタスク
+  DAILY // 毎日のタスク
+}

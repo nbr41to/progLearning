@@ -2,13 +2,12 @@ import type { FC } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+
+import { signInWithGoogle } from 'src/libs/frontend/firebase/auth';
 
 import { MenuItem } from './MenuItem';
 
 export const Header: FC = () => {
-  const router = useRouter();
-
   return (
     <header className="fixed top-0 flex w-screen items-center gap-6 px-4 shadow backdrop-blur">
       {/* Logo */}
@@ -43,7 +42,7 @@ export const Header: FC = () => {
         <button
           type="button"
           className="font-baloo tracking-wider shadow"
-          onClick={() => router.push('/login')}
+          onClick={signInWithGoogle}
         >
           Sign up
         </button>

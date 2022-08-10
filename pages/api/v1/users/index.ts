@@ -1,7 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { User } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { createUser } from 'prisma/functions/users';
+
+import { prismaUserCreate } from '../../../../src/libs/backend/prisma/user';
 
 const usersHandler = async (
   req: NextApiRequest,
@@ -11,7 +12,7 @@ const usersHandler = async (
 
   switch (method) {
     case 'POST':
-      const createRes = await createUser(body);
+      const createRes = await prismaUserCreate(body);
       if (createRes) {
         res.status(200).json(createRes);
       }
