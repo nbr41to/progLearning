@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
+
 import Head from 'next/head';
-import { TopPage } from 'src/components/@pages/TopPage';
+
+import { TopPage } from 'src/components/pages/TopPage';
 
 const Top: NextPage = () => {
   return (

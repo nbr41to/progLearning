@@ -1,9 +1,22 @@
 /** @type {import('next').NextConfig} */
+
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
+
 const nextConfig = {
   reactStrictMode: true,
-  domains: {
-    images: ['https://lh3.googleusercontent.com'],
+  swcMinify: true,
+  images: {
+    domains: ['res.cloudinary.com'],
   },
 };
 
-module.exports = nextConfig;
+module.exports = withMDX({
+  ...nextConfig,
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+});

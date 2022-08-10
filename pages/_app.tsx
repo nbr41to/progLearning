@@ -1,7 +1,10 @@
 import '../styles/globals.css';
 
 import type { AppProps } from 'next/app';
+
+import { ModalsProvider } from '@mantine/modals';
 import Head from 'next/head';
+
 import { Layout } from 'src/components/@layout';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
@@ -18,9 +21,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name="msapplication-config" content="/favicon.png" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <ModalsProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ModalsProvider>
     </>
   );
 };

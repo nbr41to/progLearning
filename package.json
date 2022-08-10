@@ -3,76 +3,77 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
     "dev": "next dev",
-    "fmt": "npx sort-package-json package.json && next lint --fix && prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
-    "lint": "next lint",
-    "lint-staged": "lint-staged",
-    "prepare": "husky install",
-    "prisma-merge": "npx prisma-merge --baseFile prisma/base.prisma --schemaFilePatterns 'prisma/*/*.prisma' --outputFile prisma/schema.prisma",
-    "seed": "ts-node --compilerOptions '{\"isolatedModules\":false}' prisma/seed.ts",
-    "server": "go run ./go/main.go",
+    "build": "next build",
     "start": "next start",
-    "studio": "prisma studio"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "yarn fmt"
-    ],
-    "pages/**/*.{js,jsx,ts,tsx}": [
-      "yarn fmt"
-    ]
-  },
-  "resolutions": {
-    "@types/react": "18.0.14"
+    "lint": "next lint",
+    "fmt": "prettier --write . --ignore-unknown",
+    "prepare": "husky install",
+    "sort-package-json": "npx sort-package-json 'package.json'",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@magic-ext/oauth": "^2.1.1",
-    "@magic-sdk/admin": "^1.4.1",
-    "@notionhq/client": "^1.0.4",
-    "@prisma/client": "^4.0.0",
-    "@slack/web-api": "^6.7.2",
+    "@emotion/react": "^11.10.0",
+    "@emotion/server": "^11.10.0",
+    "@mantine/core": "^5.0.3",
+    "@mantine/hooks": "^5.0.3",
+    "@mantine/modals": "^5.0.3",
+    "@mantine/next": "^5.0.3",
+    "@mantine/prism": "^5.1.0",
+    "@mdx-js/loader": "^2.1.2",
+    "@next/mdx": "^12.2.4",
+    "@notionhq/client": "^2.1.1",
     "axios": "^0.27.2",
-    "clsx": "^1.2.0",
-    "magic-sdk": "^8.1.1",
-    "next": "12.2.0",
+    "clsx": "^1.2.1",
+    "next": "12.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
-    "react-syntax-highlighter": "^15.5.0",
-    "swr": "^1.3.0"
+    "rss-parser": "^3.12.0"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0",
-    "@types/react": "18.0.14",
-    "@types/react-syntax-highlighter": "^15.5.2",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
-    "autoprefixer": "^10.4.7",
-    "eslint": "8.19.0",
+    "@babel/core": "^7.18.10",
+    "@storybook/addon-actions": "^6.5.10",
+    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-interactions": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/addon-postcss": "2.0.0",
+    "@storybook/builder-webpack5": "^6.5.10",
+    "@storybook/manager-webpack5": "^6.5.10",
+    "@storybook/react": "^6.5.10",
+    "@storybook/testing-library": "^0.0.13",
+    "@types/node": "18.6.4",
+    "@types/react": "18.0.15",
+    "@types/react-dom": "18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/parser": "^5.32.0",
+    "autoprefixer": "^10.4.8",
+    "babel-loader": "^8.2.5",
+    "eslint": "8.21.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-next": "12.2.0",
+    "eslint-config-next": "12.2.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-storybook": "^0.6.1",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-storybook": "^0.6.3",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "husky": "^8.0.1",
+    "husky": "^8.0.0",
     "lint-staged": "^13.0.3",
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
-    "prettier-plugin-tailwindcss": "^0.1.11",
-    "prisma": "^4.0.0",
-    "tailwindcss": "^3.1.4",
-    "ts-node": "^10.8.2",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "tailwindcss": "^3.1.7",
     "typescript": "^4.7.4"
   },
-  "volta": {
-    "node": "16.13.0"
-  },
-  "prisma": {
-    "seed": "ts-node --compilerOptions '{\"isolatedModules\":false}' prisma/seed.ts",
-    "studio": "prisma studio",
-    "merge": "npx prisma-merge --baseFile prisma/base.prisma --schemaFilePatterns 'prisma/*/*.prisma' --outputFile prisma/schema.prisma"
+  "lint-staged": {
+    "src/**/*.{js,ts,jsx,tsx}": [
+      "npx eslint --fix",
+      "npx prettier --write . --ignore-unknown"
+    ],
+    "pages/**/*.{js,ts,jsx,tsx}": [
+      "npx eslint --fix",
+      "npx prettier --write . --ignore-unknown"
+    ]
   }
 }

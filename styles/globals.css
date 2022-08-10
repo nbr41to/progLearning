@@ -28,17 +28,4 @@
 }
 
 @layer utilities {
-  .button-hover-effect1:hover {
-    transition: all 0.2s ease-in-out;
-    @apply animate-pulse;
-  }
-  .button-active-effect1:active {
-    transition: all 0.2s ease-in-out;
-    transform: scale(0.98);
-  }
-  /* Gameで仕様 */
-  .panel-down {
-    transition: all 1s ease-in-out;
-    transform: translateY(120px);
-  }
 }
