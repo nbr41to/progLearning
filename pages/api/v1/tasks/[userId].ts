@@ -1,18 +1,22 @@
-import type { User } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import type { Task } from 'src/types';
 
-import { prismaUserFindUnique } from 'src/libs/backend/prisma/user';
+import { prisma } from 'src/libs/backend/prisma/client';
 
-const usersHandler = async (
+const taskHandler = async (
   req: NextApiRequest,
-  res: NextApiResponse<User>
+  res: NextApiResponse<Task[]>
 ) => {
   const { query, method } = req;
   const uid = query.userId as string;
 
   switch (method) {
     case 'GET':
-      const response = await prismaUserFindUnique(uid);
+      const response = await prisma.task.findMany({
+        where: {
+          userId: uid,
+        },
+      });
       if (response) {
         res.status(200).json(response);
       }
@@ -28,4 +32,4 @@ const usersHandler = async (
   }
 };
 
-export default usersHandler;
+export default taskHandler;

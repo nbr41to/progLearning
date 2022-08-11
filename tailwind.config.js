@@ -36,6 +36,11 @@ module.exports = {
       },
     },
   },
+  corePlugins: {
+    preflight: false, // TailWindCSSのResetCSSとMantineの競合を防ぐために無効化
+  },
+  // important: '#__next', // TailwindCSSで優先的にスタイルを上書きできるようにする
+  // https://zenn.dev/cti1650/articles/c90439cc01d139
   plugins: [],
   safelist: [],
 };

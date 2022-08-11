@@ -1,6 +1,32 @@
 import type { FC } from 'react';
+import type { StickiesWithDisplayName, Task } from 'src/types';
+
+import { Checkbox } from '@mantine/core';
+import { useEffect, useState } from 'react';
+
+import { getStickies } from 'src/libs/frontend/prisma/sticky';
+import { getTasksWhereUserId } from 'src/libs/frontend/prisma/task';
 
 export const TopPage: FC = () => {
+  const [stickies, setStickies] = useState<StickiesWithDisplayName[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getStickies();
+      setStickies(response);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getTasksWhereUserId(
+        'rz9aohJYgqXaIRnVBKzJnomtJol1'
+      );
+      setTasks(response);
+    })();
+  }, []);
+
   return (
     <div>
       <h2>草</h2>
@@ -21,20 +47,26 @@ export const TopPage: FC = () => {
           );
         })}
       </div>
-      <h2>post sticky</h2>
+
       <div>
-        <input className="rounded border" type="text" />
-        <button className="rounded border px-2" type="button">
-          submit
-        </button>
+        {stickies.map((sticky) => (
+          <div key={sticky.id}>
+            <div>
+              {sticky.title}[{sticky.user.displayName}]
+            </div>
+          </div>
+        ))}
       </div>
 
-      <h2>post task</h2>
       <div>
-        <input className="rounded border" type="text" />
-        <button className="rounded border px-2" type="button">
-          submit
-        </button>
+        {tasks.map((task) => (
+          <Checkbox
+            key={task.id}
+            checked={task.done}
+            label={task.content}
+            disabled
+          />
+        ))}
       </div>
     </div>
   );

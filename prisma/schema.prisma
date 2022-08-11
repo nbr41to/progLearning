@@ -36,7 +36,7 @@ enum Plan {
 model Sticky {
   id        String   @id @default(cuid())
   user      User     @relation(fields: [userId], references: [id])
-  userId    String   @unique
+  userId    String
   title     String
   memo      String?
   createdAt DateTime @default(now())
@@ -46,7 +46,7 @@ model Sticky {
 model Task {
   id        String   @id @default(cuid())
   user      User     @relation(fields: [userId], references: [id])
-  userId    String   @unique
+  userId    String
   content   String
   type      TaskType @default(TEMPORARY)
   done      Boolean  @default(false)

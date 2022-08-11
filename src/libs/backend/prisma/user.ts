@@ -10,3 +10,14 @@ export const prismaUserCreate = async (user: User) => {
 
   return response;
 };
+
+/* ユーザデータの有無を確認 */
+export const prismaUserFindUnique = async (uid: string) => {
+  const response = await prisma.user.findUnique({
+    where: {
+      id: uid,
+    },
+  });
+
+  return response;
+};

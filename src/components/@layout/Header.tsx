@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { signInWithGoogle } from 'src/libs/frontend/firebase/auth';
+import { signUpWithGoogle } from 'src/libs/frontend/signUp';
 
 import { MenuItem } from './MenuItem';
 
@@ -41,8 +41,8 @@ export const Header: FC = () => {
       <div className="ml-auto">
         <button
           type="button"
-          className="font-baloo tracking-wider shadow"
-          onClick={signInWithGoogle}
+          className="rounded-full py-2 px-3 font-baloo tracking-wider hover:shadow"
+          onClick={signUpWithGoogle}
         >
           Sign up
         </button>
