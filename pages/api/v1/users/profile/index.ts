@@ -1,7 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { Profile } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prismaProfileUpsert } from 'prisma/functions/users';
+
+import { prisma } from 'src/libs/backend/prisma/client';
 
 const usersHandler = async (
   req: NextApiRequest,
@@ -11,7 +12,9 @@ const usersHandler = async (
 
   switch (method) {
     case 'POST':
-      const createRes = await prismaProfileUpsert(body);
+      const createRes = await prisma.profile.create({
+        data: body,
+      });
       if (createRes) {
         res.status(200).json(createRes);
       }

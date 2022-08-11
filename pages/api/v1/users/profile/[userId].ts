@@ -1,18 +1,23 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { Profile } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getProfile } from 'prisma/functions/users';
+
+import { prisma } from 'src/libs/backend/prisma/client';
 
 const usersHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<Profile>
 ) => {
   const { query, method } = req;
-  const _userId = query.userId as string;
+  const uid = query.userId as string;
 
   switch (method) {
     case 'GET':
-      const response = await getProfile(_userId);
+      const response = await prisma.profile.findUnique({
+        where: {
+          userId: uid,
+        },
+      });
       if (response) {
         res.status(200).json(response);
       }
