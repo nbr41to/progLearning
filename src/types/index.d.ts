@@ -1,10 +1,18 @@
-import type { User, Sticky, Task, Plan, TaskType } from '@prisma/client';
+import type {
+  User,
+  Commitment,
+  Sticky,
+  Task,
+  Plan,
+  TaskType,
+} from '@prisma/client';
 
 /* User */
 type User = User;
 
 type Plan = Plan;
 
+type Commitment = Commitment;
 /* Sticky */
 type Sticky = Sticky;
 

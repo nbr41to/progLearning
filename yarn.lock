@@ -1078,7 +1078,7 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.17.8", "@babel/runtime@^7.18.3", "@babel/runtime@^7.18.9", "@babel/runtime@^7.5.0", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.17.8", "@babel/runtime@^7.18.3", "@babel/runtime@^7.18.9", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
   version "7.18.9"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.18.9.tgz#b4fcfce55db3d2e5e080d2490f608a3b9f407f4a"
   integrity sha512-lkqXDcvlFT5rvEjiu6+QYO+1GXrEHRo2LOtS7E4GtX5ESIZOgepqsZBVIj6Pv+a6zqsya9VCgiK1KAK4BvJDAw==
@@ -1881,21 +1881,21 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mantine/core@^5.0.3":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-5.1.1.tgz#45706d090e83febd0637b00ea00a266b4905f84d"
-  integrity sha512-IjEUSQinGawinVNjBXVZTmhcVTaFURtHP/JuJtFDcVCdXEB18ibeyEh985NGhMwoar71tpsWZ0XsQQf9cMhcsA==
+"@mantine/core@^5.1.3":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-5.1.3.tgz#609d9fc7814254f6d2e8e13e76194ca1097698aa"
+  integrity sha512-p9gczCJxa4IBAivpAFgAi3tb7uKubQ09urs+sdBcvfaRUhPaHbBpRLnrpkPhFl4iv83ANBehKEWlkjy2bx04Mw==
   dependencies:
     "@floating-ui/react-dom-interactions" "0.6.6"
-    "@mantine/styles" "5.1.1"
-    "@mantine/utils" "5.1.1"
+    "@mantine/styles" "5.1.3"
+    "@mantine/utils" "5.1.3"
     "@radix-ui/react-scroll-area" "1.0.0"
     react-textarea-autosize "8.3.4"
 
-"@mantine/hooks@^5.0.3":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-5.1.1.tgz#a15d006951c65e1cc02577c9be021a02a7265acd"
-  integrity sha512-paixen37qs9a8g/hYMIAMXCl+WUK2DdGqSPahGpza1BdNqtYEIfbu12LcuZkfswufIY8DaagdabG0yL6Swh+bg==
+"@mantine/hooks@^5.1.3":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-5.1.3.tgz#2c36510337384c2ce056b6abfe4a02323c5ba203"
+  integrity sha512-ZQqtht0Tdbr9MWlif8WOE1sBJ8xJo9CiWbhrlNLAcb4uDY+BV5nMT6aluOa80Wf6ykv9lbqw0ju7N1xxzZ/A+A==
 
 "@mantine/modals@^5.0.3":
   version "5.1.1"
@@ -1911,6 +1911,14 @@
   dependencies:
     "@mantine/ssr" "5.1.1"
     "@mantine/styles" "5.1.1"
+
+"@mantine/notifications@^5.1.3":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@mantine/notifications/-/notifications-5.1.3.tgz#7b9680c877f58ac58d76ac1277ccd90adfb86185"
+  integrity sha512-ypfHh3GwHMh7ATsjn/MsQnVwrXnOfuePBsa4UrO7kbkPW7MIrS2aCfiCFI9A+tRyAObDZ/mlGX8lPu8gb/vaFw==
+  dependencies:
+    "@mantine/utils" "5.1.3"
+    react-transition-group "4.4.2"
 
 "@mantine/prism@^5.1.0":
   version "5.1.1"
@@ -1943,10 +1951,23 @@
     clsx "1.1.1"
     csstype "3.0.9"
 
+"@mantine/styles@5.1.3":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-5.1.3.tgz#8a2d4eb4b3957464f920ff6c0350ba7c03a16489"
+  integrity sha512-0GtZ8RFOlk8d6RBcN7Kg+U2QwRzKj3NMxYhZQt9faJx0gpfbbr9tFyBaY7aiSC5hmT5v7B8C7HS5jrsPMaI+Ww==
+  dependencies:
+    clsx "1.1.1"
+    csstype "3.0.9"
+
 "@mantine/utils@5.1.1":
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.1.1.tgz#2fa9ecaac4fe61cc3e07c4953ca23a1bc9ac765c"
   integrity sha512-2FiSrD1lYuDHSGVi1QL5iskO8/Bnd6eDrwdpEWS/PJfg6iEz80HnmBxf/xzkDBaNdK3/n8g2kOaOcw5Ff1OFkA==
+
+"@mantine/utils@5.1.3":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.1.3.tgz#ee50d793e4fd00a3839006459cf10b672c33e221"
+  integrity sha512-Qx+OLMDm/PFqp7nU+5jf+CtnNrm2DNFahupBkrghZdkgQ6Q03ga1Y5CfSmgtKlHXmRj7GLlUN0JrKNxIX9XTuw==
 
 "@mdx-js/loader@^2.1.2":
   version "2.1.2"
@@ -5930,6 +5951,14 @@ dom-converter@^0.2.0:
   integrity sha512-gd3ypIPfOMr9h5jIKq8E3sHOTCjeirnl0WK5ZdS1AW0Odt0b1PaWaHdJ4Qk4klv+YB9aJBS7mESXjFoDQPu6DA==
   dependencies:
     utila "~0.4"
+
+dom-helpers@^5.0.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-5.2.1.tgz#d9400536b2bf8225ad98fe052e029451ac40e902"
+  integrity sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==
+  dependencies:
+    "@babel/runtime" "^7.8.7"
+    csstype "^3.0.2"
 
 dom-serializer@^1.0.1:
   version "1.4.1"
@@ -10750,7 +10779,7 @@ prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.0.0, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.0.0, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -11041,6 +11070,16 @@ react-textarea-autosize@8.3.4:
     "@babel/runtime" "^7.10.2"
     use-composed-ref "^1.3.0"
     use-latest "^1.2.1"
+
+react-transition-group@4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.2.tgz#8b59a56f09ced7b55cbd53c36768b922890d5470"
+  integrity sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    dom-helpers "^5.0.1"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
 
 react@18.2.0:
   version "18.2.0"
@@ -12235,6 +12274,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+swr@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-1.3.0.tgz#c6531866a35b4db37b38b72c45a63171faf9f4e8"
+  integrity sha512-dkghQrOl2ORX9HYrMDtPa7LTVHJjCTeZoB1dqTbnnEDlSvN8JEKpYIYurDfvbQFUUS8Cg8PceFVZNkW0KNNYPw==
 
 symbol.prototype.description@^1.0.0:
   version "1.0.5"

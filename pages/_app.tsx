@@ -4,20 +4,25 @@ import '../styles/mantineBase.css';
 import type { SpotlightAction } from '@mantine/spotlight';
 import type { AppProps } from 'next/app';
 
+import { MantineProvider } from '@mantine/core';
 import { ModalsProvider, openModal, closeAllModals } from '@mantine/modals';
+import { NotificationsProvider } from '@mantine/notifications';
 import { SpotlightProvider } from '@mantine/spotlight';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { BsSearch, BsSticky, BsCheckSquare } from 'react-icons/bs';
+import { FaKeyboard } from 'react-icons/fa';
 
 import { PostSticky } from '@/components/templates/PostSticky';
 import { PostTask } from '@/components/templates/PostTask';
 
 import { Layout } from 'src/components/@layout';
+import { useAuth } from 'src/swr/hooks/useAuth';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
+  useAuth();
 
   const searchMenuList: SpotlightAction[] = useMemo(
     () => [
@@ -47,6 +52,18 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           }),
         icon: <BsCheckSquare size={20} />,
       },
+      {
+        title: 'Raid Battle',
+        description: 'みんなで力を合わせてBOSSを倒します',
+        onTrigger: () => router.push('/battle'),
+        icon: <BsCheckSquare size={20} />,
+      },
+      {
+        title: 'MyPage',
+        description: 'プロフィールの編集やタスクの確認ができます',
+        onTrigger: () => router.push('/battle'),
+        icon: <FaKeyboard size={20} />,
+      },
     ],
     []
   );
@@ -65,22 +82,26 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <SpotlightProvider
-        searchIcon={<BsSearch />}
-        searchPlaceholder="Search Menu"
-        nothingFoundMessage="Nothing found..."
-        highlightQuery
-        actions={searchMenuList}
-        shortcut={['mod + K', 'mod + P']}
-        radius="md"
-        transition="scale-y"
-      >
-        <ModalsProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ModalsProvider>
-      </SpotlightProvider>
+      <MantineProvider withNormalizeCSS withGlobalStyles>
+        <SpotlightProvider
+          searchIcon={<BsSearch />}
+          searchPlaceholder="Search Menu"
+          nothingFoundMessage="Nothing found..."
+          highlightQuery
+          actions={searchMenuList}
+          shortcut={['mod + K', 'mod + P']}
+          radius="md"
+          transition="scale-y"
+        >
+          <ModalsProvider>
+            <NotificationsProvider position="top-center">
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </NotificationsProvider>
+          </ModalsProvider>
+        </SpotlightProvider>
+      </MantineProvider>
     </>
   );
 };

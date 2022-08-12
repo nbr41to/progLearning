@@ -1,6 +1,5 @@
-import { getAnalytics as _getAnalytics } from 'firebase/analytics';
-import { getApp as _getApp, getApps, initializeApp } from 'firebase/app';
-import { getAuth as _getAuth } from 'firebase/auth';
+import { getApps, initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -12,22 +11,28 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_APP_MEASUREMENT_ID,
 };
 
-const firebaseIsRunning = () => !!getApps().length;
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApps();
+const auth = getAuth();
+// const analytics = getAnalytics();
 
-export const getApp = () => {
-  if (!firebaseIsRunning()) initializeApp(firebaseConfig);
+export { app, auth };
 
-  return _getApp();
-};
+// const firebaseIsRunning = () => !!getApps().length;
 
-export const getAnalytics = () => {
-  if (!firebaseIsRunning()) getApp();
+// export const getApp = () => {
+//   if (!firebaseIsRunning()) initializeApp(firebaseConfig);
 
-  return _getAnalytics();
-};
+//   return _getApp();
+// };
 
-export function getAuth() {
-  if (!firebaseIsRunning()) getApp();
+// export const getAnalytics = () => {
+//   if (!firebaseIsRunning()) getApp();
 
-  return _getAuth();
-}
+//   return _getAnalytics();
+// };
+
+// export function getAuth() {
+//   if (!firebaseIsRunning()) getApp();
+
+//   return _getAuth();
+// }

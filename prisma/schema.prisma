@@ -16,8 +16,14 @@ model User {
   displayName String
   lastLogin   DateTime
   profile     Profile?
-  Sticky      Sticky[]
-  Task        Task[]
+  Stickis     Sticky[]
+  Tasks       Task[]
+}
+
+enum Plan {
+  FREE
+  LITE
+  CLOSER
 }
 
 model Profile {
@@ -25,12 +31,6 @@ model Profile {
   user   User    @relation(fields: [userId], references: [id])
   userId String  @unique
   bio    String?
-}
-
-enum Plan {
-  FREE
-  LITE
-  CLOSER
 }
 
 model Sticky {

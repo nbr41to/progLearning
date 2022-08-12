@@ -2,21 +2,39 @@ import type { FC } from 'react';
 
 import { Button, Input, Kbd, Textarea } from '@mantine/core';
 import { useInputState, getHotkeyHandler } from '@mantine/hooks';
+import { showNotification } from '@mantine/notifications';
 
 import { createSticky } from 'src/libs/frontend/prisma/sticky';
+import { useUser } from 'src/swr/hooks/useUser';
 
 type Props = {
   onClose: () => void;
 };
 
 export const PostSticky: FC<Props> = ({ onClose }) => {
+  const { user } = useUser();
   const [stickyTitle, setStickyTitle] = useInputState('');
   const [stickyMemo, setStickyMemo] = useInputState('');
 
   const handleSubmit = async () => {
-    if (!stickyTitle) return;
+    if (!stickyTitle) {
+      showNotification({
+        message: 'Hey there, your code is awesome! 🤥',
+      });
+
+      return;
+    }
+    if (!user?.id) {
+      showNotification({
+        title: 'Default notification',
+        message: 'Hey there, your code is awesome! 🤥',
+      });
+
+      return;
+    }
+
     await createSticky({
-      userId: 'rz9aohJYgqXaIRnVBKzJnomtJol1',
+      userId: user.id,
       title: stickyTitle,
       memo: stickyMemo,
     });

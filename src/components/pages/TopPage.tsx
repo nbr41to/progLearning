@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import type { StickiesWithDisplayName, Task } from 'src/types';
 
 import { Checkbox } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 import { useEffect, useState } from 'react';
 
 import { getStickies } from 'src/libs/frontend/prisma/sticky';
@@ -29,6 +30,18 @@ export const TopPage: FC = () => {
 
   return (
     <div>
+      <button
+        type="button"
+        onClick={() => {
+          showNotification({
+            title: 'Default notification',
+            message: 'Hey there, your code is awesome! 🤥',
+            autoClose: 3000,
+          });
+        }}
+      >
+        noti
+      </button>
       <h2>草</h2>
       <div className="flex gap-1">
         {Array.from({ length: 40 }).map((_, i) => {
