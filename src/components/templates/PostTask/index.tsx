@@ -20,6 +20,14 @@ type Props = {
   onClose: () => void;
 };
 
+const segmentedControlColors = (taskType: string) => {
+  if (taskType === 'TEMPORARY') return 'blue';
+  if (taskType === 'HABIT') return 'orange';
+  if (taskType === 'DAILY') return 'teal';
+
+  return 'gray';
+};
+
 export const PostTask: FC<Props> = ({ onClose }) => {
   const [taskContent, setTaskContent] = useInputState('');
   const [taskType, setTaskType] = useInputState('TEMPORARY');
@@ -67,7 +75,10 @@ export const PostTask: FC<Props> = ({ onClose }) => {
     <div className="flex flex-col gap-2">
       <div className="space-y-2">
         {currentTasks.map((task) => (
-          <div key={task.id} className="flex justify-between">
+          <div
+            key={task.id}
+            className="flex justify-between rounded bg-slate-100 px-2 py-1"
+          >
             <div className="flex items-center">
               <FaRegCheckCircle className="text-slate-400" />
               <span className="ml-2 text-sm">{task.content}</span>
@@ -85,7 +96,7 @@ export const PostTask: FC<Props> = ({ onClose }) => {
 
       <Input
         type="text"
-        placeholder="What you will todo."
+        placeholder="What you will todo. (Add with enter.)"
         data-autofocus
         value={taskContent}
         onChange={setTaskContent}
@@ -103,6 +114,7 @@ export const PostTask: FC<Props> = ({ onClose }) => {
         ])}
       />
       <SegmentedControl
+        color={segmentedControlColors(taskType)}
         data={[
           {
             value: 'TEMPORARY',
@@ -123,6 +135,12 @@ export const PostTask: FC<Props> = ({ onClose }) => {
         {taskType === 'HABIT' && <span>習慣化すべきタスク</span>}
         {taskType === 'DAILY' && <span>毎日のタスク</span>}
       </p>
+      <Button fullWidth onClick={handleSubmit} className="h-12" color="teal">
+        Add
+        <div className="absolute right-3">
+          <Kbd>Enter</Kbd>
+        </div>
+      </Button>
       <Button fullWidth onClick={handleSubmit} className="h-12">
         Submit
         <div className="absolute right-3">

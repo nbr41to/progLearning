@@ -29,11 +29,13 @@ export const Header: FC = () => {
       {/* Menu */}
       <nav>
         <ul className="flex gap-4 pt-1 font-baloo text-lg">
-          <MenuItem label="About" href="/about" />
           <MenuItem label="Usage" href="/usage" />
+          <MenuItem label="Battle" href="/battle" />
+          <MenuItem label="MyPage" href="/my-page" />
+          {/* <MenuItem label="About" href="/about" />
           <MenuItem label="Lessons" href="/lessons" />
           <MenuItem label="Commit" href="/commit" />
-          <MenuItem label="Setting" href="/setting" />
+          <MenuItem label="Setting" href="/setting" /> */}
         </ul>
       </nav>
 

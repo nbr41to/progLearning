@@ -13,7 +13,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div className="relative min-h-screen bg-background pt-20 pb-10">
       <Header />
-      <div className="text-right">
+      <div className="mx-4 text-right">
         <span>search in menu: </span>
         <span>
           <Kbd>⌘</Kbd> + <Kbd>K</Kbd> or <Kbd>⌘</Kbd> + <Kbd>P</Kbd>

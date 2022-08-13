@@ -50,6 +50,7 @@ model Task {
   content   String
   type      TaskType @default(TEMPORARY)
   done      Boolean  @default(false)
+  current   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
