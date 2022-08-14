@@ -2,12 +2,13 @@ import type { FC } from 'react';
 import type { Task } from 'src/types';
 
 import { ActionIcon, Checkbox, Loader, Tooltip } from '@mantine/core';
+import { openConfirmModal } from '@mantine/modals';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
-import { updateTaskDone } from 'src/libs/frontend/prisma/task';
+import { updateTask } from 'src/libs/frontend/prisma/task';
 import { useTasks } from 'src/swr/hooks/useTasks';
 
 type Props = {
@@ -25,27 +26,37 @@ export const TodoItem: FC<Props> = ({
   const [isDragging, setIsDragging] = useState(false);
   const { refetch: refetchTasks } = useTasks();
 
+  /* toggle done */
   const toggleTask = async (task: Task) => {
     setIsLoading(true);
-    if (!task.done) {
-      await updateTaskDone(task.id);
-      await refetchTasks();
-    }
+    await updateTask({
+      ...task,
+      done: !task.done,
+    });
+    await refetchTasks();
     setIsLoading(false);
   };
 
+  /* 削除 */
   const handleDelete = async (taskId: string) => {
-    await deleteHandler(taskId);
-    await refetchTasks();
+    openConfirmModal({
+      title: 'Please confirm delete',
+      children: '本当に削除しますか？',
+      labels: { confirm: 'はい', cancel: 'やめる' },
+      onConfirm: async () => {
+        await deleteHandler(taskId);
+        await refetchTasks();
+      },
+    });
   };
 
-  /* drag itemを持ったとき */
+  /* itemを持ったとき */
   const onDragStart = () => {
     setDraggingItem(item);
     setIsDragging(true);
   };
 
-  /* drag itemを放したとき */
+  /* itemを放したとき */
   const onDragEnd = () => {
     setDraggingItem(null);
     setIsDragging(false);
@@ -55,7 +66,7 @@ export const TodoItem: FC<Props> = ({
     <Tooltip label={`作成日: ${dateFormatted({ date: item.createdAt })}`}>
       <div
         className={clsx(
-          'min-h-7 flex w-full cursor-pointer items-center justify-between rounded bg-slate-100 p-1',
+          'flex min-h-[36px] w-full cursor-pointer items-center justify-between rounded bg-slate-100 p-1',
           isDragging && 'opacity-50'
         )}
         draggable

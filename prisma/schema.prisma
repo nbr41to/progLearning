@@ -11,14 +11,14 @@ datasource db {
 
 model User {
   id                   String      @id @unique
+  displayName          String
   email                String      @unique
   plan                 Plan        @default(FREE)
-  displayName          String
   isGettingLoginBonus  Boolean     @default(false)
   isFinishedRaidBattle Boolean     @default(false)
   isFinishedDailyQuest Boolean     @default(false)
   createdAt            DateTime    @default(now())
-  // updatedAt            DateTime    @updatedAt
+  updatedAt            DateTime    @updatedAt
   profile              Profile?
   Stickis              Sticky[]
   Tasks                Task[]
@@ -32,12 +32,12 @@ enum Plan {
 }
 
 model Profile {
-  id        String  @id @unique
+  id        String  @id @default(cuid())
   user      User    @relation(fields: [userId], references: [id])
   userId    String  @unique
   bio       String?
-  items     Json?
-  equipment String?
+  items     Json? // Item ID の配列
+  equipment String? // 装備中のItem ID
 }
 
 model Sticky {

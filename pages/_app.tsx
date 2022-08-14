@@ -6,13 +6,19 @@ import type { AppProps } from 'next/app';
 
 import { MantineProvider } from '@mantine/core';
 import { ModalsProvider, openModal, closeAllModals } from '@mantine/modals';
-import { NotificationsProvider } from '@mantine/notifications';
+import {
+  NotificationsProvider,
+  showNotification,
+} from '@mantine/notifications';
 import { SpotlightProvider } from '@mantine/spotlight';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
+import { AiFillHome } from 'react-icons/ai';
 import { BsSearch, BsSticky, BsCheckSquare } from 'react-icons/bs';
-import { FaKeyboard } from 'react-icons/fa';
+import { FaKeyboard, FaUserCircle } from 'react-icons/fa';
+import { HiUserGroup } from 'react-icons/hi';
+import { MdOutlineStickyNote2 } from 'react-icons/md';
 
 import { PostSticky } from '@/components/templates/PostSticky';
 import { PostTask } from '@/components/templates/PostTask';
@@ -27,10 +33,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const searchMenuList: SpotlightAction[] = useMemo(
     () => [
       {
-        title: 'Home',
+        title: 'Top',
         description: 'Get to home page',
         onTrigger: () => router.push('/'),
-        icon: <BsSticky size={20} />,
+        icon: <AiFillHome size={20} />,
       },
       {
         title: 'Post Sticky',
@@ -56,13 +62,29 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         title: 'Raid Battle',
         description: 'みんなで力を合わせてBOSSを倒します',
         onTrigger: () => router.push('/battle'),
-        icon: <BsCheckSquare size={20} />,
+        icon: <FaKeyboard size={20} />,
       },
       {
         title: 'MyPage',
         description: 'プロフィールの編集やタスクの確認ができます',
         onTrigger: () => router.push('/battle'),
-        icon: <FaKeyboard size={20} />,
+        icon: <FaUserCircle size={20} />,
+      },
+      {
+        title: 'Usage',
+        description: '遊び方を確認します',
+        onTrigger: () => router.push('/usage'),
+        icon: <MdOutlineStickyNote2 size={20} />,
+      },
+      {
+        title: 'Join Room',
+        description: 'プロフィールの編集やタスクの確認ができます',
+        onTrigger: () =>
+          showNotification({
+            title: 'Join Room',
+            message: 'Join Room is coming soon...',
+          }),
+        icon: <HiUserGroup size={20} />,
       },
     ],
     []

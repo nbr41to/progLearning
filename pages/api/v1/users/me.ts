@@ -1,12 +1,11 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { Profile } from '@prisma/client';
+import type { User } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { prisma } from 'src/libs/backend/prisma/client';
 
 const usersHandler = async (
   req: NextApiRequest,
-  res: NextApiResponse<Profile>
+  res: NextApiResponse<User>
 ) => {
   const { body, method, headers } = req;
   const bearer = headers.authorization;
@@ -20,23 +19,37 @@ const usersHandler = async (
 
   switch (method) {
     case 'GET':
-      const response = await prisma.profile.findUnique({
+      const getRes = await prisma.user.findUnique({
         where: {
-          userId: uid,
+          id: uid,
         },
       });
-      if (response) {
-        res.status(200).json(response);
+      if (getRes) {
+        res.status(200).json(getRes);
+      } else {
+        res.status(204).end(); // No Content
       }
-      if (!response) {
-        res.status(204).end();
+      break;
+
+    case 'POST':
+      const createRes = await prisma.user.create({
+        ...body,
+        select: {
+          profile: {
+            userId: body.userId,
+            items: '[]',
+          },
+        },
+      });
+      if (createRes) {
+        res.status(200).json(createRes);
       }
       break;
 
     case 'PUT':
-      const updateRes = await prisma.profile.update({
+      const updateRes = await prisma.user.update({
         where: {
-          userId: uid,
+          id: uid,
         },
         data: {
           ...body,
@@ -47,7 +60,7 @@ const usersHandler = async (
       }
       break;
     default:
-      res.setHeader('Allow', ['GET', 'PUT']);
+      res.setHeader('Allow', ['GET', 'POST']);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 };

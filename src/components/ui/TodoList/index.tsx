@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import type { Task } from 'src/types';
 
+import { RingProgress } from '@mantine/core';
 import { useState } from 'react';
 
 import { TodoItem } from './TodoItem';
@@ -8,27 +9,29 @@ import { TodoItem } from './TodoItem';
 type Props = {
   title: string;
   items: Task[];
-  id: string;
   draggingItem: Task | null;
   setDraggingItem: (item: Task | null) => void;
   deleteHandler: (id: string) => Promise<void>;
   dropHandler: (item: Task) => Promise<void>;
+  percentage?: boolean;
 };
 
 export const TodoList: FC<Props> = ({
-  id,
   title,
   items,
   draggingItem,
   setDraggingItem,
   deleteHandler,
   dropHandler,
+  percentage = false,
 }) => {
   const [isDroppable, setIsDroppable] = useState(false);
+  const percentageValue =
+    (items.filter((item) => item.done).length / items.length) * 100;
 
-  /* Itemがdrag zoneに入ったとき */
+  /* Itemがdrop-enter-zoneに入ったとき */
   const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
-    if (e.currentTarget.id === `drop-enter-zone-${id}`) {
+    if (e.currentTarget.id === 'drop-enter-zone') {
       setIsDroppable(true);
     }
   };
@@ -40,20 +43,28 @@ export const TodoList: FC<Props> = ({
     }
   };
 
-  const onDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+  /* Itemがdrag zoneで放されたとき */
+  const onDrop = async () => {
     if (!draggingItem) return;
     await dropHandler(draggingItem);
-    if (e.currentTarget.id === 'drop-zone') {
-      setIsDroppable(false);
-    }
+    setIsDroppable(false);
   };
 
   return (
-    <div className="relative w-80 rounded border p-4">
-      <h2 className="font-bold">{title}</h2>
+    <div className="relative min-h-[260px] w-80 rounded border p-4">
+      <h2 className="flex items-center gap-2 font-bold">
+        <span>{title}</span>
+        {percentage && (
+          <RingProgress
+            size={40}
+            thickness={4}
+            sections={[{ value: percentageValue, color: 'blue' }]}
+          />
+        )}
+      </h2>
       <div
         className="mt-2 space-y-1"
-        id={`drop-enter-zone-${id}`}
+        id="drop-enter-zone"
         onDragEnter={onDragEnter}
       >
         {items.map((task) => (

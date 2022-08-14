@@ -15,9 +15,9 @@ export const createTasks = async (
   return response;
 };
 
-/* ログインユーザのTaskの一覧を取得 */
-export const getTasksWhereUserId = async (uid: string) => {
-  const response = await axios.get<Task[]>(`/api/v1/tasks/${uid}`);
+/* 指定したIDのタスクを編集する */
+export const updateTask = async (params: Task) => {
+  const response = await axios.put<Task>(`/api/v1/tasks/${params.id}`, params);
 
   return response.data;
 };
@@ -32,13 +32,6 @@ export const updateTaskDone = async (taskId: string) => {
 /* 指定したIDのタスクを削除する */
 export const deleteTask = async (taskId: string) => {
   const response = await axios.delete<Task>(`/api/v1/tasks/${taskId}`);
-
-  return response.data;
-};
-
-/* 指定したIDのタスクを編集する */
-export const updateTask = async (params: Task) => {
-  const response = await axios.put<Task>(`/api/v1/tasks/${params.id}`, params);
 
   return response.data;
 };

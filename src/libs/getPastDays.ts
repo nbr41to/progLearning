@@ -1,16 +1,16 @@
-/* 今日から過去104日の日付を配列で取得 */
-
+/* 今日から過去n週間分の日付を配列で取得 */
 export const getPastDays = () => {
   const today = new Date();
   /* 今日の曜日を取得 */
   const todayWeek = today.getDay();
 
-  const days = [];
-  for (let i = 0; i < 106 + todayWeek; i += 1) {
+  const dateArray = [];
+  const days = 7 * 15 + 1; // 7n+1（日） = 106
+  for (let i = 0; i < days + todayWeek; i += 1) {
     const date = new Date(today);
     date.setDate(date.getDate() - i);
-    days.push(date);
+    dateArray.push(date);
   }
 
-  return days;
+  return dateArray;
 };

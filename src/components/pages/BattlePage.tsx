@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { FaKeyboard } from 'react-icons/fa';
 
 import { useObjects } from 'src/swr/hooks/useObjects';
+import { useStickies } from 'src/swr/hooks/useStickies';
 import { useTasks } from 'src/swr/hooks/useTasks';
 
 const initialStatus = {
@@ -33,6 +34,7 @@ export const BattlePage: FC = () => {
   const focusTrapRef = useFocusTrap();
 
   const { tasks } = useTasks();
+  const { stickies } = useStickies();
 
   useEffect(() => {
     if (challengerLife < 0) {
@@ -49,9 +51,15 @@ export const BattlePage: FC = () => {
   };
 
   const nextIssue = () => {
-    if (tasks.length === 0) return;
-    const dice = Math.floor(Math.random() * tasks.length);
-    setIssue(tasks[dice].content);
+    if (tasks.length === 0 && stickies.length === 0) return;
+    const array = [...tasks, ...stickies];
+    const dice = Math.floor(Math.random() * array.length);
+    const choice = array[dice];
+    if ('title' in choice) {
+      setIssue(choice.title);
+    } else {
+      setIssue(choice.content);
+    }
   };
 
   useEffect(() => {
@@ -64,8 +72,7 @@ export const BattlePage: FC = () => {
       /* BOSSを攻撃 */
       setBossLife((prev) => prev - 10);
       /* LIFEを回復 */
-      setChallengerLife((prev) => prev + 8);
-      nextIssue();
+      setChallengerLife((prev) => prev + 15);
     } else {
       /* プレイヤーにダメージ */
       setChallengerLife((prev) => prev - bossAttack);
@@ -77,13 +84,14 @@ export const BattlePage: FC = () => {
       setChallengerLife((prev) => prev - 12);
     }
 
+    nextIssue();
     setInputValue('');
   };
 
   return (
     <div className="space-y-2" ref={focusTrapRef}>
       {!isStarted ? (
-        <Button fullWidth onClick={start} className="h-12">
+        <Button fullWidth onClick={start} className="mt-20 h-12">
           レイドバトルに挑む
           <div className="absolute right-3">
             <Kbd>Enter</Kbd>
@@ -92,7 +100,7 @@ export const BattlePage: FC = () => {
       ) : (
         <div>
           <img
-            className="mx-auto max-w-[600px]"
+            className="mx-auto max-w-[360px]"
             src="https://1.bp.blogspot.com/-eJFDEryKn38/XTPoH62lA-I/AAAAAAABTwM/pImOj_yI6kIO1hHeRxH_WFfPSfwN8zqUgCLcBGAs/s800/fantasy_maou_devil.png"
             alt="魔王"
           />
@@ -100,8 +108,8 @@ export const BattlePage: FC = () => {
           <Progress value={bossLife < 0 ? 0 : bossLifePercent} color="red" />
 
           {/* お題 */}
-          <div className="my-8 flex justify-center">
-            <div className="flex h-32 w-96 items-center justify-center rounded-xl border bg-white">
+          <div className="mt-6 flex justify-center">
+            <div className="flex h-28 w-96 items-center justify-center rounded-xl border bg-white text-xl">
               「{issue}」
             </div>
           </div>
@@ -135,7 +143,7 @@ export const BattlePage: FC = () => {
             ])}
           />
 
-          <div className="my-8">
+          <div className="my-6">
             <Button fullWidth onClick={handleAttack} className="h-12">
               Attack
               <div className="absolute right-3">

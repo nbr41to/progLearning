@@ -1,5 +1,6 @@
 import type {
   User,
+  Profile,
   Commitment,
   Sticky,
   Task,
@@ -9,6 +10,7 @@ import type {
 
 /* User */
 type User = User;
+type Profile = Profile;
 
 type Plan = Plan;
 
@@ -26,3 +28,11 @@ type StickyWithDisplayName = Sticky & {
 type Task = Task;
 
 type TaskType = TaskType;
+
+/* Battle */
+type BattleObject = {
+  id: string;
+  name: string;
+  life: number;
+  attack: number;
+};

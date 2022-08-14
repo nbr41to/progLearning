@@ -10,7 +10,15 @@ const stickiesHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<Sticky | Sticky[]>
 ) => {
-  const { body, method } = req;
+  const { body, method, headers } = req;
+  const bearer = headers.authorization;
+  const uid = bearer?.split(' ')[1];
+
+  if (!uid) {
+    res.status(401).end('Unauthorized');
+
+    return;
+  }
 
   switch (method) {
     case 'GET':
