@@ -18,14 +18,16 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
     <div className="relative min-h-screen bg-background pt-20 pb-10">
       <Header />
       {user && (
-        <div className="mx-4 text-right">
-          <span>search in menu: </span>
-          <span>
-            <Kbd>⌘</Kbd> + <Kbd>K</Kbd> or <Kbd>⌘</Kbd> + <Kbd>P</Kbd>
-          </span>
+        <div className="text-right">
+          <div className="mx-4 inline-block whitespace-nowrap rounded-full border bg-primary1 px-4 py-3 font-bold text-white">
+            <span>search in menu: </span>
+            <span>
+              <Kbd>⌘</Kbd> + <Kbd>K</Kbd> or <Kbd>⌘</Kbd> + <Kbd>P</Kbd>
+            </span>
+          </div>
         </div>
       )}
-      <main className="mx-auto max-w-[1440px] px-8 py-6">{children}</main>
+      <main className="mx-auto max-w-[1440px] px-8 py-4">{children}</main>
       <Footer />
     </div>
   );

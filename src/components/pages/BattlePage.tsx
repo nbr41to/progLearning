@@ -1,8 +1,14 @@
 import type { FC } from 'react';
 
 import { Button, Input, Kbd, Progress } from '@mantine/core';
-import { getHotkeyHandler, useInputState, useInterval } from '@mantine/hooks';
+import {
+  getHotkeyHandler,
+  useFocusTrap,
+  useInputState,
+  useInterval,
+} from '@mantine/hooks';
 import { useEffect, useState } from 'react';
+import { FaKeyboard } from 'react-icons/fa';
 
 import { useObjects } from 'src/swr/hooks/useObjects';
 import { useTasks } from 'src/swr/hooks/useTasks';
@@ -24,6 +30,7 @@ export const BattlePage: FC = () => {
   const bossAttack = boss?.properties?.attack.number;
   const bossMaxLife = boss?.properties?.max_life.number;
   const bossLifePercent = (bossLife / bossMaxLife) * 100;
+  const focusTrapRef = useFocusTrap();
 
   const { tasks } = useTasks();
 
@@ -38,6 +45,7 @@ export const BattlePage: FC = () => {
     setBossLife(boss.properties.current_life.number);
     interval.start();
     setIsStarted(true);
+    document.getElementById('input-area')?.focus();
   };
 
   const nextIssue = () => {
@@ -54,7 +62,7 @@ export const BattlePage: FC = () => {
     if (!inputValue) return;
     if (inputValue === issue) {
       /* BOSSを攻撃 */
-      setBossLife((prev) => prev - 150);
+      setBossLife((prev) => prev - 10);
       /* LIFEを回復 */
       setChallengerLife((prev) => prev + 8);
       nextIssue();
@@ -73,24 +81,44 @@ export const BattlePage: FC = () => {
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2" ref={focusTrapRef}>
       {!isStarted ? (
-        <Button onClick={start}>レイドバトルに挑む</Button>
+        <Button fullWidth onClick={start} className="h-12">
+          レイドバトルに挑む
+          <div className="absolute right-3">
+            <Kbd>Enter</Kbd>
+          </div>
+        </Button>
       ) : (
         <div>
+          <img
+            className="mx-auto max-w-[600px]"
+            src="https://1.bp.blogspot.com/-eJFDEryKn38/XTPoH62lA-I/AAAAAAABTwM/pImOj_yI6kIO1hHeRxH_WFfPSfwN8zqUgCLcBGAs/s800/fantasy_maou_devil.png"
+            alt="魔王"
+          />
           <div>魔王</div>
           <Progress value={bossLife < 0 ? 0 : bossLifePercent} color="red" />
+
+          {/* お題 */}
+          <div className="my-8 flex justify-center">
+            <div className="flex h-32 w-96 items-center justify-center rounded-xl border bg-white">
+              「{issue}」
+            </div>
+          </div>
 
           <div>勇者</div>
           <Progress
             value={challengerLife < 0 ? 0 : challengerLife}
             color="green"
           />
-          <div>{issue}</div>
+
           <Input
-            type="text"
-            placeholder="What you will todo."
+            ref={focusTrapRef}
+            className="my-4"
             data-autofocus
+            icon={<FaKeyboard />}
+            type="text"
+            placeholder={issue}
             value={inputValue}
             onChange={setInputValue}
             onCompositionStart={() => setIsTyping(true)}
@@ -106,12 +134,15 @@ export const BattlePage: FC = () => {
               ['mod + Enter', handleAttack],
             ])}
           />
-          <Button fullWidth onClick={handleAttack} className="h-12">
-            Attack
-            <div className="absolute right-3">
-              <Kbd>⌘</Kbd> + <Kbd>Enter</Kbd>
-            </div>
-          </Button>
+
+          <div className="my-8">
+            <Button fullWidth onClick={handleAttack} className="h-12">
+              Attack
+              <div className="absolute right-3">
+                <Kbd>Enter</Kbd>
+              </div>
+            </Button>
+          </div>
         </div>
       )}
     </div>
