@@ -22,7 +22,7 @@ import { useAuth } from 'src/swr/hooks/useAuth';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
-  useAuth();
+  const user = useAuth();
 
   const searchMenuList: SpotlightAction[] = useMemo(
     () => [
@@ -83,24 +83,31 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
 
       <MantineProvider withNormalizeCSS withGlobalStyles>
-        <SpotlightProvider
-          searchIcon={<BsSearch />}
-          searchPlaceholder="Search Menu"
-          nothingFoundMessage="Nothing found..."
-          highlightQuery
-          actions={searchMenuList}
-          shortcut={['mod + K', 'mod + P']}
-          radius="md"
-          transition="scale-y"
-        >
-          <ModalsProvider>
-            <NotificationsProvider position="top-center">
+        <ModalsProvider>
+          <NotificationsProvider position="top-center">
+            {user ? (
+              <SpotlightProvider
+                searchIcon={<BsSearch />}
+                searchPlaceholder="Search Menu"
+                nothingFoundMessage="Nothing found..."
+                highlightQuery
+                actions={searchMenuList}
+                shortcut={['mod + K', 'mod + P']}
+                radius="md"
+                transition="scale-y"
+                defaultValue="Home"
+              >
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </SpotlightProvider>
+            ) : (
               <Layout>
                 <Component {...pageProps} />
               </Layout>
-            </NotificationsProvider>
-          </ModalsProvider>
-        </SpotlightProvider>
+            )}
+          </NotificationsProvider>
+        </ModalsProvider>
       </MantineProvider>
     </>
   );

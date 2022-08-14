@@ -16,7 +16,7 @@ type Commitment = Commitment;
 /* Sticky */
 type Sticky = Sticky;
 
-type StickiesWithDisplayName = Sticky & {
+type StickyWithDisplayName = Sticky & {
   user: {
     displayName: string;
   };

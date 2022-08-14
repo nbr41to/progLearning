@@ -1,4 +1,4 @@
-import type { Task } from 'src/types';
+import type { StickyWithDisplayName } from 'src/types';
 
 import { useEffect } from 'react';
 import useSWR from 'swr';
@@ -6,10 +6,10 @@ import useSWR from 'swr';
 import { axiosGetFetcher } from './axiosFetcher';
 import { useAuth } from './useAuth';
 
-export const useTasks = () => {
+export const useStickies = () => {
   const user = useAuth();
-  const { data, error, mutate } = useSWR<Task[]>(
-    'tasks/',
+  const { data, error, mutate } = useSWR<StickyWithDisplayName[]>(
+    'stickies/',
     user ? (url) => axiosGetFetcher(url, user?.uid) : null
   );
 
@@ -22,7 +22,7 @@ export const useTasks = () => {
   };
 
   return {
-    tasks: data || [],
+    stickies: data || [],
     error,
     isLoading: typeof data === 'undefined',
     refetch,

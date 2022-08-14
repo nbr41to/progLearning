@@ -25,6 +25,7 @@ module.exports = {
     'no-unused-vars': ['error'],
     'unused-imports/no-unused-imports': ['error'],
     '@typescript-eslint/consistent-type-imports': ['error'],
+    '@typescript-eslint/no-unused-vars': ['error'],
     'padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: '*', next: 'return' },
@@ -66,6 +67,7 @@ module.exports = {
       },
     ],
     /* off */
+    'no-unused-vars': ['off'],
     'react/jsx-props-no-spreading': ['off'],
     'import/prefer-default-export': ['off'],
     'import/extensions': ['off'],

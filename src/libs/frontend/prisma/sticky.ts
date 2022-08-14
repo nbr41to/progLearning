@@ -1,4 +1,4 @@
-import type { StickiesWithDisplayName, Sticky } from 'src/types';
+import type { StickyWithDisplayName, Sticky } from 'src/types';
 
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ export const createSticky = async (
 
 /* Stickyの一覧を取得 */
 export const getStickies = async () => {
-  const response = await axios.get<StickiesWithDisplayName[]>(
+  const response = await axios.get<StickyWithDisplayName[]>(
     '/api/v1/stickies/'
   );
 

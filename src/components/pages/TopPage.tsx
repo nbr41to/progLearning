@@ -1,16 +1,16 @@
 import type { FC } from 'react';
-import type { StickiesWithDisplayName, Task } from 'src/types';
 
-import { Checkbox, HoverCard, Loader } from '@mantine/core';
+import { Badge, HoverCard, Tooltip } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import clsx from 'clsx';
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
-import { getStickies } from 'src/libs/frontend/prisma/sticky';
-import { updateTaskDone } from 'src/libs/frontend/prisma/task';
 import { getPastDays } from 'src/libs/getPastDays';
+import { useStickies } from 'src/swr/hooks/useStickies';
 import { useTasks } from 'src/swr/hooks/useTasks';
+
+import { TasksBoard } from '../templates/TasksBoard';
 
 const commitColorClass = (commit: number) => {
   if (commit === 1) return 'bg-green-200';
@@ -24,35 +24,12 @@ const commitColorClass = (commit: number) => {
 };
 
 export const TopPage: FC = () => {
-  const [stickies, setStickies] = useState<StickiesWithDisplayName[]>([]);
-  const { tasks, refetch: refetchTasks } = useTasks();
-
-  const todayTasks = useMemo(
-    () =>
-      tasks.filter((task) =>
-        task.current
-          ? true
-          : dateFormatted({ date: task.createdAt, format: 'YYYY-MM-DD' }) ===
-            dateFormatted({ date: new Date(), format: 'YYYY-MM-DD' })
-      ),
-    [tasks]
-  );
-
-  const otherTasks = useMemo(
-    () =>
-      tasks.filter((task) =>
-        task.current
-          ? false
-          : dateFormatted({ date: task.createdAt, format: 'YYYY-MM-DD' }) !==
-            dateFormatted({ date: new Date(), format: 'YYYY-MM-DD' })
-      ),
-    [tasks]
-  );
+  const { tasks } = useTasks();
+  const { stickies } = useStickies();
 
   const days = getPastDays();
   const commitments = useMemo(() => {
     const doneTasks = tasks.filter((task) => task.done);
-    // const stickiesDays = stickies.map((sticky) => sticky.updatedAt);
 
     return days
       .map((day) => {
@@ -79,20 +56,6 @@ export const TopPage: FC = () => {
       .reverse();
   }, [tasks]);
 
-  useEffect(() => {
-    (async () => {
-      const response = await getStickies();
-      setStickies(response);
-    })();
-  }, []);
-
-  const toggleTask = async (task: Task) => {
-    if (!task.done) {
-      await updateTaskDone(task.id);
-      await refetchTasks();
-    }
-  };
-
   return (
     <div>
       <button
@@ -107,6 +70,7 @@ export const TopPage: FC = () => {
       >
         noti
       </button>
+
       <h2>草</h2>
       <div className="row-end-7 grid w-fit grid-flow-col grid-rows-[repeat(7,minmax(0,1fr))] gap-1">
         {commitments.map((commit) => {
@@ -143,39 +107,16 @@ export const TopPage: FC = () => {
           );
         })}
       </div>
-      <div>
+
+      <div className="flex flex-wrap gap-4 p-8">
         {stickies.map((sticky) => (
-          <div key={sticky.id}>
-            <div>
-              {sticky.title}[{sticky.user.displayName}]
-            </div>
-          </div>
-        ))}
-      </div>
-      <Loader size={18} />
-      <h2>今日のTasks</h2>
-      <div>
-        {todayTasks.map((task) => (
-          <Checkbox
-            key={task.id}
-            checked={task.done}
-            label={task.content}
-            disabled
-          />
+          <Tooltip key={sticky.id} label={sticky.user.displayName}>
+            <Badge className="p-6 text-lg">{sticky.title}</Badge>
+          </Tooltip>
         ))}
       </div>
 
-      <h2>今までのTasks</h2>
-      <div>
-        {otherTasks.map((task) => (
-          <Checkbox
-            key={task.id}
-            checked={task.done}
-            label={task.content}
-            onChange={() => toggleTask(task)}
-          />
-        ))}
-      </div>
+      <TasksBoard />
     </div>
   );
 };
