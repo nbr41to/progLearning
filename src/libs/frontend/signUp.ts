@@ -13,8 +13,6 @@ export const signUpWithGoogle = async () => {
     id: resGoogleUser.uid,
     displayName: resGoogleUser.displayName || '表示名を登録してください',
     email: resGoogleUser.email || 'gmailのアドレスを登録してください',
-    plan: 'FREE',
-    lastLogin: new Date(),
   });
 
   return resUser;
