@@ -1,5 +1,22 @@
 # progLearning
 
+## Stack
+
+- Nextjs
+- Typescript
+- Firebase(Authentication)
+- TailwindCSS
+- Mantine
+- react-icons
+- SWR
+- Prisma
+- PlanetScale(MySQL)
+- Notion API
+- ESLint
+- Prettier
+- Husky
+- Storybook
+
 ## Issues
 
 - DB に User を保存

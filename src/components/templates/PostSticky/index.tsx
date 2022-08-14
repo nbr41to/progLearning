@@ -5,6 +5,7 @@ import { useInputState, getHotkeyHandler } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 
 import { createSticky } from 'src/libs/frontend/prisma/sticky';
+import { useStickies } from 'src/swr/hooks/useStickies';
 import { useUser } from 'src/swr/hooks/useUser';
 
 type Props = {
@@ -12,22 +13,24 @@ type Props = {
 };
 
 export const PostSticky: FC<Props> = ({ onClose }) => {
-  const { user } = useUser();
   const [stickyTitle, setStickyTitle] = useInputState('');
   const [stickyMemo, setStickyMemo] = useInputState('');
+  const { user } = useUser();
+  const { refetch: refetchStickies } = useStickies();
 
   const handleSubmit = async () => {
     if (!stickyTitle) {
       showNotification({
-        message: 'Hey there, your code is awesome! 🤥',
+        title: 'No title',
+        message: 'Titleを入力してください 🤥',
       });
 
       return;
     }
     if (!user?.id) {
       showNotification({
-        title: 'Default notification',
-        message: 'Hey there, your code is awesome! 🤥',
+        title: 'Authentication Error',
+        message: 'ログインできていないようです🤥',
       });
 
       return;
@@ -38,6 +41,7 @@ export const PostSticky: FC<Props> = ({ onClose }) => {
       title: stickyTitle,
       memo: stickyMemo,
     });
+    await refetchStickies();
     setStickyTitle('');
     setStickyMemo('');
     onClose();

@@ -15,6 +15,8 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { FaRegCheckCircle } from 'react-icons/fa';
 
 import { createTasks } from 'src/libs/frontend/prisma/task';
+import { useAuth } from 'src/swr/hooks/useAuth';
+import { useTasks } from 'src/swr/hooks/useTasks';
 
 type Props = {
   onClose: () => void;
@@ -35,6 +37,8 @@ export const PostTask: FC<Props> = ({ onClose }) => {
   const [currentTasks, setCurrentTasks] = useState<
     { id: string; content: string; type: TaskType }[]
   >([]);
+  const user = useAuth();
+  const { refetch: refetchTasks } = useTasks();
 
   const addTask = async () => {
     if (!taskContent) return;
@@ -58,13 +62,14 @@ export const PostTask: FC<Props> = ({ onClose }) => {
   };
 
   const handleSubmit = async () => {
-    if (currentTasks.length === 0) return;
+    if (currentTasks.length === 0 || !user) return;
     const tasks = currentTasks.map((task) => ({
-      userId: 'rz9aohJYgqXaIRnVBKzJnomtJol1',
+      userId: user.uid,
       content: task.content,
       type: task.type,
     }));
     await createTasks(tasks);
+    await refetchTasks();
 
     setTaskContent('');
     setTaskType('TEMPORARY');
