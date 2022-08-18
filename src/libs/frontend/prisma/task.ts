@@ -17,7 +17,11 @@ export const createTasks = async (
 
 /* 指定したIDのタスクを編集する */
 export const updateTask = async (params: Task) => {
-  const response = await axios.put<Task>(`/api/v1/tasks/${params.id}`, params);
+  const response = await axios.put<Task>(`/api/v1/tasks/${params.id}`, params, {
+    headers: {
+      Authorization: `Bearer ${params.userId || ''}`,
+    },
+  });
 
   return response.data;
 };

@@ -8,7 +8,12 @@ export const createSticky = async (
 ) => {
   const response = await axios.post<Sticky, Sticky>(
     '/api/v1/stickies/',
-    sticky
+    sticky,
+    {
+      headers: {
+        Authorization: `Bearer ${sticky.userId || ''}`,
+      },
+    }
   );
 
   return response;
