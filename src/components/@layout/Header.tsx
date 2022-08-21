@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaUserCircle } from 'react-icons/fa';
 
+import { auth } from 'src/libs/frontend/firebase/config';
 import { signUpWithGoogle } from 'src/libs/frontend/signUp';
 import { useAuth } from 'src/swr/hooks/useAuth';
 
@@ -57,6 +58,9 @@ export const Header: FC = () => {
               <FaUserCircle size={28} />
             </a>
           </Link>
+          <button type="button" onClick={() => auth.signOut()}>
+            logout
+          </button>
           {/* <Avatar radius="xl" /> */}
         </div>
       ) : (

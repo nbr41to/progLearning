@@ -63,7 +63,7 @@ export const TodoList: FC<Props> = ({
         )}
       </h2>
       <div
-        className="mt-2 space-y-1"
+        className="mt-2 min-h-[200px] space-y-1"
         id="drop-enter-zone"
         onDragEnter={onDragEnter}
       >
