@@ -4,22 +4,26 @@ import type { TaskType } from 'src/types';
 import {
   ActionIcon,
   Button,
+  Checkbox,
   Input,
   Kbd,
   SegmentedControl,
 } from '@mantine/core';
+import { DatePicker } from '@mantine/dates';
 import { useInputState, getHotkeyHandler } from '@mantine/hooks';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { FaRegCheckCircle } from 'react-icons/fa';
 
+import { dateFormatted } from 'src/libs/dateFormatted';
 import { createTasks } from 'src/libs/frontend/prisma/task';
 import { useAuth } from 'src/swr/hooks/useAuth';
 import { useTasks } from 'src/swr/hooks/useTasks';
 
 type Props = {
   onClose: () => void;
+  date?: Date | null;
 };
 
 const segmentedControlColors = (taskType: string) => {
@@ -30,12 +34,18 @@ const segmentedControlColors = (taskType: string) => {
   return 'gray';
 };
 
-export const PostTask: FC<Props> = ({ onClose }) => {
+export const PostTask: FC<Props> = ({ onClose, date = new Date() }) => {
   const [taskContent, setTaskContent] = useInputState('');
+  const [until, setUntil] = useInputState<Date | null>(date);
   const [taskType, setTaskType] = useInputState('TEMPORARY');
   const [isTyping, setIsTyping] = useState(false); // 変換中かどうかを判定
   const [currentTasks, setCurrentTasks] = useState<
-    { id: string; content: string; type: TaskType }[]
+    {
+      id: string;
+      content: string;
+      type: TaskType;
+      until: Date | null;
+    }[]
   >([]);
   const user = useAuth();
   const { refetch: refetchTasks } = useTasks();
@@ -51,6 +61,7 @@ export const PostTask: FC<Props> = ({ onClose }) => {
         id: nanoid(6),
         content: taskContent,
         type: taskType as TaskType,
+        until,
       },
     ]);
     setTaskContent('');
@@ -67,6 +78,7 @@ export const PostTask: FC<Props> = ({ onClose }) => {
       userId: user.uid,
       content: task.content,
       type: task.type,
+      until: task.until,
     }));
     await createTasks(tasks);
     await refetchTasks();
@@ -74,6 +86,15 @@ export const PostTask: FC<Props> = ({ onClose }) => {
     setTaskContent('');
     setTaskType('TEMPORARY');
     onClose();
+  };
+
+  const toggleSometime = () => {
+    if (until) {
+      setUntil(null);
+    } else {
+      const today = new Date();
+      setUntil(today);
+    }
   };
 
   return (
@@ -84,9 +105,14 @@ export const PostTask: FC<Props> = ({ onClose }) => {
             key={task.id}
             className="flex justify-between rounded bg-slate-100 px-2 py-1"
           >
-            <div className="flex items-center">
+            <div className="flex items-center gap-2 overflow-x-scroll">
               <FaRegCheckCircle className="text-slate-400" />
-              <span className="ml-2 text-sm">{task.content}</span>
+              <span className="text-sm">{task.content}</span>
+              <span className="ml-auto text-xs">
+                {task.until
+                  ? dateFormatted({ date: task.until, format: 'YYYY/MM/DD' })
+                  : 'いつか'}
+              </span>
             </div>
             <ActionIcon
               className="text-slate-600"
@@ -99,6 +125,19 @@ export const PostTask: FC<Props> = ({ onClose }) => {
         ))}
       </div>
 
+      {/* Taskの日付 */}
+      <DatePicker
+        label="Will do at date"
+        value={until}
+        disabled={!until}
+        onChange={setUntil}
+        inputFormat="YYYY年MM月DD日"
+      />
+      <div className="flex justify-end gap-2 text-sm">
+        <Checkbox checked={!until} onChange={toggleSometime} />
+        <span>いつかやる（期限なし）</span>
+      </div>
+      {/* Taskの内容 */}
       <Input
         type="text"
         placeholder="What you will todo. (Add with enter.)"
@@ -118,6 +157,7 @@ export const PostTask: FC<Props> = ({ onClose }) => {
           ['mod + Enter', handleSubmit],
         ])}
       />
+      {/* Taskの種類 */}
       <SegmentedControl
         color={segmentedControlColors(taskType)}
         data={[
@@ -140,12 +180,14 @@ export const PostTask: FC<Props> = ({ onClose }) => {
         {taskType === 'HABIT' && <span>習慣化すべきタスク</span>}
         {taskType === 'DAILY' && <span>毎日のタスク</span>}
       </p>
+      {/* タスクを登録リストに追加 */}
       <Button fullWidth onClick={handleSubmit} className="h-12" color="teal">
         Add
         <div className="absolute right-3">
           <Kbd>Enter</Kbd>
         </div>
       </Button>
+      {/* 登録リストのタスクを登録 */}
       <Button fullWidth onClick={handleSubmit} className="h-12">
         Submit
         <div className="absolute right-3">

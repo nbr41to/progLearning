@@ -18,6 +18,7 @@ import { AiFillHome } from 'react-icons/ai';
 import { BsSearch, BsSticky, BsCheckSquare } from 'react-icons/bs';
 import { FaKeyboard, FaUserCircle } from 'react-icons/fa';
 import { HiUserGroup } from 'react-icons/hi';
+import { IoMdCalendar } from 'react-icons/io';
 import { MdOutlineStickyNote2 } from 'react-icons/md';
 
 import { PostSticky } from '@/components/templates/PostSticky';
@@ -85,6 +86,12 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             message: 'Join Room is coming soon...',
           }),
         icon: <HiUserGroup size={20} />,
+      },
+      {
+        title: 'My Calendar',
+        description: '日付ごとの活動を確認/整理できます',
+        onTrigger: () => router.push('/usage'),
+        icon: <IoMdCalendar size={20} />,
       },
     ],
     []

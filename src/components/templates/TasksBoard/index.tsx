@@ -13,13 +13,18 @@ export const TasksBoard: FC = () => {
   const [draggingItem, setDraggingItem] = useState<Task | null>(null);
   const { tasks, refetch: refetchTasks } = useTasks();
 
+  /* 無期限タスク */
+  const somedayTasks = useMemo(
+    () => tasks.filter((task) => !task.until),
+    [tasks]
+  );
   /* 今日のタスク */
   const todayTasks = useMemo(
     () =>
-      tasks.filter((task) =>
-        task.current
-          ? true
-          : dateFormatted({ date: task.createdAt, format: 'YYYY-MM-DD' }) ===
+      tasks.filter(
+        (task) =>
+          task.until &&
+          dateFormatted({ date: task.until, format: 'YYYY-MM-DD' }) ===
             dateFormatted({ date: new Date(), format: 'YYYY-MM-DD' })
       ),
     [tasks]
@@ -28,12 +33,12 @@ export const TasksBoard: FC = () => {
   /* 今日以前の未完了タスク */
   const otherTasks = useMemo(
     () =>
-      tasks.filter((task) =>
-        task.current
-          ? false
-          : dateFormatted({ date: task.createdAt, format: 'YYYY-MM-DD' }) !==
-              dateFormatted({ date: new Date(), format: 'YYYY-MM-DD' }) &&
-            !task.done
+      tasks.filter(
+        (task) =>
+          task.until &&
+          dateFormatted({ date: task.until, format: 'YYYY-MM-DD' }) !==
+            dateFormatted({ date: new Date(), format: 'YYYY-MM-DD' }) &&
+          !task.done
       ),
     [tasks]
   );
@@ -43,11 +48,21 @@ export const TasksBoard: FC = () => {
     await deleteTask(taskId);
   };
 
-  /* タスクの変更 */
-  const migrateTask = async (item: Task) => {
+  /* drop handler */
+  const dropTodayTasks = async (item: Task) => {
     const newTask = {
       ...item,
-      current: !item.current,
+      until: new Date(),
+    };
+    await updateTask(newTask);
+    await refetchTasks();
+  };
+
+  const dropSomedayTasks = async (item: Task) => {
+    if (!item.until) return;
+    const newTask = {
+      ...item,
+      until: null,
     };
     await updateTask(newTask);
     await refetchTasks();
@@ -62,7 +77,7 @@ export const TasksBoard: FC = () => {
           deleteHandler={handleDeleteTack}
           draggingItem={draggingItem}
           setDraggingItem={setDraggingItem}
-          dropHandler={migrateTask}
+          dropHandler={dropTodayTasks}
           percentage
         />
         <TodoList
@@ -71,7 +86,14 @@ export const TasksBoard: FC = () => {
           deleteHandler={handleDeleteTack}
           draggingItem={draggingItem}
           setDraggingItem={setDraggingItem}
-          dropHandler={migrateTask}
+        />
+        <TodoList
+          title="いつかやる"
+          items={somedayTasks}
+          deleteHandler={handleDeleteTack}
+          draggingItem={draggingItem}
+          setDraggingItem={setDraggingItem}
+          dropHandler={dropSomedayTasks}
         />
       </div>
     </div>

@@ -151,6 +151,9 @@ export const BattlePage: FC = () => {
               </div>
             </Button>
           </div>
+          {challengerLife < 0 && (
+            <p>魔王：「おお、勇者よ。死んでしまうとは情けない。」</p>
+          )}
         </div>
       )}
     </div>

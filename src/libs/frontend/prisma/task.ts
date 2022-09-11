@@ -4,7 +4,7 @@ import axios from 'axios';
 
 /* 新しいTaskを複数作成 */
 export const createTasks = async (
-  tasks: Omit<Task, 'id' | 'current' | 'done' | 'createdAt' | 'updatedAt'>[]
+  tasks: Omit<Task, 'id' | 'done' | 'doneAt' | 'createdAt' | 'updatedAt'>[]
 ) => {
   const response = await axios.post<Task, Task>('/api/v1/tasks/', tasks, {
     headers: {

@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import { Kbd } from '@mantine/core';
+import { useOs } from '@mantine/hooks';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaUserCircle } from 'react-icons/fa';
@@ -13,6 +14,7 @@ import { MenuItem } from './MenuItem';
 
 export const Header: FC = () => {
   const user = useAuth();
+  const os = useOs();
 
   return (
     <header className="fixed top-0 z-20 flex w-screen items-center gap-6 px-4 shadow backdrop-blur">
@@ -41,6 +43,7 @@ export const Header: FC = () => {
             <>
               <MenuItem label="Battle" href="/battle" />
               <MenuItem label="MyPage" href="/my-page" />
+              <MenuItem label="Calendar" href="/calendar" />
             </>
           )}
           {/* <MenuItem label="About" href="/about" />
@@ -75,13 +78,20 @@ export const Header: FC = () => {
         </div>
       )}
 
-      {user && (
+      {user && (os === 'macos' || os === 'windows') && (
         <div className="absolute right-4 -bottom-16 text-right">
           <div className="rounded-full border bg-primary1 px-4 py-3 font-bold text-white">
             <span>search in menu: </span>
-            <span>
-              <Kbd>⌘</Kbd> + <Kbd>K</Kbd> or <Kbd>⌘</Kbd> + <Kbd>P</Kbd>
-            </span>
+            {os === 'macos' && (
+              <span>
+                <Kbd>⌘</Kbd> + <Kbd>K</Kbd> or <Kbd>⌘</Kbd> + <Kbd>P</Kbd>
+              </span>
+            )}
+            {os === 'windows' && (
+              <span>
+                <Kbd>ctrl</Kbd> + <Kbd>K</Kbd> or <Kbd>ctrl</Kbd> + <Kbd>P</Kbd>
+              </span>
+            )}
           </div>
         </div>
       )}

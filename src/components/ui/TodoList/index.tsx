@@ -12,7 +12,7 @@ type Props = {
   draggingItem: Task | null;
   setDraggingItem: (item: Task | null) => void;
   deleteHandler: (id: string) => Promise<void>;
-  dropHandler: (item: Task) => Promise<void>;
+  dropHandler?: (item: Task) => Promise<void>;
   percentage?: boolean;
 };
 
@@ -31,6 +31,7 @@ export const TodoList: FC<Props> = ({
 
   /* Itemがdrop-enter-zoneに入ったとき */
   const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+    if (!dropHandler) return;
     if (e.currentTarget.id === 'drop-enter-zone') {
       setIsDroppable(true);
     }
@@ -45,6 +46,7 @@ export const TodoList: FC<Props> = ({
 
   /* Itemがdrag zoneで放されたとき */
   const onDrop = async () => {
+    if (!dropHandler) return;
     if (!draggingItem) return;
     await dropHandler(draggingItem);
     setIsDroppable(false);
