@@ -1,31 +1,48 @@
 import type { FC } from 'react';
 
-import { Badge, Tooltip } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
+import { Badge, Button, Tooltip } from '@mantine/core';
 import Link from 'next/link';
+import { useMemo } from 'react';
 
+import { dateFormatted } from 'src/libs/dateFormatted';
+import { attend } from 'src/libs/frontend/prisma/user';
 import { useStickies } from 'src/swr/hooks/useStickies';
+import { useUser } from 'src/swr/hooks/useUser';
 
 import { GrassCalendarBoard } from '../templates/GrassCalendarBoard';
 import { TasksBoard } from '../templates/TasksBoard';
 
 export const TopPage: FC = () => {
   const { stickies } = useStickies();
+  const { user, refetch: refetchUser } = useUser();
+
+  const isTodayAttended = useMemo(
+    () =>
+      user?.lastAttendedAt &&
+      dateFormatted({ date: user.lastAttendedAt, format: 'YYYY-MM-DD' }) ===
+        dateFormatted({ date: new Date(), format: 'YYYY-MM-DD' }),
+    [user?.lastAttendedAt]
+  );
 
   return (
     <div>
-      <button
-        type="button"
-        onClick={() => {
-          showNotification({
-            title: 'Default notification',
-            message: 'Hey there, your code is awesome! 🤥',
-            autoClose: 3000,
-          });
-        }}
-      >
-        noti
-      </button>
+      <div className="flex items-end gap-6">
+        <div className="text-3xl">
+          {dateFormatted({ date: new Date(), format: 'YYYY年MM月DD日' })}
+        </div>
+        {user && (
+          <Button
+            size="xs"
+            disabled={!!isTodayAttended}
+            onClick={async () => {
+              await attend(user);
+              await refetchUser();
+            }}
+          >
+            出席
+          </Button>
+        )}
+      </div>
 
       <GrassCalendarBoard />
 

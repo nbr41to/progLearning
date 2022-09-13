@@ -2,6 +2,8 @@ import type { User } from 'src/types';
 
 import axios from 'axios';
 
+import { recordCommit } from 'src/libs/frontend/pixela';
+
 import { createHeader } from '../createHeader';
 
 /* ユーザデータの取得（存在の確認） */
@@ -37,6 +39,20 @@ export const updateUser = async (user: User) => {
   const response = await axios.put<User, User>('/api/v1/users/me', user, {
     ...createHeader(user.id),
   });
+
+  return response;
+};
+
+/* 出席ボタン */
+export const attend = async (user: User) => {
+  await recordCommit(user.id);
+  const response = await axios.patch<User, User>(
+    '/api/v1/users/lastAttendedAt',
+    {},
+    {
+      ...createHeader(user.id),
+    }
+  );
 
   return response;
 };

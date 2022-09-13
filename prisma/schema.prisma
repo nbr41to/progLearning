@@ -14,6 +14,7 @@ model User {
   displayName          String
   email                String      @unique
   plan                 Plan        @default(FREE)
+  lastAttendedAt       DateTime?
   isGettingLoginBonus  Boolean     @default(false)
   isFinishedRaidBattle Boolean     @default(false)
   isFinishedDailyQuest Boolean     @default(false)
