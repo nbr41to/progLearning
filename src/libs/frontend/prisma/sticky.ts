@@ -2,6 +2,8 @@ import type { Sticky } from 'src/types';
 
 import axios from 'axios';
 
+import { recordCommit } from '../pixela';
+
 /* 新しいStickyの作成 */
 export const createSticky = async (
   sticky: Omit<Sticky, 'id' | 'createdAt' | 'updatedAt'>
@@ -15,6 +17,7 @@ export const createSticky = async (
       },
     }
   );
+  await recordCommit(sticky.userId);
 
   return response;
 };

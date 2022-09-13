@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import { Badge, Button, Tooltip } from '@mantine/core';
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useState, useMemo } from 'react';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
 import { attend } from 'src/libs/frontend/prisma/user';
@@ -15,6 +15,7 @@ import { TasksBoard } from '../templates/TasksBoard';
 export const TopPage: FC = () => {
   const { stickies } = useStickies();
   const { user, refetch: refetchUser } = useUser();
+  const [attendIsLoading, setAttendIsLoading] = useState(false);
 
   const isTodayAttended = useMemo(
     () =>
@@ -34,12 +35,20 @@ export const TopPage: FC = () => {
           <Button
             size="xs"
             disabled={!!isTodayAttended}
+            loading={attendIsLoading}
             onClick={async () => {
-              await attend(user);
-              await refetchUser();
+              try {
+                setAttendIsLoading(true);
+                await attend(user);
+                await refetchUser();
+              } catch (error) {
+                /* Error */
+              } finally {
+                setAttendIsLoading(false);
+              }
             }}
           >
-            出席
+            出席{isTodayAttended ? '済み' : ''}
           </Button>
         )}
       </div>

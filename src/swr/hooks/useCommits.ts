@@ -34,7 +34,7 @@ export const useCommits = () => {
   };
 
   return {
-    pixels: data?.data.pixels || [],
+    pixels: (data?.data.pixels || []) as { date: string; quantity: string }[],
     error,
     isLoading: typeof data === 'undefined',
     refetch,

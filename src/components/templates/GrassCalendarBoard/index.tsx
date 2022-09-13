@@ -6,51 +6,36 @@ import { GrassCalendar } from '@/components/ui/GrassCalendar';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
 import { getPastDays } from 'src/libs/getPastDays';
-import { useStickies } from 'src/swr/hooks/useStickies';
-import { useTasks } from 'src/swr/hooks/useTasks';
+import { useCommits } from 'src/swr/hooks/useCommits';
 
 export const GrassCalendarBoard: FC = () => {
-  const { stickies } = useStickies();
-  const { tasks } = useTasks();
+  const { pixels } = useCommits();
 
   const days = getPastDays();
 
   const commitments = useMemo(() => {
-    const doneTasks = tasks.filter((task) => task.done);
-
     return days
       .map((day) => {
         const formattedDate = dateFormatted({
           date: day,
-          format: 'YYYY-MM-DD',
+          format: 'YYYYMMDD',
         }); // 日付の形式を揃える
 
         /* 該当日の項目を探す */
-        const dayTasks = doneTasks.filter((doneTask) => {
-          const formattedDoneTaskDate = dateFormatted({
-            date: doneTask.updatedAt,
-            format: 'YYYY-MM-DD',
-          }); // 日付の形式を揃える
-
-          return formattedDoneTaskDate === formattedDate; // 照合
-        });
-        /* 該当日の項目を探す */
-        const daySticky = stickies.filter((sticky) => {
-          const formattedStickyDate = dateFormatted({
-            date: sticky.updatedAt,
-            format: 'YYYY-MM-DD',
-          }); // 日付の形式を揃える
-
-          return formattedStickyDate === formattedDate; // 照合
+        const commitDay = pixels.find((pixel) => {
+          return pixel.date === formattedDate; // 照合
         });
 
         return {
-          dayLabel: formattedDate,
-          contents: [...dayTasks, ...daySticky],
+          date: dateFormatted({
+            date: day,
+            format: 'YYYY/MM/DD',
+          }),
+          quantity: commitDay?.quantity || '0',
         };
       })
       .reverse();
-  }, [stickies, tasks, days]);
+  }, [days]);
 
   return (
     <div>
