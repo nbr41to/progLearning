@@ -56,7 +56,7 @@ export const TodoList: FC<Props> = ({
     <div className="relative min-h-[260px] w-80 rounded border p-4">
       <h2 className="flex items-center gap-2 font-bold">
         <span>{title}</span>
-        {percentage && (
+        {items.length !== 0 && percentage && (
           <RingProgress
             size={40}
             thickness={4}

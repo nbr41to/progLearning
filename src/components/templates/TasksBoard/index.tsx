@@ -31,12 +31,12 @@ export const TasksBoard: FC = () => {
   );
 
   /* 今日以前の未完了タスク */
-  const otherTasks = useMemo(
+  const beforeTodayTasks = useMemo(
     () =>
       tasks.filter(
         (task) =>
           task.until &&
-          dateFormatted({ date: task.until, format: 'YYYY-MM-DD' }) !==
+          dateFormatted({ date: task.until, format: 'YYYY-MM-DD' }) <
             dateFormatted({ date: new Date(), format: 'YYYY-MM-DD' }) &&
           !task.done
       ),
@@ -82,7 +82,7 @@ export const TasksBoard: FC = () => {
         />
         <TodoList
           title="過去のTasks"
-          items={otherTasks}
+          items={beforeTodayTasks}
           deleteHandler={handleDeleteTack}
           draggingItem={draggingItem}
           setDraggingItem={setDraggingItem}
