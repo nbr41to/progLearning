@@ -1,9 +1,8 @@
 import type { User } from 'src/types';
 
-import axios from 'axios';
-
 import { recordCommit } from 'src/libs/frontend/pixela';
 
+import { axios } from '../axiosClient';
 import { createHeader } from '../createHeader';
 
 /* ユーザデータの取得（存在の確認） */
@@ -23,6 +22,7 @@ export const createUser = async (
     | 'isFinishedRaidBattle'
     | 'isGettingLoginBonus'
     | 'isFinishedDailyQuest'
+    | 'lastAttendedAt'
     | 'createdAt'
     | 'updatedAt'
   >

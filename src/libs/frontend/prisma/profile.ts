@@ -1,7 +1,6 @@
 import type { Profile } from 'src/types';
 
-import axios from 'axios';
-
+import { axios } from '../axiosClient';
 import { createHeader } from '../createHeader';
 
 /* Profileの更新 */

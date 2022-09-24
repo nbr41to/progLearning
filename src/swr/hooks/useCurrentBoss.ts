@@ -1,9 +1,11 @@
+import type { BattleObject } from 'src/types';
+
 import useSWR from 'swr';
 
 import { axiosGetFetcher } from './axiosFetcher';
 
-export const useObjects = () => {
-  const { data, error, mutate } = useSWR<any>(
+export const useCurrentBoss = () => {
+  const { data, error, mutate } = useSWR<BattleObject>(
     () => 'objects',
     axiosGetFetcher,
     {}
@@ -14,7 +16,7 @@ export const useObjects = () => {
   };
 
   return {
-    objects: data || [],
+    boss: data,
     error,
     isLoading: typeof data === 'undefined',
     refetch,

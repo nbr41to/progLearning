@@ -1,6 +1,7 @@
 import type { Task } from 'src/types';
 
-import axios from 'axios';
+import { axios } from '../axiosClient';
+import { incrementGraph } from '../pixela';
 
 /* 新しいTaskを複数作成 */
 export const createTasks = async (
@@ -27,8 +28,9 @@ export const updateTask = async (params: Task) => {
 };
 
 /* 指定したIDのタスクを完了にする */
-export const updateTaskDone = async (taskId: string) => {
+export const updateTaskDone = async (uid: string, taskId: string) => {
   const response = await axios.patch<Task>(`/api/v1/tasks/done/${taskId}`);
+  await incrementGraph(uid);
 
   return response.data;
 };

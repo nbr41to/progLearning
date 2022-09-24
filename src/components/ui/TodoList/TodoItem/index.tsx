@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
-import { updateTask } from 'src/libs/frontend/prisma/task';
+import { updateTaskDone } from 'src/libs/frontend/prisma/task';
 import { useTasks } from 'src/swr/hooks/useTasks';
 
 type Props = {
@@ -29,10 +29,7 @@ export const TodoItem: FC<Props> = ({
   /* toggle done */
   const toggleTask = async (task: Task) => {
     setIsLoading(true);
-    await updateTask({
-      ...task,
-      done: !task.done,
-    });
+    await updateTaskDone(task.userId, task.id);
     await refetchTasks();
     setIsLoading(false);
   };

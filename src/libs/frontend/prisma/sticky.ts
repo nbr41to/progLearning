@@ -1,7 +1,6 @@
 import type { Sticky } from 'src/types';
 
-import axios from 'axios';
-
+import { axios } from '../axiosClient';
 import { recordCommit } from '../pixela';
 
 /* 新しいStickyの作成 */

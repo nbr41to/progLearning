@@ -6,6 +6,7 @@ import { useState, useMemo } from 'react';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
 import { attend } from 'src/libs/frontend/prisma/user';
+import { useCommits } from 'src/swr/hooks/useCommits';
 import { useStickies } from 'src/swr/hooks/useStickies';
 import { useUser } from 'src/swr/hooks/useUser';
 
@@ -15,6 +16,7 @@ import { TasksBoard } from '../templates/TasksBoard';
 export const TopPage: FC = () => {
   const { stickies } = useStickies();
   const { user, refetch: refetchUser } = useUser();
+  const { refetch: refetchPixels } = useCommits();
   const [attendIsLoading, setAttendIsLoading] = useState(false);
 
   const isTodayAttended = useMemo(
@@ -41,6 +43,7 @@ export const TopPage: FC = () => {
                 setAttendIsLoading(true);
                 await attend(user);
                 await refetchUser();
+                await refetchPixels();
               } catch (error) {
                 /* Error */
               } finally {

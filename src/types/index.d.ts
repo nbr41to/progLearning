@@ -6,6 +6,7 @@ import type {
   Task,
   Plan,
   TaskType,
+  BattleObject,
 } from '@prisma/client';
 
 /* User */
@@ -30,9 +31,4 @@ type Task = Task;
 type TaskType = TaskType;
 
 /* Battle */
-type BattleObject = {
-  id: string;
-  name: string;
-  life: number;
-  attack: number;
-};
+type BattleObject = BattleObject;

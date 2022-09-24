@@ -10,9 +10,8 @@ import {
 import { useEffect, useState } from 'react';
 import { FaKeyboard } from 'react-icons/fa';
 
-import { useObjects } from 'src/swr/hooks/useObjects';
+import { useCurrentBoss } from 'src/swr/hooks/useCurrentBoss';
 import { useStickies } from 'src/swr/hooks/useStickies';
-import { useTasks } from 'src/swr/hooks/useTasks';
 
 const initialStatus = {
   life: 100,
@@ -20,7 +19,7 @@ const initialStatus = {
 };
 
 export const BattlePage: FC = () => {
-  const { objects: boss } = useObjects();
+  const { boss } = useCurrentBoss();
   const [isStarted, setIsStarted] = useState(false);
   const [inputValue, setInputValue] = useInputState('');
   const [challengerLife, setChallengerLife] = useState(initialStatus.life);
@@ -28,12 +27,11 @@ export const BattlePage: FC = () => {
   const [isTyping, setIsTyping] = useState(false); // 変換中かどうかを判定
   const interval = useInterval(() => setChallengerLife((p) => p - 0.2), 100);
   const [issue, setIssue] = useState('');
-  const bossAttack = boss?.properties?.attack.number;
-  const bossMaxLife = boss?.properties?.max_life.number;
+  const bossAttack = boss?.attack || 0;
+  const bossMaxLife = boss?.maxLife || 0;
   const bossLifePercent = (bossLife / bossMaxLife) * 100;
   const focusTrapRef = useFocusTrap();
 
-  const { tasks } = useTasks();
   const { stickies } = useStickies();
 
   useEffect(() => {
@@ -44,27 +42,23 @@ export const BattlePage: FC = () => {
 
   const start = () => {
     if (!boss) return;
-    setBossLife(boss.properties.current_life.number);
+    setBossLife(boss.currentLife);
     interval.start();
     setIsStarted(true);
     document.getElementById('input-area')?.focus();
   };
 
   const nextIssue = () => {
-    if (tasks.length === 0 && stickies.length === 0) return;
-    const array = [...tasks, ...stickies];
+    if (stickies.length === 0) return;
+    const array = [...stickies];
     const dice = Math.floor(Math.random() * array.length);
     const choice = array[dice];
-    if ('title' in choice) {
-      setIssue(choice.title);
-    } else {
-      setIssue(choice.content);
-    }
+    setIssue(choice.title);
   };
 
   useEffect(() => {
     nextIssue();
-  }, [tasks]);
+  }, [stickies]);
 
   const handleAttack = () => {
     if (!inputValue) return;

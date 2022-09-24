@@ -18,8 +18,10 @@ const taskDoneHandler = async (
         },
         data: {
           done: true,
+          doneAt: new Date(),
         },
       });
+
       if (response) {
         res.status(200).json(response);
       }
