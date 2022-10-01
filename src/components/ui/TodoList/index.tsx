@@ -53,7 +53,7 @@ export const TodoList: FC<Props> = ({
   };
 
   return (
-    <div className="relative min-h-[260px] w-80 rounded border p-4">
+    <div className="relative min-h-[260px] w-96 rounded border p-4">
       <h2 className="flex items-center gap-2 font-bold">
         <span>{title}</span>
         {items.length !== 0 && percentage && (

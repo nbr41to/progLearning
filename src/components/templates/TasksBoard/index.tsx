@@ -42,6 +42,18 @@ export const TasksBoard: FC = () => {
       ),
     [tasks]
   );
+  /* 今後の未完了タスク */
+  const afterTodayTasks = useMemo(
+    () =>
+      tasks.filter(
+        (task) =>
+          task.until &&
+          dateFormatted({ date: task.until, format: 'YYYY-MM-DD' }) >
+            dateFormatted({ date: new Date(), format: 'YYYY-MM-DD' }) &&
+          !task.done
+      ),
+    [tasks]
+  );
 
   /* タスクの削除 */
   const handleDeleteTack = async (taskId: string) => {
@@ -70,31 +82,42 @@ export const TasksBoard: FC = () => {
 
   return (
     <div>
-      <div className="flex gap-4">
-        <TodoList
-          title="今日のTasks"
-          items={todayTasks}
-          deleteHandler={handleDeleteTack}
-          draggingItem={draggingItem}
-          setDraggingItem={setDraggingItem}
-          dropHandler={dropTodayTasks}
-          percentage
-        />
-        <TodoList
-          title="過去のTasks"
-          items={beforeTodayTasks}
-          deleteHandler={handleDeleteTack}
-          draggingItem={draggingItem}
-          setDraggingItem={setDraggingItem}
-        />
-        <TodoList
-          title="いつかやる"
-          items={somedayTasks}
-          deleteHandler={handleDeleteTack}
-          draggingItem={draggingItem}
-          setDraggingItem={setDraggingItem}
-          dropHandler={dropSomedayTasks}
-        />
+      <div className="mx-auto w-fit space-y-4">
+        <div className="flex gap-4">
+          <TodoList
+            title="今日のTasks"
+            items={todayTasks}
+            deleteHandler={handleDeleteTack}
+            draggingItem={draggingItem}
+            setDraggingItem={setDraggingItem}
+            dropHandler={dropTodayTasks}
+            percentage
+          />
+          <TodoList
+            title="今後のTasks"
+            items={afterTodayTasks}
+            deleteHandler={handleDeleteTack}
+            draggingItem={draggingItem}
+            setDraggingItem={setDraggingItem}
+          />
+        </div>
+        <div className="flex gap-4">
+          <TodoList
+            title="過去のTasks"
+            items={beforeTodayTasks}
+            deleteHandler={handleDeleteTack}
+            draggingItem={draggingItem}
+            setDraggingItem={setDraggingItem}
+          />
+          <TodoList
+            title="いつかやる"
+            items={somedayTasks}
+            deleteHandler={handleDeleteTack}
+            draggingItem={draggingItem}
+            setDraggingItem={setDraggingItem}
+            dropHandler={dropSomedayTasks}
+          />
+        </div>
       </div>
     </div>
   );
