@@ -15,7 +15,8 @@
 - ESLint
 - Prettier
 - Husky
-- Storybook
+- [Storybook](https://storybook.js.org/)
+- [Pixela](https://docs.pixe.la/)
 
 ## Issues
 

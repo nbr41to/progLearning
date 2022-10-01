@@ -1,59 +1,21 @@
 import type { FC } from 'react';
 
-import { Badge, Button, Tooltip } from '@mantine/core';
+import { Badge, Tooltip } from '@mantine/core';
 import Link from 'next/link';
-import { useState, useMemo } from 'react';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
-import { attend } from 'src/libs/frontend/prisma/user';
-import { useCommits } from 'src/swr/hooks/useCommits';
 import { useStickies } from 'src/swr/hooks/useStickies';
-import { useUser } from 'src/swr/hooks/useUser';
 
 import { GrassCalendarBoard } from '../templates/GrassCalendarBoard';
 import { TasksBoard } from '../templates/TasksBoard';
 
 export const TopPage: FC = () => {
   const { stickies } = useStickies();
-  const { user, refetch: refetchUser } = useUser();
-  const { refetch: refetchPixels } = useCommits();
-  const [attendIsLoading, setAttendIsLoading] = useState(false);
-
-  const isTodayAttended = useMemo(
-    () =>
-      user?.lastAttendedAt &&
-      dateFormatted({ date: user.lastAttendedAt, format: 'YYYY-MM-DD' }) ===
-        dateFormatted({ date: new Date(), format: 'YYYY-MM-DD' }),
-    [user?.lastAttendedAt]
-  );
 
   return (
     <div>
-      <div className="flex items-end gap-6">
-        <div className="text-3xl">
-          {dateFormatted({ date: new Date(), format: 'YYYY年MM月DD日' })}
-        </div>
-        {user && (
-          <Button
-            size="xs"
-            disabled={!!isTodayAttended}
-            loading={attendIsLoading}
-            onClick={async () => {
-              try {
-                setAttendIsLoading(true);
-                await attend(user);
-                await refetchUser();
-                await refetchPixels();
-              } catch (error) {
-                /* Error */
-              } finally {
-                setAttendIsLoading(false);
-              }
-            }}
-          >
-            出席{isTodayAttended ? '済み' : ''}
-          </Button>
-        )}
+      <div className="text-3xl">
+        {dateFormatted({ date: new Date(), format: 'YYYY年MM月DD日' })}
       </div>
 
       <GrassCalendarBoard />
