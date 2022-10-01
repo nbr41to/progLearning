@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 
-import { Badge, Tooltip } from '@mantine/core';
 import Link from 'next/link';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
@@ -8,6 +7,7 @@ import { useStickies } from 'src/swr/hooks/useStickies';
 
 import { GrassCalendarBoard } from '../templates/GrassCalendarBoard';
 import { TasksBoard } from '../templates/TasksBoard';
+import { StickyCard } from '../ui/StickyCard';
 
 export const TopPage: FC = () => {
   const { stickies } = useStickies();
@@ -22,9 +22,7 @@ export const TopPage: FC = () => {
 
       <div className="flex flex-wrap gap-4 p-8">
         {stickies.map((sticky) => (
-          <Tooltip key={sticky.id} label={sticky.user.displayName}>
-            <Badge className="p-6 text-lg">{sticky.title}</Badge>
-          </Tooltip>
+          <StickyCard key={sticky.id} sticky={sticky} />
         ))}
       </div>
 

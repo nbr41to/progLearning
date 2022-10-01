@@ -20,3 +20,17 @@ export const createSticky = async (
 
   return response;
 };
+
+/* 指定されたIDのStickyの削除 */
+export const deleteSticky = async (stickyId: string, userId: string) => {
+  const response = await axios.delete<Sticky, Sticky>(
+    `/api/v1/stickies/${stickyId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${userId}`,
+      },
+    }
+  );
+
+  return response;
+};

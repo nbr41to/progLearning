@@ -33,10 +33,8 @@ const stickiesHandler = async (
         res.status(200).json(createRes);
       }
       break;
-    case 'PUT':
-      break;
     default:
-      res.setHeader('Allow', ['POST', 'PUT']);
+      res.setHeader('Allow', ['GET', 'POST']);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 };
