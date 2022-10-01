@@ -21,7 +21,12 @@ export const StickyCard: FC<Props> = ({ sticky }) => {
   };
 
   return (
-    <Popover key={sticky.id}>
+    <Popover
+      key={sticky.id}
+      position="bottom-start"
+      closeOnClickOutside
+      clickOutsideEvents={['click']}
+    >
       <Popover.Target>
         <Badge className="cursor-pointer p-6 text-base hover:brightness-95">
           {sticky.title}
