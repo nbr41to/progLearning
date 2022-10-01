@@ -7,6 +7,7 @@ import {
   useInputState,
   useInterval,
 } from '@mantine/hooks';
+import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { FaKeyboard } from 'react-icons/fa';
 
@@ -22,11 +23,13 @@ export const BattlePage: FC = () => {
   const { boss } = useCurrentBoss();
   const [isStarted, setIsStarted] = useState(false);
   const [inputValue, setInputValue] = useInputState('');
+  const [battleMessages, setBattleMessages] = useState<string[]>([]);
   const [challengerLife, setChallengerLife] = useState(initialStatus.life);
-  const [bossLife, setBossLife] = useState(0);
+  const [bossLife, setBossLife] = useState(99999);
   const [isTyping, setIsTyping] = useState(false); // 変換中かどうかを判定
   const interval = useInterval(() => setChallengerLife((p) => p - 0.2), 100);
   const [issue, setIssue] = useState('');
+  const bossName = boss?.name || 'BOSS';
   const bossAttack = boss?.attack || 0;
   const bossMaxLife = boss?.maxLife || 0;
   const bossLifePercent = (bossLife / bossMaxLife) * 100;
@@ -35,10 +38,25 @@ export const BattlePage: FC = () => {
   const { stickies } = useStickies();
 
   useEffect(() => {
-    if (challengerLife < 0) {
+    if (challengerLife <= 0) {
       interval.stop();
+      const message = '魔王：「おお、勇者よ。死んでしまうとは情けない。」';
+      if (!battleMessages.includes(message)) {
+        setBattleMessages([message, ...battleMessages]);
+      }
     }
-  }, [challengerLife, interval]);
+  }, [challengerLife]);
+
+  useEffect(() => {
+    if (bossLife <= 0) {
+      const message = `${bossName}を倒した🎉`;
+      interval.stop();
+      if (!battleMessages.includes(message)) {
+        setBattleMessages([message, ...battleMessages]);
+      }
+      /* BOSSを倒したときの処理↓ */
+    }
+  }, [bossLife]);
 
   const start = () => {
     if (!boss) return;
@@ -61,15 +79,23 @@ export const BattlePage: FC = () => {
   }, [stickies]);
 
   const handleAttack = () => {
-    if (!inputValue) return;
+    if (!inputValue || challengerLife <= 0) return;
     if (inputValue === issue) {
       /* BOSSを攻撃 */
-      setBossLife((prev) => prev - 10);
+      setBossLife((prev) => prev - 300);
       /* LIFEを回復 */
       setChallengerLife((prev) => prev + 15);
+      setBattleMessages([
+        `あなた：「${inputValue}」(success)\nあなたの攻撃 300 のダメージを与えた!!\nLife を 15 回復した。`,
+        ...battleMessages,
+      ]);
     } else {
       /* プレイヤーにダメージ */
       setChallengerLife((prev) => prev - bossAttack);
+      setBattleMessages([
+        `あなた：「${inputValue}」(failed)\n${bossName}の攻撃 ${bossAttack} のダメージを受けた。`,
+        ...battleMessages,
+      ]);
     }
 
     /* ランダムでBOSSが攻撃 */
@@ -96,9 +122,14 @@ export const BattlePage: FC = () => {
           <img
             className="mx-auto max-w-[360px]"
             src="https://1.bp.blogspot.com/-eJFDEryKn38/XTPoH62lA-I/AAAAAAABTwM/pImOj_yI6kIO1hHeRxH_WFfPSfwN8zqUgCLcBGAs/s800/fantasy_maou_devil.png"
-            alt="魔王"
+            alt={bossName}
           />
-          <div>魔王</div>
+          <div>
+            <span>{bossName}</span>
+            <span>
+              （{bossLife <= 0 ? 0 : Math.floor(bossLife)} / {bossMaxLife}）
+            </span>
+          </div>
           <Progress value={bossLife < 0 ? 0 : bossLifePercent} color="red" />
 
           {/* お題 */}
@@ -108,7 +139,13 @@ export const BattlePage: FC = () => {
             </div>
           </div>
 
-          <div>勇者</div>
+          <div>
+            <span>勇者</span>
+            <span>
+              （{challengerLife < 0 ? 0 : Math.floor(challengerLife)} /{' '}
+              {initialStatus.life}）
+            </span>
+          </div>
           <Progress
             value={challengerLife < 0 ? 0 : challengerLife}
             color="green"
@@ -123,6 +160,7 @@ export const BattlePage: FC = () => {
             placeholder={issue}
             value={inputValue}
             onChange={setInputValue}
+            disabled={challengerLife <= 0 || bossLife <= 0}
             onCompositionStart={() => setIsTyping(true)}
             onCompositionEnd={() => setIsTyping(false)}
             onKeyDown={getHotkeyHandler([
@@ -138,16 +176,34 @@ export const BattlePage: FC = () => {
           />
 
           <div className="my-6">
-            <Button fullWidth onClick={handleAttack} className="h-12">
+            <Button
+              className="h-12"
+              fullWidth
+              onClick={handleAttack}
+              disabled={challengerLife <= 0 || bossLife <= 0}
+            >
               Attack
               <div className="absolute right-3">
                 <Kbd>Enter</Kbd>
               </div>
             </Button>
           </div>
-          {challengerLife < 0 && (
-            <p>魔王：「おお、勇者よ。死んでしまうとは情けない。」</p>
-          )}
+
+          <div className="divide-y">
+            {battleMessages.map((message, index) => (
+              <p
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                className={clsx(
+                  'whitespace-pre-wrap p-2 font-bold',
+                  message.endsWith('回復した。') && 'text-blue-600',
+                  message.endsWith('受けた。') && 'text-red-600'
+                )}
+              >
+                {message}
+              </p>
+            ))}
+          </div>
         </div>
       )}
     </div>

@@ -95,7 +95,7 @@ export const TodoItem: FC<Props> = ({
             onChange={() => toggleTask(item)}
             disabled={isLoading}
           />
-          <span className="ml-2">{item.content}</span>
+          <span className="ml-2 break-all">{item.content}</span>
         </div>
         {isLoading ? (
           <Loader size={18} />
