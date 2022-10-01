@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import { axios } from 'src/libs/frontend/axiosClient';
 import { createHeader } from 'src/libs/frontend/createHeader';
 
 /* SWRで使用するAxiosのFetcher（認証あり） */
