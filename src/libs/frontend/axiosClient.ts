@@ -16,6 +16,9 @@ axios.interceptors.response.use(
     //   return;
     // }
 
+    /* 503を一時的に回避（Pixelaのエラー） */
+    if (error.response?.status === 503) return;
+
     /* AxiosError */
     if (error.isAxiosError && error.response?.data?.errors) {
       const errorMessage = error.response.data.errors.messages.join('\n');

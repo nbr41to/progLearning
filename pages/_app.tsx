@@ -13,7 +13,7 @@ import {
 import { SpotlightProvider } from '@mantine/spotlight';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { AiFillHome } from 'react-icons/ai';
 import { BsSearch, BsSticky, BsCheckSquare } from 'react-icons/bs';
 import { FaKeyboard, FaUserCircle } from 'react-icons/fa';
@@ -23,13 +23,18 @@ import { MdOutlineStickyNote2 } from 'react-icons/md';
 
 import { PostSticky } from '@/components/templates/PostSticky';
 import { PostTask } from '@/components/templates/PostTask';
+import { AttendButton } from '@/components/ui/AttendButton';
 
 import { Layout } from 'src/components/@layout';
-import { useAuth } from 'src/swr/hooks/useAuth';
+import { dateFormatted } from 'src/libs/dateFormatted';
+import { attend } from 'src/libs/frontend/prisma/user';
+import { useCommits } from 'src/swr/hooks/useCommits';
+import { useUser } from 'src/swr/hooks/useUser';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
-  const user = useAuth();
+  const { user, refetch: refetchUser } = useUser();
+  const { refetch: refetchPixels } = useCommits();
 
   const searchMenuList: SpotlightAction[] = useMemo(
     () => [
@@ -96,6 +101,40 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     ],
     []
   );
+
+  const isTodayAttended = useMemo(() => {
+    if (!user) return true;
+
+    return (
+      user.lastAttendedAt &&
+      dateFormatted({ date: user.lastAttendedAt, format: 'YYYY-MM-DD' }) ===
+        dateFormatted({ date: new Date(), format: 'YYYY-MM-DD' })
+    );
+  }, [user]);
+
+  useEffect(() => {
+    if (!isTodayAttended) {
+      openModal({
+        title: `今日は${dateFormatted({
+          date: new Date(),
+          format: 'YYYY年MM月DD日',
+        })}ですね😆`,
+        children: (
+          <div className="flex justify-center">
+            <AttendButton
+              onClick={async () => {
+                if (!user) return;
+                await attend(user);
+                await refetchUser();
+                await refetchPixels();
+                closeAllModals();
+              }}
+            />
+          </div>
+        ),
+      });
+    }
+  }, [isTodayAttended]);
 
   return (
     <>
