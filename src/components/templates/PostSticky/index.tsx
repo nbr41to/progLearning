@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { Button, Input, Kbd, Textarea } from '@mantine/core';
 import { useInputState, getHotkeyHandler } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
+import { useState } from 'react';
 
 import { createSticky } from 'src/libs/frontend/prisma/sticky';
 import { useStickies } from 'src/swr/hooks/useStickies';
@@ -15,6 +16,7 @@ type Props = {
 export const PostSticky: FC<Props> = ({ onClose }) => {
   const [stickyTitle, setStickyTitle] = useInputState('');
   const [stickyMemo, setStickyMemo] = useInputState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useUser();
   const { refetch: refetchStickies } = useStickies();
 
@@ -35,6 +37,7 @@ export const PostSticky: FC<Props> = ({ onClose }) => {
 
       return;
     }
+    setIsLoading(true);
 
     await createSticky({
       userId: user.id,
@@ -42,6 +45,8 @@ export const PostSticky: FC<Props> = ({ onClose }) => {
       memo: stickyMemo,
     });
     await refetchStickies();
+
+    setIsLoading(false);
     setStickyTitle('');
     setStickyMemo('');
     onClose();
@@ -63,7 +68,12 @@ export const PostSticky: FC<Props> = ({ onClose }) => {
         onChange={setStickyMemo}
         onKeyDown={getHotkeyHandler([['mod+Enter', handleSubmit]])}
       />
-      <Button fullWidth onClick={handleSubmit} className="h-12">
+      <Button
+        fullWidth
+        onClick={handleSubmit}
+        loading={isLoading}
+        className="h-12"
+      >
         Submit
         <div className="absolute right-3">
           <Kbd>⌘</Kbd> + <Kbd>Enter</Kbd>

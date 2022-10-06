@@ -39,6 +39,7 @@ export const PostTask: FC<Props> = ({ onClose, date = new Date() }) => {
   const [until, setUntil] = useInputState<Date | null>(date);
   const [taskType, setTaskType] = useInputState('TEMPORARY');
   const [isTyping, setIsTyping] = useState(false); // 変換中かどうかを判定
+  const [isLoading, setIsLoading] = useState(false);
   const [currentTasks, setCurrentTasks] = useState<
     {
       id: string;
@@ -74,6 +75,7 @@ export const PostTask: FC<Props> = ({ onClose, date = new Date() }) => {
 
   const handleSubmit = async () => {
     if (currentTasks.length === 0 || !user) return;
+    setIsLoading(true);
     const tasks = currentTasks.map((task) => ({
       userId: user.uid,
       content: task.content,
@@ -83,6 +85,7 @@ export const PostTask: FC<Props> = ({ onClose, date = new Date() }) => {
     await createTasks(tasks);
     await refetchTasks();
 
+    setIsLoading(false);
     setTaskContent('');
     setTaskType('TEMPORARY');
     onClose();
@@ -181,14 +184,25 @@ export const PostTask: FC<Props> = ({ onClose, date = new Date() }) => {
         {taskType === 'DAILY' && <span>毎日のタスク</span>}
       </p>
       {/* タスクを登録リストに追加 */}
-      <Button fullWidth onClick={handleSubmit} className="h-12" color="teal">
+      <Button
+        fullWidth
+        onClick={handleSubmit}
+        loading={isLoading}
+        className="h-12"
+        color="teal"
+      >
         Add
         <div className="absolute right-3">
           <Kbd>Enter</Kbd>
         </div>
       </Button>
       {/* 登録リストのタスクを登録 */}
-      <Button fullWidth onClick={handleSubmit} className="h-12">
+      <Button
+        fullWidth
+        onClick={handleSubmit}
+        loading={isLoading}
+        className="h-12"
+      >
         Submit
         <div className="absolute right-3">
           <Kbd>⌘</Kbd> + <Kbd>Enter</Kbd>
