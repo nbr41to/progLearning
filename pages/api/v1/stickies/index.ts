@@ -5,17 +5,17 @@ import {
   prismaStickyCreate,
   prismaStickyFindMany,
 } from 'src/libs/backend/prisma/sticky';
+import { verifyToken } from 'src/libs/backend/verifyToken';
 
 const stickiesHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<Sticky | Sticky[]>
 ) => {
-  const { body, method, headers } = req;
-  const bearer = headers.authorization;
-  const uid = bearer?.split(' ')[1];
-  // console.log(uid);
+  const { body, method } = req;
 
-  if (!uid) {
+  try {
+    await verifyToken(req);
+  } catch (e) {
     res.status(401).end('Unauthorized');
 
     return;

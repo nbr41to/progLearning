@@ -13,7 +13,7 @@ export const useUser = () => {
 
   const { data, error, mutate } = useSWR<User>(
     'users/me/',
-    user ? (url) => axiosGetFetcher(url, user?.uid) : null,
+    user ? axiosGetFetcher : null,
     {}
   );
 

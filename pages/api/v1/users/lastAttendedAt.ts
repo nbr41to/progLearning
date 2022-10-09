@@ -2,16 +2,18 @@ import type { User } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { prisma } from 'src/libs/backend/prisma/client';
+import { verifyToken } from 'src/libs/backend/verifyToken';
 
 const usersHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<User>
 ) => {
-  const { method, headers } = req;
-  const bearer = headers.authorization;
-  const uid = bearer?.split(' ')[1];
+  const { method } = req;
+  let uid: string;
 
-  if (!uid) {
+  try {
+    uid = await verifyToken(req);
+  } catch (e) {
     res.status(401).end('Unauthorized');
 
     return;

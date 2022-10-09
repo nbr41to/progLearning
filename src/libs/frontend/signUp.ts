@@ -1,4 +1,5 @@
 import { signInWithGoogle } from './firebase/auth';
+import { setLocalStorage } from './localStorage';
 import { createUser, getUser } from './prisma/user';
 
 export const signUpWithGoogle = async () => {
@@ -14,6 +15,9 @@ export const signUpWithGoogle = async () => {
     displayName: resGoogleUser.displayName || '表示名を登録してください',
     email: resGoogleUser.email || 'gmailのアドレスを登録してください',
   });
+
+  /* LocalStorageにuidを保存 */
+  setLocalStorage('uid', resUser.id);
 
   return resUser;
 };

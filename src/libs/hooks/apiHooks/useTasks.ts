@@ -1,21 +1,11 @@
 import type { Task } from 'src/types';
 
-import { useEffect } from 'react';
 import useSWR from 'swr';
 
-import { useAuth } from '../stateHooks/useAuth';
 import { axiosGetFetcher } from './axiosFetcher';
 
 export const useTasks = () => {
-  const user = useAuth();
-  const { data, error, mutate } = useSWR<Task[]>(
-    'tasks/',
-    user ? (url) => axiosGetFetcher(url, user?.uid) : null
-  );
-
-  useEffect(() => {
-    mutate();
-  }, [user, mutate]);
+  const { data, error, mutate } = useSWR<Task[]>('tasks/', axiosGetFetcher);
 
   const refetch = async () => {
     await mutate();

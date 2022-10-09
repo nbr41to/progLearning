@@ -1,14 +1,10 @@
-import { axios } from './axiosClient';
-
 /* JWTを発行してTokenを取得 */
-export const getJwtToken = async () => {
-  const res = await axios.post('/api/v1/auth/', {
+export const getJwtToken = async (uid: string) => {
+  const res = await fetch('/api/v1/auth/', {
     method: 'POST',
-    body: {
-      uid: 'string',
-    },
+    body: JSON.stringify({ uid }),
   });
-  const token = await res.data;
+  const token = await res.json();
 
   return token;
 };

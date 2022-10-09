@@ -6,6 +6,10 @@ import { useEffect } from 'react';
 import { axios } from 'src/libs/frontend/axiosClient';
 import { auth } from 'src/libs/frontend/firebase/config';
 import { getJwtToken } from 'src/libs/frontend/getJwtToken';
+import {
+  getLocalStorage,
+  setLocalStorage,
+} from 'src/libs/frontend/localStorage';
 
 import { useStaticSWR } from './useStaticSWR';
 
@@ -33,12 +37,15 @@ export const useAuth = () => {
   useEffect(() => {
     if (!data) return;
     (async () => {
-      if (!axios.defaults.headers.common.Authorization) {
-        const jewToken = await getJwtToken();
+      const token = getLocalStorage('token');
+      if (!token) {
+        const jewToken = await getJwtToken(data.uid);
         axios.defaults.headers.common.Authorization = `Bearer ${jewToken}`;
+        setLocalStorage('uid', data.uid);
+        setLocalStorage('token', jewToken);
       }
     })();
-  }, [data]);
+  }, [data, mutate]);
 
   return data;
 };
