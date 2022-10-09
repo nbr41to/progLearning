@@ -3,7 +3,8 @@ import type { FC } from 'react';
 import Link from 'next/link';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
-import { useStickies } from 'src/swr/hooks/useStickies';
+// import { getJwtToken } from 'src/libs/frontend/getJwtToken';
+import { useStickies } from 'src/libs/hooks/apiHooks/useStickies';
 
 import { GrassCalendarBoard } from '../templates/GrassCalendarBoard';
 import { TasksBoard } from '../templates/TasksBoard';
@@ -17,6 +18,7 @@ export const TopPage: FC = () => {
       <div className="text-3xl">
         {dateFormatted({ date: new Date(), format: 'YYYY年MM月DD日' })}
       </div>
+      {/* <button onClick={() => getJwtToken()}>test</button> */}
 
       <GrassCalendarBoard />
 

@@ -24,15 +24,18 @@ import { MdOutlineStickyNote2 } from 'react-icons/md';
 import { PostSticky } from '@/components/templates/PostSticky';
 import { PostTask } from '@/components/templates/PostTask';
 import { AttendButton } from '@/components/ui/AttendButton';
+import { FullScreenLoader } from '@/components/ui/FullScreenLoader';
 
 import { Layout } from 'src/components/@layout';
 import { dateFormatted } from 'src/libs/dateFormatted';
 import { attend } from 'src/libs/frontend/prisma/user';
-import { useCommits } from 'src/swr/hooks/useCommits';
-import { useUser } from 'src/swr/hooks/useUser';
+import { useCommits } from 'src/libs/hooks/apiHooks/useCommits';
+import { useUser } from 'src/libs/hooks/apiHooks/useUser';
+import { useLoading } from 'src/libs/hooks/stateHooks/useLoading';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
+  const [visibleLoader] = useLoading();
   const { user, refetch: refetchUser } = useUser();
   const { refetch: refetchPixels } = useCommits();
 
@@ -172,6 +175,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             ) : (
               <Layout>
                 <Component {...pageProps} />
+                {visibleLoader && <FullScreenLoader />}
               </Layout>
             )}
           </NotificationsProvider>

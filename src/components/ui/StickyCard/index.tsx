@@ -6,7 +6,7 @@ import { MdDelete } from 'react-icons/md';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
 import { deleteSticky } from 'src/libs/frontend/prisma/sticky';
-import { useStickies } from 'src/swr/hooks/useStickies';
+import { useStickies } from 'src/libs/hooks/apiHooks/useStickies';
 
 type Props = {
   sticky: StickyWithDisplayName;

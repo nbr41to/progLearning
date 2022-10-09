@@ -18,8 +18,8 @@ import { FaRegCheckCircle } from 'react-icons/fa';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
 import { createTasks } from 'src/libs/frontend/prisma/task';
-import { useAuth } from 'src/swr/hooks/useAuth';
-import { useTasks } from 'src/swr/hooks/useTasks';
+import { useTasks } from 'src/libs/hooks/apiHooks/useTasks';
+import { useAuth } from 'src/libs/hooks/stateHooks/useAuth';
 
 type Props = {
   onClose: () => void;

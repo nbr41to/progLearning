@@ -6,7 +6,7 @@ import { GrassCalendar } from '@/components/ui/GrassCalendar';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
 import { getPastDays } from 'src/libs/getPastDays';
-import { useCommits } from 'src/swr/hooks/useCommits';
+import { useCommits } from 'src/libs/hooks/apiHooks/useCommits';
 
 export const GrassCalendarBoard: FC = () => {
   const { pixels } = useCommits();

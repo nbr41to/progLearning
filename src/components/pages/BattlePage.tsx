@@ -11,8 +11,8 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { FaKeyboard } from 'react-icons/fa';
 
-import { useCurrentBoss } from 'src/swr/hooks/useCurrentBoss';
-import { useStickies } from 'src/swr/hooks/useStickies';
+import { useCurrentBoss } from 'src/libs/hooks/apiHooks/useCurrentBoss';
+import { useStickies } from 'src/libs/hooks/apiHooks/useStickies';
 
 const initialStatus = {
   life: 100,

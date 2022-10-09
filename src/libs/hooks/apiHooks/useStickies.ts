@@ -1,17 +1,16 @@
-import type { Profile } from 'src/types';
+import type { StickyWithDisplayName } from 'src/types';
 
 import { useEffect } from 'react';
 import useSWR from 'swr';
 
+import { useAuth } from '../stateHooks/useAuth';
 import { axiosGetFetcher } from './axiosFetcher';
-import { useAuth } from './useAuth';
 
-export const useProfile = () => {
+export const useStickies = () => {
   const user = useAuth();
-  const { data, error, mutate } = useSWR<Profile>(
-    'users/profile/',
-    user ? (url) => axiosGetFetcher(url, user?.uid) : null,
-    {}
+  const { data, error, mutate } = useSWR<StickyWithDisplayName[]>(
+    'stickies/',
+    user ? (url) => axiosGetFetcher(url, user?.uid) : null
   );
 
   useEffect(() => {
@@ -23,7 +22,7 @@ export const useProfile = () => {
   };
 
   return {
-    profile: data,
+    stickies: data || [],
     error,
     isLoading: typeof data === 'undefined',
     refetch,

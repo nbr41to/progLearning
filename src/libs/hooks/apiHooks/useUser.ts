@@ -3,11 +3,13 @@ import type { User } from 'src/types';
 import { useCallback, useEffect } from 'react';
 import useSWR from 'swr';
 
+import { useAuth } from '../stateHooks/useAuth';
+import { useLoading } from '../stateHooks/useLoading';
 import { axiosGetFetcher } from './axiosFetcher';
-import { useAuth } from './useAuth';
 
 export const useUser = () => {
   const user = useAuth();
+  const [, setIsLoading] = useLoading();
 
   const { data, error, mutate } = useSWR<User>(
     'users/me/',
@@ -16,8 +18,12 @@ export const useUser = () => {
   );
 
   useEffect(() => {
-    mutate();
-  }, [user, mutate]);
+    if (!user) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [user, setIsLoading]);
 
   const refetch = useCallback(async () => {
     await mutate();

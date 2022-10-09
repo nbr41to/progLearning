@@ -13,6 +13,7 @@ const stickiesHandler = async (
   const { body, method, headers } = req;
   const bearer = headers.authorization;
   const uid = bearer?.split(' ')[1];
+  // console.log(uid);
 
   if (!uid) {
     res.status(401).end('Unauthorized');

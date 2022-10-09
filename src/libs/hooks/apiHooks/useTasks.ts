@@ -3,8 +3,8 @@ import type { Task } from 'src/types';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 
+import { useAuth } from '../stateHooks/useAuth';
 import { axiosGetFetcher } from './axiosFetcher';
-import { useAuth } from './useAuth';
 
 export const useTasks = () => {
   const user = useAuth();

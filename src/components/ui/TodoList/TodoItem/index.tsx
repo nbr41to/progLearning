@@ -10,7 +10,7 @@ import { MdDragIndicator } from 'react-icons/md';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
 import { updateTaskDone } from 'src/libs/frontend/prisma/task';
-import { useTasks } from 'src/swr/hooks/useTasks';
+import { useTasks } from 'src/libs/hooks/apiHooks/useTasks';
 
 type Props = {
   item: Task;

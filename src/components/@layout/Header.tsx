@@ -8,7 +8,7 @@ import { FaUserCircle } from 'react-icons/fa';
 
 import { auth } from 'src/libs/frontend/firebase/config';
 import { signUpWithGoogle } from 'src/libs/frontend/signUp';
-import { useAuth } from 'src/swr/hooks/useAuth';
+import { useAuth } from 'src/libs/hooks/stateHooks/useAuth';
 
 import { MenuItem } from './MenuItem';
 

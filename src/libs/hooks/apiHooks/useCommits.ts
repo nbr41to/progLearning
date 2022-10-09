@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 
-import { useAuth } from './useAuth';
+import { useAuth } from '../stateHooks/useAuth';
 
 export const useCommits = () => {
   const user = useAuth();

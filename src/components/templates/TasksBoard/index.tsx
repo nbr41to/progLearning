@@ -7,7 +7,7 @@ import { TodoList } from '@/components/ui/TodoList';
 
 import { dateFormatted } from 'src/libs/dateFormatted';
 import { deleteTask, updateTask } from 'src/libs/frontend/prisma/task';
-import { useTasks } from 'src/swr/hooks/useTasks';
+import { useTasks } from 'src/libs/hooks/apiHooks/useTasks';
 
 export const TasksBoard: FC = () => {
   const [draggingItem, setDraggingItem] = useState<Task | null>(null);

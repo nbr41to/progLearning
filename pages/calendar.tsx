@@ -8,7 +8,7 @@ import { useMemo, useState } from 'react';
 
 import { PostTask } from '@/components/templates/PostTask';
 
-import { useTasks } from 'src/swr/hooks/useTasks';
+import { useTasks } from 'src/libs/hooks/apiHooks/useTasks';
 
 const MyCalendar: NextPage = () => {
   const [value, setValue] = useState<Date | null>(null);

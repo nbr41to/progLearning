@@ -6,8 +6,8 @@ import { showNotification } from '@mantine/notifications';
 import { useState } from 'react';
 
 import { createSticky } from 'src/libs/frontend/prisma/sticky';
-import { useStickies } from 'src/swr/hooks/useStickies';
-import { useUser } from 'src/swr/hooks/useUser';
+import { useStickies } from 'src/libs/hooks/apiHooks/useStickies';
+import { useUser } from 'src/libs/hooks/apiHooks/useUser';
 
 type Props = {
   onClose: () => void;

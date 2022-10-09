@@ -8,8 +8,8 @@ import { MdModeEdit } from 'react-icons/md';
 
 import { updateProfile } from 'src/libs/frontend/prisma/profile';
 import { updateUser } from 'src/libs/frontend/prisma/user';
-import { useProfile } from 'src/swr/hooks/useProfile';
-import { useUser } from 'src/swr/hooks/useUser';
+import { useProfile } from 'src/libs/hooks/apiHooks/useProfile';
+import { useUser } from 'src/libs/hooks/apiHooks/useUser';
 
 import { GrassCalendarBoard } from '../templates/GrassCalendarBoard';
 
