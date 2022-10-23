@@ -8,7 +8,7 @@ export const useCommits = () => {
   const user = useAuth();
   const { data, error, mutate } = useSWR(
     () =>
-      ` https://pixe.la/v1/users/${user?.uid.toLocaleLowerCase()}/graphs/${user?.uid
+      `https://pixe.la/v1/users/${user?.uid.toLocaleLowerCase()}/graphs/${user?.uid
         .toLocaleLowerCase()
         .substring(0, 16)}/pixels?withBody=true`,
     user

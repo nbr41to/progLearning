@@ -18,6 +18,10 @@ export const useUser = () => {
   );
 
   useEffect(() => {
+    mutate();
+  }, [user, mutate]);
+
+  useEffect(() => {
     if (!user) {
       setIsLoading(true);
     } else {

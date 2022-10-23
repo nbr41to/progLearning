@@ -14,7 +14,7 @@ import { useUser } from 'src/libs/hooks/apiHooks/useUser';
 import { GrassCalendarBoard } from '../templates/GrassCalendarBoard';
 
 export const MyPage: FC = () => {
-  const { user } = useUser();
+  const { user, refetch } = useUser();
   const { profile, refetch: refetchProfile } = useProfile();
   const [isEditing, setIsEditing] = useState<'displayName' | 'bio' | null>();
   const [displayName, setDisplayName] = useInputState(user?.displayName);
@@ -40,6 +40,7 @@ export const MyPage: FC = () => {
     if (!user || !displayName) return;
     await updateUser({ ...user, displayName });
     await refetchProfile();
+    await refetch();
     setIsEditing(null);
   };
 

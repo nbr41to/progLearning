@@ -7,11 +7,15 @@ import { createHeader } from '../createHeader';
 
 /* ユーザデータの取得（存在の確認） */
 export const getUser = async (uid: string) => {
-  const res = await axios.get<User>(`/api/v1/users/me`, {
-    ...createHeader(uid),
-  });
+  try {
+    const res = await axios.get<User>(`/api/v1/users/me`, {
+      ...createHeader(uid),
+    });
 
-  return res.data;
+    return res.data;
+  } catch (error) {
+    return undefined;
+  }
 };
 
 /* ユーザデータの新規作成（最初の一回のみを想定） */
